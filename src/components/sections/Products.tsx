@@ -117,15 +117,12 @@ const Products = () => {
 
         {/* Product Tabs */}
         <Tabs defaultValue="profiles" className="mb-16">
-          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-3 h-14 p-2 bg-secondary rounded-2xl">
+          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-14 p-2 bg-secondary rounded-2xl">
             <TabsTrigger value="profiles" className="text-base font-semibold rounded-xl">
               PVC Profiles
             </TabsTrigger>
             <TabsTrigger value="glass" className="text-base font-semibold rounded-xl">
               Glass Units
-            </TabsTrigger>
-            <TabsTrigger value="solutions" className="text-base font-semibold rounded-xl">
-              Complete Solutions
             </TabsTrigger>
           </TabsList>
 
@@ -343,39 +340,6 @@ const Products = () => {
             </div>
           </TabsContent>
 
-          {/* Complete Solutions Tab */}
-          <TabsContent value="solutions" className="mt-12">
-            <div className="text-center space-y-8">
-              <div className="max-w-3xl mx-auto">
-                <h3 className="text-3xl font-bold mb-6">Complete Window Solutions</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                  From measurement to installation, we provide end-to-end window solutions with 
-                  our integrated manufacturing capabilities and professional installation services.
-                </p>
-              </div>
-
-              {/* Quality Certifications */}
-              <div className="bg-secondary/30 rounded-3xl p-8">
-                <h4 className="text-2xl font-bold mb-6">Quality Certifications</h4>
-                <div className="flex flex-wrap justify-center gap-4">
-                  {certifications.map((cert, index) => (
-                    <Badge key={index} variant="outline" className="text-base px-6 py-3 border-primary/20">
-                      {cert}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="btn-industrial">
-                  Download Product Catalog
-                </Button>
-                <Button className="btn-energy">
-                  Schedule Consultation
-                </Button>
-              </div>
-            </div>
-          </TabsContent>
         </Tabs>
       </div>
     </section>

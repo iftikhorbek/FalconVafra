@@ -311,22 +311,6 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center bg-gradient-industrial rounded-3xl p-12 text-white">
-          <h3 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h3>
-          <p className="text-white/90 mb-8 text-lg">
-            Join our portfolio of successful projects. Let's discuss your window requirements.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="btn-energy">
-              Get Project Quote
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-              View All Projects
-            </Button>
-          </div>
-        </div>
       </div>
     </section>
   );

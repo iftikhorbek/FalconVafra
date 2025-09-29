@@ -121,7 +121,7 @@ const Contact = () => {
           
           {/* Contact Information */}
           <div className="lg:col-span-1">
-            <Card className="p-8 shadow-floating h-full">
+            <Card className="p-8 h-full hover:shadow-floating transition-all duration-300">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
                 <p className="text-muted-foreground">
@@ -170,7 +170,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="p-8 shadow-floating h-full flex flex-col">
+            <Card className="p-8 h-full flex flex-col hover:shadow-floating transition-all duration-300">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold mb-4">Request a Quote</h3>
                 <p className="text-muted-foreground">

@@ -137,14 +137,16 @@ const Contact = () => {
       address: "Yangihayot district, Yangi Kipchok mahalla",
       city: "Tashkent, Uzbekistan",
       type: "Manufacturing Facility",
-      features: ["Full Production Line", "Quality Lab", "Showroom"]
+      features: ["Full Production Line", "Quality Lab", "Showroom"],
+      mapLink: "https://yandex.uz/maps/-/CLucARlJ"
     },
     {
-      title: "Samarkand Branch", 
+      title: "Samarkand Branch",
       address: "Dashteobod Street",
-      city: "Samarkand, Uzbekistan", 
+      city: "Samarkand, Uzbekistan",
       type: "Regional Office",
-      features: ["Sales Office", "Local Support", "Consultation"]
+      features: ["Sales Office", "Local Support", "Consultation"],
+      mapLink: "https://yandex.uz/maps/-/CLucIKLi"
     }
   ];
 
@@ -418,42 +420,6 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Locations */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {locations.map((location, index) => (
-            <Card key={index} className="p-8 hover:shadow-floating transition-all duration-300">
-              <div className="flex items-start space-x-4 mb-6">
-                <div className="p-3 bg-gradient-industrial rounded-2xl">
-                  <Building2 className="text-white" size={24} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">{location.title}</h3>
-                  <Badge variant="outline" className="border-primary text-primary mb-3">
-                    {location.type}
-                  </Badge>
-                  <div className="space-y-1">
-                    <div className="flex items-center space-x-2 text-muted-foreground">
-                      <MapPin size={16} />
-                      <span>{location.address}</span>
-                    </div>
-                    <div className="font-medium">{location.city}</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-3">Available Services:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {location.features.map((feature, fIndex) => (
-                    <Badge key={fIndex} variant="secondary" className="text-xs">
-                      {feature}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
 
       </div>
     </section>

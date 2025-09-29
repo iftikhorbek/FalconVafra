@@ -11,7 +11,9 @@ import {
   Send,
   MessageCircle,
   Building2,
-  Instagram
+  Instagram,
+  ExternalLink,
+  Facebook
 } from "lucide-react";
 
 const Contact = () => {
@@ -129,35 +131,117 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="space-y-6">
-                {contactMethods.map((method, index) => {
-                  const IconComponent = method.icon;
-                  return (
-                    <div key={index} className="space-y-2">
-                      <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <IconComponent
-                            className={`text-primary ${method.label === "Telegram Channel" ? "relative" : ""}`}
-                            style={method.label === "Telegram Channel" ? { left: "-1px" } : {}}
-                            size={18}
-                          />
-                        </div>
-                        <h4 className="font-semibold text-base">{method.label}</h4>
-                      </div>
-                      <div className="ml-10 space-y-1">
-                        {method.items.map((item, itemIndex) => (
-                          <div key={itemIndex} className="text-muted-foreground">
-                            {method.label === "Instagram" ? (
-                              <span className="text-sm break-all">@falcon_window_systems</span>
-                            ) : (
-                              <span className="text-sm">{item}</span>
-                            )}
-                          </div>
-                        ))}
-                      </div>
+              <div className="space-y-3">
+                {/* Phone Numbers */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Phone className="text-primary" size={18} />
+                  </div>
+                  <div className="space-y-0.5">
+                    <div className="text-sm text-muted-foreground">+998 (90) 212−07-73</div>
+                    <div className="text-sm text-muted-foreground">+998 (90) 996−75-58</div>
+                  </div>
+                </div>
+
+                {/* Email Addresses */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Mail className="text-primary" size={18} />
+                  </div>
+                  <div className="space-y-0.5">
+                    <div className="text-sm text-muted-foreground">pulodteshaev@gmail.com</div>
+                    <div className="text-sm text-muted-foreground">falcon.kompen.profil@gmail.com</div>
+                  </div>
+                </div>
+
+                {/* Telegram */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Send className="text-primary relative" style={{ left: "-1px" }} size={18} />
+                  </div>
+                  <a
+                    href="https://t.me/bussinesuzbekistan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    @bussinesuzbekistan
+                  </a>
+                </div>
+
+                {/* Instagram */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Instagram className="text-primary" size={18} />
+                  </div>
+                  <a
+                    href="https://www.instagram.com/falcon_window_systems"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    @falcon_window_systems
+                  </a>
+                </div>
+
+                {/* Facebook */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Facebook className="text-primary" size={18} />
+                  </div>
+                  <a
+                    href="https://www.facebook.com/falconprofil"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    @falconprofil
+                  </a>
+                </div>
+
+                {/* Tashkent Address */}
+                <div className="flex items-start space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <MapPin className="text-primary" size={18} />
+                  </div>
+                  <div className="space-y-0.5">
+                    <div className="text-sm text-muted-foreground">Yangihayot district, Yangi Kipchok mahalla</div>
+                    <div className="text-sm text-muted-foreground">Tashkent, Uzbekistan</div>
+                    <div className="mt-2">
+                      <a
+                        href="https://yandex.uz/maps/-/CLucARlJ"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center space-x-1"
+                      >
+                        <span>Open on Maps</span>
+                        <ExternalLink size={14} />
+                      </a>
                     </div>
-                  );
-                })}
+                  </div>
+                </div>
+
+                {/* Samarkand Address */}
+                <div className="flex items-start space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <MapPin className="text-primary" size={18} />
+                  </div>
+                  <div className="space-y-0.5">
+                    <div className="text-sm text-muted-foreground">Dashteobod Street</div>
+                    <div className="text-sm text-muted-foreground">Samarkand, Uzbekistan</div>
+                    <div className="mt-2">
+                      <a
+                        href="https://yandex.uz/maps/-/CLucIKLi"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center space-x-1"
+                      >
+                        <span>Open on Maps</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="mt-8 pt-8 border-t border-border">

@@ -18,44 +18,7 @@ import glassProcessingImage from "@/assets/glass-processing.jpg";
 const Products = () => {
   const [activeProfile, setActiveProfile] = useState(0);
 
-  const profileSystems = [
-    {
-      name: "4-Chamber System",
-      thickness: "61mm",
-      chambers: 4,
-      features: ["Standard Insulation", "Cost-Effective", "Residential Use"],
-      thermal: "1.4 W/m²K",
-      grade: "Standard",
-      applications: ["Residential", "Light Commercial"]
-    },
-    {
-      name: "5-Chamber System", 
-      thickness: "71mm",
-      chambers: 5,
-      features: ["Enhanced Insulation", "Multi-Purpose", "Balanced Performance"],
-      thermal: "1.2 W/m²K",
-      grade: "Enhanced",
-      applications: ["Residential", "Commercial", "Office Buildings"]
-    },
-    {
-      name: "6-Chamber System",
-      thickness: "81mm", 
-      chambers: 6,
-      features: ["Superior Insulation", "High Performance", "Premium Quality"],
-      thermal: "1.0 W/m²K",
-      grade: "Premium", 
-      applications: ["Premium Residential", "Commercial", "Hotels"]
-    },
-    {
-      name: "7-Chamber System",
-      thickness: "91mm",
-      chambers: 7,
-      features: ["Maximum Insulation", "Sound Barrier", "Ultimate Performance"],
-      thermal: "0.8 W/m²K", 
-      grade: "Ultimate",
-      applications: ["Luxury", "High-Rise", "Extreme Climate"]
-    }
-  ];
+  const profileSystems = [];
 
   const premiumLines = [
     {
@@ -110,8 +73,8 @@ const Products = () => {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            From 4-chamber standard profiles to 7-chamber premium systems, we offer comprehensive 
-            window solutions that meet the highest international quality standards.
+            We offer comprehensive premium PVC window solutions and advanced glass units
+            that meet the highest international quality standards.
           </p>
         </div>
 
@@ -128,132 +91,58 @@ const Products = () => {
 
           {/* PVC Profiles Tab */}
           <TabsContent value="profiles" className="mt-12">
-            
-            {/* Profile Systems Selector */}
-            <div className="grid lg:grid-cols-4 gap-4 mb-12">
-              {profileSystems.map((profile, index) => (
-                <Card 
-                  key={index}
-                  className={`p-6 cursor-pointer transition-all duration-300 hover:shadow-industrial ${
-                    activeProfile === index 
-                      ? 'border-primary shadow-floating bg-primary/5' 
-                      : 'hover:border-primary/50'
-                  }`}
-                  onClick={() => setActiveProfile(index)}
-                >
-                  <div className="text-center">
-                    <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${
-                      activeProfile === index 
-                        ? 'bg-gradient-industrial text-white' 
-                        : 'bg-secondary text-primary'
-                    }`}>
-                      <Layers size={24} />
-                    </div>
-                    <h3 className="font-bold text-lg mb-2">{profile.name}</h3>
-                    <Badge variant={activeProfile === index ? "default" : "secondary"} className="mb-2">
-                      {profile.thickness}
-                    </Badge>
-                    <p className="text-sm text-muted-foreground">{profile.chambers} Chambers</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
 
-            {/* Active Profile Details */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              
-              {/* Profile Visualization */}
-              <div className="space-y-6">
-                <Card className="p-8 bg-gradient-to-br from-secondary to-white border-0 shadow-industrial">
-                  <div className="text-center mb-6">
-                    <h3 className="text-3xl font-bold mb-2">{profileSystems[activeProfile].name}</h3>
-                    <Badge variant="outline" className="text-lg px-4 py-2 border-primary text-primary">
-                      {profileSystems[activeProfile].thickness} Thickness
-                    </Badge>
-                  </div>
-                  
-                  {/* Chamber Visualization */}
-                  <div className="flex justify-center mb-6">
-                    <div className="flex space-x-1">
-                      {Array.from({length: profileSystems[activeProfile].chambers}).map((_, i) => (
-                        <div 
-                          key={i}
-                          className="w-8 h-20 bg-gradient-to-b from-primary to-primary-dark rounded border-2 border-white shadow-sm"
-                        ></div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Performance Metrics */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-4 bg-white rounded-xl">
-                      <Thermometer className="mx-auto mb-2 text-accent" size={24} />
-                      <div className="font-bold">{profileSystems[activeProfile].thermal}</div>
-                      <div className="text-sm text-muted-foreground">U-Value</div>
-                    </div>
-                    <div className="text-center p-4 bg-white rounded-xl">
-                      <Shield className="mx-auto mb-2 text-success" size={24} />
-                      <div className="font-bold">{profileSystems[activeProfile].grade}</div>
-                      <div className="text-sm text-muted-foreground">Grade</div>
-                    </div>
-                  </div>
-                </Card>
-
-                {/* Premium Lines */}
-                <div className="space-y-4">
-                  <h4 className="text-xl font-bold">Premium Product Lines</h4>
-                  {premiumLines.map((line, index) => (
-                    <Card key={index} className="p-6 hover:shadow-industrial transition-all duration-300">
-                      <div className="flex items-start justify-between mb-3">
-                        <h5 className="font-bold text-lg">{line.name}</h5>
-                        <Badge variant="outline" className="border-accent text-accent">
-                          {line.highlight}
-                        </Badge>
-                      </div>
-                      <p className="text-muted-foreground mb-4">{line.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {line.features.map((feature, fIndex) => (
-                          <Badge key={fIndex} variant="secondary" className="text-xs">
-                            {feature}
-                          </Badge>
-                        ))}
-                      </div>
-                    </Card>
-                  ))}
-                </div>
+            {/* Creative Image Showroom */}
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold mb-4">Creative Image Showroom</h3>
+                <p className="text-muted-foreground text-lg">
+                  Discover our premium PVC profile solutions through our visual showcase
+                </p>
               </div>
 
-              {/* Profile Features & Applications */}
-              <div className="space-y-8">
-                <div>
-                  <h4 className="text-2xl font-bold mb-6">Key Features</h4>
-                  <div className="space-y-4">
-                    {profileSystems[activeProfile].features.map((feature, index) => (
-                      <div key={index} className="flex items-center space-x-3">
-                        <div className="w-6 h-6 bg-gradient-to-br from-success to-success-light rounded-full flex items-center justify-center">
-                          <CheckCircle size={16} className="text-white" />
-                        </div>
-                        <span className="text-lg">{feature}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Image placeholder 1 */}
+                <Card className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
+                  <div className="w-full h-full bg-gradient-to-br from-secondary to-secondary/50 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center">
+                        <Layers className="text-primary" size={24} />
                       </div>
-                    ))}
+                      <p className="text-muted-foreground text-sm">Profile Showcase 1</p>
+                    </div>
                   </div>
-                </div>
+                </Card>
 
-                <div>
-                  <h4 className="text-2xl font-bold mb-6">Applications</h4>
-                  <div className="grid gap-3">
-                    {profileSystems[activeProfile].applications.map((app, index) => (
-                      <div key={index} className="p-4 bg-secondary/50 rounded-xl flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-gradient-industrial rounded-lg flex items-center justify-center">
-                          <Award size={16} className="text-white" />
-                        </div>
-                        <span className="font-medium">{app}</span>
+                {/* Image placeholder 2 */}
+                <Card className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
+                  <div className="w-full h-full bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-accent/10 rounded-2xl flex items-center justify-center">
+                        <Shield className="text-accent" size={24} />
                       </div>
-                    ))}
+                      <p className="text-muted-foreground text-sm">Profile Showcase 2</p>
+                    </div>
                   </div>
-                </div>
+                </Card>
 
-                <Button className="btn-energy w-full group">
+                {/* Image placeholder 3 */}
+                <Card className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
+                  <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center">
+                        <Award className="text-primary" size={24} />
+                      </div>
+                      <p className="text-muted-foreground text-sm">Profile Showcase 3</p>
+                    </div>
+                  </div>
+                </Card>
+
+              </div>
+
+              {/* Call to Action */}
+              <div className="text-center mt-12">
+                <Button className="btn-energy group">
                   Request Product Specifications
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>

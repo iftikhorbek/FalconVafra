@@ -1,24 +1,65 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Layers, 
-  Shield, 
-  Thermometer, 
-  Volume2, 
+import {
+  Layers,
+  Shield,
+  Thermometer,
+  Volume2,
   CheckCircle,
   ArrowRight,
   Award,
-  Zap
+  Zap,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import glassProcessingImage from "@/assets/glass-processing.jpg";
 
 const Products = () => {
   const [activeProfile, setActiveProfile] = useState(0);
+  const [currentStartIndex, setCurrentStartIndex] = useState(0);
 
   const profileSystems = [];
+
+  // Define 6 total images for the carousel
+  const allImages = [
+    { icon: Layers, gradient: "from-secondary to-secondary/50", bgColor: "bg-primary/10", iconColor: "text-primary", title: "Profile Showcase 1" },
+    { icon: Shield, gradient: "from-accent/10 to-accent/5", bgColor: "bg-accent/10", iconColor: "text-accent", title: "Profile Showcase 2" },
+    { icon: Award, gradient: "from-primary/10 to-primary/5", bgColor: "bg-primary/10", iconColor: "text-primary", title: "Profile Showcase 3" },
+    { icon: Thermometer, gradient: "from-success/10 to-success/5", bgColor: "bg-success/10", iconColor: "text-success", title: "Advanced Profile 1" },
+    { icon: Volume2, gradient: "from-purple-100 to-purple-50", bgColor: "bg-purple-100", iconColor: "text-purple-600", title: "Advanced Profile 2" },
+    { icon: Zap, gradient: "from-orange-100 to-orange-50", bgColor: "bg-orange-100", iconColor: "text-orange-600", title: "Premium Profile" }
+  ];
+
+  // Get current visible images (3 at a time)
+  const getVisibleImages = () => {
+    const visibleImages = [];
+    for (let i = 0; i < 3; i++) {
+      const index = (currentStartIndex + i) % allImages.length;
+      visibleImages.push(allImages[index]);
+    }
+    return visibleImages;
+  };
+
+  // Auto-advance carousel every 7 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, [allImages.length]);
+
+  // Navigation functions
+  const nextImage = () => {
+    setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
 
   const premiumLines = [
     {
@@ -101,43 +142,60 @@ const Products = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Image placeholder 1 */}
-                <Card className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
-                  <div className="w-full h-full bg-gradient-to-br from-secondary to-secondary/50 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center">
-                        <Layers className="text-primary" size={24} />
-                      </div>
-                      <p className="text-muted-foreground text-sm">Profile Showcase 1</p>
-                    </div>
-                  </div>
-                </Card>
+              {/* Carousel Container */}
+              <div className="relative">
+                {/* Left Arrow */}
+                <button
+                  onClick={prevImage}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 group"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft size={20} className="group-hover:scale-110 transition-transform" />
+                </button>
 
-                {/* Image placeholder 2 */}
-                <Card className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
-                  <div className="w-full h-full bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-accent/10 rounded-2xl flex items-center justify-center">
-                        <Shield className="text-accent" size={24} />
-                      </div>
-                      <p className="text-muted-foreground text-sm">Profile Showcase 2</p>
-                    </div>
-                  </div>
-                </Card>
+                {/* Right Arrow */}
+                <button
+                  onClick={nextImage}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 group"
+                  aria-label="Next image"
+                >
+                  <ChevronRight size={20} className="group-hover:scale-110 transition-transform" />
+                </button>
 
-                {/* Image placeholder 3 */}
-                <Card className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
-                  <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center">
-                        <Award className="text-primary" size={24} />
-                      </div>
-                      <p className="text-muted-foreground text-sm">Profile Showcase 3</p>
-                    </div>
-                  </div>
-                </Card>
+                {/* Image Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-500">
+                  {getVisibleImages().map((image, index) => {
+                    const IconComponent = image.icon;
+                    return (
+                      <Card key={`${currentStartIndex}-${index}`} className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
+                        <div className={`w-full h-full bg-gradient-to-br ${image.gradient} rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}>
+                          <div className="text-center">
+                            <div className={`w-16 h-16 mx-auto mb-4 ${image.bgColor} rounded-2xl flex items-center justify-center`}>
+                              <IconComponent className={image.iconColor} size={24} />
+                            </div>
+                            <p className="text-muted-foreground text-sm">{image.title}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
 
+                {/* Progress Indicators */}
+                <div className="flex justify-center mt-8 space-x-2">
+                  {allImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentStartIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        currentStartIndex === index
+                          ? 'bg-primary scale-125'
+                          : 'bg-secondary hover:bg-primary/50'
+                      }`}
+                      aria-label={`Start from image ${index + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Call to Action */}

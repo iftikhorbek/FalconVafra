@@ -31,6 +31,7 @@ const Products = () => {
   const [activeProfile, setActiveProfile] = useState(0);
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
+  const [activeTab, setActiveTab] = useState("profiles");
 
   const profileSystems = [];
 
@@ -95,6 +96,28 @@ const Products = () => {
 
     return () => clearInterval(interval);
   }, [glassProcessingImages.length]);
+
+  // Handle URL hash to switch tabs
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#glass-units') {
+        setActiveTab('glass');
+      } else if (hash === '#pvc-profiles') {
+        setActiveTab('profiles');
+      }
+    };
+
+    // Check hash on component mount
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
 
   // Navigation functions for profile carousel
   const nextImage = () => {
@@ -173,7 +196,7 @@ const Products = () => {
         </div>
 
         {/* Product Tabs */}
-        <Tabs defaultValue="profiles" className="mb-16">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-16">
           <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-14 p-2 bg-secondary rounded-2xl">
             <TabsTrigger value="profiles" className="text-base font-semibold rounded-xl">
               PVC Profiles
@@ -184,7 +207,7 @@ const Products = () => {
           </TabsList>
 
           {/* PVC Profiles Tab */}
-          <TabsContent value="profiles" className="mt-12">
+          <TabsContent value="profiles" className="mt-12" id="pvc-profiles">
 
             {/* Creative Image Showroom */}
             <div className="max-w-6xl mx-auto">
@@ -267,7 +290,7 @@ const Products = () => {
           </TabsContent>
 
           {/* Glass Units Tab */}
-          <TabsContent value="glass" className="mt-12">
+          <TabsContent value="glass" className="mt-12" id="glass-units">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               
               {/* Glass Processing Image Carousel */}

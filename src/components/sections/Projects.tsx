@@ -36,6 +36,7 @@ const Projects = () => {
   const [silverTowerImageIndex, setSilverTowerImageIndex] = useState(0);
   const [manhattanImageIndex, setManhattanImageIndex] = useState(0);
   const [rohatOlmosImageIndex, setRohatOlmosImageIndex] = useState(0);
+  const [gagarinAvenueImageIndex, setGagarinAvenueImageIndex] = useState(0);
 
   // Silver Tower image carousel
   const silverTowerImages = [
@@ -61,10 +62,18 @@ const Projects = () => {
     rohatOlmos4
   ];
 
+  // Gagarin Avenue image carousel
+  const gagarinAvenueImages = [
+    gagarinAvenue1,
+    gagarinAvenue2,
+    gagarinAvenue3,
+    gagarinAvenue4
+  ];
+
   const projects = [
     {
       name: "Silver Tower",
-      location: "Tashkent, Uzbekistan",
+      location: "Samarkand, Uzbekistan",
       type: "Luxury Residential",
       year: "2024",
       units: "500+ windows",
@@ -80,7 +89,7 @@ const Projects = () => {
     },
     {
       name: "Manhattan Complex",
-      location: "Tashkent, Uzbekistan",
+      location: "Samarkand, Uzbekistan",
       type: "Residential",
       year: "2023",
       units: "800+ windows",
@@ -96,7 +105,7 @@ const Projects = () => {
     },
     {
       name: "Rohat - Olmos",
-      location: "Tashkent, Uzbekistan",
+      location: "Samarkand, Uzbekistan",
       type: "Residential",
       year: "2023",
       units: "300+ windows",
@@ -112,17 +121,19 @@ const Projects = () => {
     },
     {
       name: "Gagarin Avenue",
-      location: "Tashkent, Uzbekistan",
+      location: "Samarkand, Uzbekistan",
       type: "Residential Complex",
       year: "2022",
-      units: "600+ windows", 
+      units: "600+ windows",
       profile: "4-Chamber Efficient",
       description: "Affordable housing project focusing on cost-effective yet quality window solutions.",
       challenges: ["Budget constraints", "Volume production", "Quality maintenance"],
       solutions: ["4-chamber system", "Efficient production", "Value engineering"],
       results: ["Cost savings achieved", "Quality standards met", "Community satisfaction"],
-      image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop",
-      category: "Residential"
+      image: gagarinAvenue1,
+      category: "Residential",
+      hasCarousel: true,
+      carouselImages: gagarinAvenueImages
     }
   ];
 
@@ -161,6 +172,15 @@ const Projects = () => {
     setRohatOlmosImageIndex((prev) => (prev - 1 + rohatOlmosImages.length) % rohatOlmosImages.length);
   };
 
+  // Gagarin Avenue carousel navigation
+  const nextGagarinAvenueImage = () => {
+    setGagarinAvenueImageIndex((prev) => (prev + 1) % gagarinAvenueImages.length);
+  };
+
+  const prevGagarinAvenueImage = () => {
+    setGagarinAvenueImageIndex((prev) => (prev - 1 + gagarinAvenueImages.length) % gagarinAvenueImages.length);
+  };
+
   // Reset carousel when switching projects
   const handleProjectSelect = (index) => {
     setActiveProject(index);
@@ -170,6 +190,8 @@ const Projects = () => {
       setManhattanImageIndex(0);
     } else if (index === 2) { // Rohat Olmos is third project
       setRohatOlmosImageIndex(0);
+    } else if (index === 3) { // Gagarin Avenue is fourth project
+      setGagarinAvenueImageIndex(0);
     }
   };
 
@@ -446,8 +468,52 @@ const Projects = () => {
                     ))}
                   </div>
                 </>
+              ) : activeProject === 3 ? (
+                /* Gagarin Avenue Carousel */
+                <>
+                  {/* Left Arrow for Gagarin Avenue */}
+                  <button
+                    onClick={prevGagarinAvenueImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Previous Gagarin Avenue image"
+                  >
+                    <ChevronLeft size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Right Arrow for Gagarin Avenue */}
+                  <button
+                    onClick={nextGagarinAvenueImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Next Gagarin Avenue image"
+                  >
+                    <ChevronRight size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Gagarin Avenue Carousel Image */}
+                  <img
+                    src={gagarinAvenueImages[gagarinAvenueImageIndex]}
+                    alt={`Gagarin Avenue view ${gagarinAvenueImageIndex + 1}`}
+                    className="w-full h-[400px] object-cover transition-opacity duration-300"
+                  />
+
+                  {/* Progress Indicators for Gagarin Avenue */}
+                  <div className="absolute top-6 right-6 flex space-x-2">
+                    {gagarinAvenueImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setGagarinAvenueImageIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          gagarinAvenueImageIndex === index
+                            ? 'bg-white scale-125'
+                            : 'bg-white/50 hover:bg-white/80'
+                        }`}
+                        aria-label={`Go to Gagarin Avenue image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
               ) : (
-                /* Regular single image for other projects */
+                /* Fallback for any future projects */
                 <img
                   src={projects[activeProject].image}
                   alt={projects[activeProject].name}
@@ -456,14 +522,6 @@ const Projects = () => {
               )}
 
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
-              {activeProject !== 0 && activeProject !== 1 && activeProject !== 2 && (
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="glass-card p-4">
-                    <h4 className="text-white font-semibold text-lg">{projects[activeProject].name}</h4>
-                    <p className="text-white/80">{projects[activeProject].type}</p>
-                  </div>
-                </div>
-              )}
             </div>
 
           </div>

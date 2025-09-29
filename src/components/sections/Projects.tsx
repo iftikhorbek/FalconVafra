@@ -10,11 +10,26 @@ import {
   Award,
   ArrowRight,
   Star,
-  CheckCircle2
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
+import silverTower1 from "@/assets/silver tower1.png";
+import silverTower2 from "@/assets/silver tower2.png";
+import silverTower3 from "@/assets/silver tower3.png";
+import silverTower4 from "@/assets/silver tower4.png";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
+  const [silverTowerImageIndex, setSilverTowerImageIndex] = useState(0);
+
+  // Silver Tower image carousel
+  const silverTowerImages = [
+    silverTower1,
+    silverTower2,
+    silverTower3,
+    silverTower4
+  ];
 
   const projects = [
     {
@@ -28,8 +43,10 @@ const Projects = () => {
       challenges: ["High-altitude installation", "Sound insulation requirements", "Energy efficiency standards"],
       solutions: ["Noble 91mm profiles", "Triple glazing system", "Custom lamination finishes"],
       results: ["40% energy savings", "95% noise reduction", "100% client satisfaction"],
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
-      category: "Residential"
+      image: silverTower1,
+      category: "Residential",
+      hasCarousel: true,
+      carouselImages: silverTowerImages
     },
     {
       name: "Manhattan Complex",
@@ -83,6 +100,23 @@ const Projects = () => {
     { label: "Years Experience", value: "20+", icon: Clock }
   ];
 
+  // Silver Tower carousel navigation
+  const nextSilverTowerImage = () => {
+    setSilverTowerImageIndex((prev) => (prev + 1) % silverTowerImages.length);
+  };
+
+  const prevSilverTowerImage = () => {
+    setSilverTowerImageIndex((prev) => (prev - 1 + silverTowerImages.length) % silverTowerImages.length);
+  };
+
+  // Reset carousel when switching to Silver Tower
+  const handleProjectSelect = (index) => {
+    setActiveProject(index);
+    if (index === 0) { // Silver Tower is first project
+      setSilverTowerImageIndex(0);
+    }
+  };
+
   return (
     <section className="py-24 bg-gradient-to-br from-primary/5 via-white to-accent/5" id="projects">
       <div className="container mx-auto px-6">
@@ -130,7 +164,7 @@ const Projects = () => {
                   ? 'border-primary shadow-floating bg-primary/5 scale-105' 
                   : 'hover:border-primary/50'
               }`}
-              onClick={() => setActiveProject(index)}
+              onClick={() => handleProjectSelect(index)}
             >
               <div className="aspect-video mb-4 overflow-hidden rounded-xl">
                 <img 
@@ -223,18 +257,68 @@ const Projects = () => {
           <div className="space-y-8">
             {/* Large Project Image */}
             <div className="relative overflow-hidden rounded-3xl shadow-floating">
-              <img 
-                src={projects[activeProject].image} 
-                alt={projects[activeProject].name}
-                className="w-full h-[400px] object-cover"
-              />
+              {/* Conditional rendering: Carousel for Silver Tower, single image for others */}
+              {activeProject === 0 ? (
+                <>
+                  {/* Left Arrow for Silver Tower */}
+                  <button
+                    onClick={prevSilverTowerImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Previous Silver Tower image"
+                  >
+                    <ChevronLeft size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Right Arrow for Silver Tower */}
+                  <button
+                    onClick={nextSilverTowerImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Next Silver Tower image"
+                  >
+                    <ChevronRight size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Silver Tower Carousel Image */}
+                  <img
+                    src={silverTowerImages[silverTowerImageIndex]}
+                    alt={`Silver Tower view ${silverTowerImageIndex + 1}`}
+                    className="w-full h-[400px] object-cover transition-opacity duration-300"
+                  />
+
+                  {/* Progress Indicators for Silver Tower */}
+                  <div className="absolute top-6 right-6 flex space-x-2">
+                    {silverTowerImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSilverTowerImageIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          silverTowerImageIndex === index
+                            ? 'bg-white scale-125'
+                            : 'bg-white/50 hover:bg-white/80'
+                        }`}
+                        aria-label={`Go to Silver Tower image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                /* Regular single image for other projects */
+                <img
+                  src={projects[activeProject].image}
+                  alt={projects[activeProject].name}
+                  className="w-full h-[400px] object-cover"
+                />
+              )}
+
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="glass-card p-4">
-                  <h4 className="text-white font-semibold text-lg">{projects[activeProject].name}</h4>
-                  <p className="text-white/80">{projects[activeProject].type}</p>
+              {activeProject !== 0 && (
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="glass-card p-4">
+                    <h4 className="text-white font-semibold text-lg">{projects[activeProject].name}</h4>
+                    <p className="text-white/80">{projects[activeProject].type}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
           </div>

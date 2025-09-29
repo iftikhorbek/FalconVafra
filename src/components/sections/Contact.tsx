@@ -4,17 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
+import {
+  Phone,
+  Mail,
+  MapPin,
   Send,
   MessageCircle,
   Building2,
-  Users,
-  Award,
-  CheckCircle2
+  Instagram
 } from "lucide-react";
 
 const Contact = () => {
@@ -40,40 +37,44 @@ const Contact = () => {
     }));
   };
 
-  const contactInfo = [
+  const contactMethods = [
     {
       icon: Phone,
-      title: "Phone Numbers",
-      details: [
+      label: "Phone Numbers",
+      items: [
         "+998 90 212 0773",
-        "+998 99 348 8823", 
-        "+998 950 44 99 30",
-        "+998 933 08 88 36"
-      ],
-      action: "Call Now",
-      color: "from-primary to-primary-light"
+        "+998 99 348 8823"
+      ]
     },
     {
       icon: Mail,
-      title: "Email Addresses", 
-      details: [
+      label: "Email Addresses",
+      items: [
         "pulodteshaev@gmail.com",
-        "falcon.kompen.profil@gmail.com",
-        "shamsfromsodom88@gmail.com"
-      ],
-      action: "Send Email",
-      color: "from-accent to-accent-dark"
+        "falcon.kompen.profil@gmail.com"
+      ]
     },
     {
-      icon: MessageCircle,
-      title: "Telegram Channel",
-      details: [
-        "t.me/falconprofil",
-        "Instant messaging",
-        "Quick responses"
-      ],
-      action: "Open Telegram",
-      color: "from-success to-success-light"
+      icon: Send,
+      label: "Telegram Channel",
+      items: [
+        "t.me/falconprofil"
+      ]
+    },
+    {
+      icon: Instagram,
+      label: "Instagram",
+      items: [
+        "https://www.instagram.com/falcon_window_systems"
+      ]
+    },
+    {
+      icon: MapPin,
+      label: "Main Factory Address",
+      items: [
+        "Yangihayot district, Yangi Kipchok mahalla",
+        "Tashkent, Uzbekistan"
+      ]
     }
   ];
 
@@ -94,20 +95,6 @@ const Contact = () => {
     }
   ];
 
-  const businessHours = [
-    { day: "Monday - Friday", hours: "8:00 AM - 7:00 PM" },
-    { day: "Saturday", hours: "9:00 AM - 5:00 PM" },
-    { day: "Sunday", hours: "Closed" }
-  ];
-
-  const services = [
-    "Free Site Measurement",
-    "Professional Installation", 
-    "Quality Warranty",
-    "After-Sales Support",
-    "Technical Consultation",
-    "Custom Solutions"
-  ];
 
   return (
     <section className="py-24 bg-gradient-to-br from-secondary/30 via-white to-primary/5" id="contact">
@@ -133,77 +120,53 @@ const Contact = () => {
         <div className="grid lg:grid-cols-3 gap-12 mb-16">
           
           {/* Contact Information */}
-          <div className="lg:col-span-1 space-y-8">
-            
-            {/* Contact Methods */}
-            <div className="space-y-6">
-              {contactInfo.map((contact, index) => {
-                const IconComponent = contact.icon;
-                return (
-                  <Card key={index} className="p-6 hover:shadow-floating transition-all duration-300 group">
-                    <div className="flex items-start space-x-4">
-                      <div className={`p-3 rounded-2xl bg-gradient-to-br ${contact.color} group-hover:scale-110 transition-transform duration-300`}>
-                        <IconComponent className="text-white" size={20} />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-3 group-hover:text-primary transition-colors">
-                          {contact.title}
-                        </h3>
-                        <div className="space-y-2 mb-4">
-                          {contact.details.map((detail, dIndex) => (
-                            <p key={dIndex} className="text-muted-foreground text-sm">{detail}</p>
-                          ))}
+          <div className="lg:col-span-1">
+            <Card className="p-8 shadow-floating h-full">
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
+                <p className="text-muted-foreground">
+                  Reach out to us through any of these channels. We're here to help with your project needs.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {contactMethods.map((method, index) => {
+                  const IconComponent = method.icon;
+                  return (
+                    <div key={index} className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <IconComponent className="text-primary" size={18} />
                         </div>
-                        <Button variant="outline" size="sm" className="w-full">
-                          {contact.action}
-                        </Button>
+                        <h4 className="font-semibold text-base">{method.label}</h4>
+                      </div>
+                      <div className="ml-10 space-y-1">
+                        {method.items.map((item, itemIndex) => (
+                          <div key={itemIndex} className="text-muted-foreground">
+                            {method.label === "Instagram" ? (
+                              <span className="text-sm break-all">@falcon_window_systems</span>
+                            ) : (
+                              <span className="text-sm">{item}</span>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  </Card>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
 
-            {/* Business Hours */}
-            <Card className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-industrial rounded-xl flex items-center justify-center">
-                  <Clock className="text-white" size={18} />
-                </div>
-                <h3 className="font-bold text-lg">Business Hours</h3>
-              </div>
-              <div className="space-y-3">
-                {businessHours.map((schedule, index) => (
-                  <div key={index} className="flex justify-between items-center py-2 border-b border-border last:border-0">
-                    <span className="text-muted-foreground">{schedule.day}</span>
-                    <span className="font-medium">{schedule.hours}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* Services */}
-            <Card className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-energy rounded-xl flex items-center justify-center">
-                  <Award className="text-white" size={18} />
-                </div>
-                <h3 className="font-bold text-lg">Our Services</h3>
-              </div>
-              <div className="space-y-3">
-                {services.map((service, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle2 size={16} className="text-success" />
-                    <span className="text-sm">{service}</span>
-                  </div>
-                ))}
+              <div className="mt-8 pt-8 border-t border-border">
+                <p className="text-sm text-muted-foreground text-center">
+                  We typically respond within 24 hours
+                </p>
               </div>
             </Card>
           </div>
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="p-8 shadow-floating">
+            <Card className="p-8 shadow-floating h-full flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold mb-4">Request a Quote</h3>
                 <p className="text-muted-foreground">
@@ -212,7 +175,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium mb-2">Full Name *</label>
@@ -280,15 +243,14 @@ const Contact = () => {
                   </select>
                 </div>
 
-                <div>
+                <div className="flex-1 flex flex-col">
                   <label className="block text-sm font-medium mb-2">Project Details</label>
                   <Textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Tell us about your project requirements, approximate number of windows, timeline, and any specific needs..."
-                    rows={5}
-                    className="resize-none"
+                    className="resize-none flex-1 min-h-[120px]"
                   />
                 </div>
 
@@ -343,16 +305,6 @@ const Contact = () => {
           ))}
         </div>
 
-        {/* Accessibility Notice */}
-        <div className="text-center mt-12 p-6 bg-success/5 rounded-2xl border border-success/20">
-          <div className="flex items-center justify-center space-x-3 mb-2">
-            <Users className="text-success" size={20} />
-            <span className="font-semibold text-success">Accessibility Committed</span>
-          </div>
-          <p className="text-muted-foreground text-sm">
-            Our facilities are wheelchair accessible with dedicated parking spaces, ramps, and barrier-free access.
-          </p>
-        </div>
       </div>
     </section>
   );

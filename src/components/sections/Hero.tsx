@@ -73,13 +73,17 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 fade-in-up delay-300">
-              <Button className="btn-energy group">
-                {t.hero.getQuote}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <Button asChild className="btn-energy group">
+                <a href="#contact">
+                  {t.hero.getQuote}
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </a>
               </Button>
-              <Button className="btn-ghost-industrial group">
-                <Play className="mr-2 h-5 w-5" />
-                {t.hero.watchProcess}
+              <Button asChild className="btn-ghost-industrial group">
+                <a href="https://www.instagram.com/falcon_window_systems" target="_blank" rel="noopener noreferrer">
+                  <Play className="mr-2 h-5 w-5" />
+                  {t.hero.watchProcess}
+                </a>
               </Button>
             </div>
 

@@ -282,9 +282,11 @@ const Products = () => {
                   <Download className="mr-2 h-5 w-5" />
                   {t.products.actions.downloadCatalog}
                 </Button>
-                <Button className="btn-energy group">
-                  {t.products.actions.requestSpecs}
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <Button asChild className="btn-energy group">
+                  <a href="#contact">
+                    {t.products.actions.requestSpecs}
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </a>
                 </Button>
               </div>
             </div>

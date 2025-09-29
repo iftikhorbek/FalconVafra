@@ -329,11 +329,11 @@ const Products = () => {
               </div>
 
               {/* Glass Types */}
-              <div className="space-y-8">
+              <div>
                 <div>
-                  <h3 className="text-3xl font-bold mb-6">Glass Unit Solutions</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                    Our state-of-the-art glass processing facility produces precision double-glazed units 
+                  <h3 className="text-3xl font-bold mb-3">Glass Unit Solutions</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                    Our state-of-the-art glass processing facility produces precision double-glazed units
                     with advanced sealing technology for maximum energy efficiency and durability.
                   </p>
                 </div>

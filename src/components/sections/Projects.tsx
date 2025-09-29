@@ -92,7 +92,7 @@ const Projects = () => {
       location: "Samarkand, Uzbekistan",
       type: "Residential",
       year: "2023",
-      units: "800+ windows",
+      units: "400+ windows",
       profile: "6-Chamber Advanced",
       description: "Large-scale mixed-use development combining residential and commercial spaces.",
       challenges: ["Large scale production", "Multiple specifications", "Tight deadlines"],

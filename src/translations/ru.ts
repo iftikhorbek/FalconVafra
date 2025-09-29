@@ -163,7 +163,7 @@ export const ru = {
     },
     silverTower: {
       name: "Silver Tower",
-      location: "Самарканд, Узбекистан",
+      location: "Ташкент, Узбекистан",
       type: "Элитный жилой комплекс",
       year: "2024",
       units: "500+ окон",
@@ -175,7 +175,7 @@ export const ru = {
     },
     manhattanComplex: {
       name: "Manhattan Complex",
-      location: "Самарканд, Узбекистан",
+      location: "Ташкент, Узбекистан",
       type: "Жилой комплекс",
       year: "2023",
       units: "400+ окон",
@@ -187,7 +187,7 @@ export const ru = {
     },
     rohatOlmos: {
       name: "Rohat - Olmos",
-      location: "Самарканд, Узбекистан",
+      location: "Ташкент, Узбекистан",
       type: "Жилой комплекс",
       year: "2023",
       units: "300+ окон",

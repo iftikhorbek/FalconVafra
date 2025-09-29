@@ -163,7 +163,7 @@ export const uz = {
     },
     silverTower: {
       name: "Silver Tower",
-      location: "Samarqand, O'zbekiston",
+      location: "Toshkent, O'zbekiston",
       type: "Hashamatli turar joy majmuasi",
       year: "2024",
       units: "500+ deraza",
@@ -175,7 +175,7 @@ export const uz = {
     },
     manhattanComplex: {
       name: "Manhattan Complex",
-      location: "Samarqand, O'zbekiston",
+      location: "Toshkent, O'zbekiston",
       type: "Turar joy majmuasi",
       year: "2023",
       units: "400+ deraza",
@@ -187,7 +187,7 @@ export const uz = {
     },
     rohatOlmos: {
       name: "Rohat - Olmos",
-      location: "Samarqand, O'zbekiston",
+      location: "Toshkent, O'zbekiston",
       type: "Turar joy majmuasi",
       year: "2023",
       units: "300+ deraza",

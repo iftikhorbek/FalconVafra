@@ -163,7 +163,7 @@ export const en = {
     },
     silverTower: {
       name: "Silver Tower",
-      location: "Samarkand, Uzbekistan",
+      location: "Tashkent, Uzbekistan",
       type: "Luxury Residential",
       year: "2024",
       units: "500+ windows",
@@ -175,7 +175,7 @@ export const en = {
     },
     manhattanComplex: {
       name: "Manhattan Complex",
-      location: "Samarkand, Uzbekistan",
+      location: "Tashkent, Uzbekistan",
       type: "Residential",
       year: "2023",
       units: "400+ windows",
@@ -187,7 +187,7 @@ export const en = {
     },
     rohatOlmos: {
       name: "Rohat - Olmos",
-      location: "Samarkand, Uzbekistan",
+      location: "Tashkent, Uzbekistan",
       type: "Residential",
       year: "2023",
       units: "300+ windows",

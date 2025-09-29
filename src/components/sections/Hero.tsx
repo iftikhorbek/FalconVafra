@@ -26,26 +26,23 @@ const Hero = () => {
   }, []);
 
   const stats = [
-    { 
-      icon: Factory, 
-      value: "20", 
-      unit: "Trucks/Month", 
-      label: "PVC Profile Production",
-      color: "text-accent"
+    {
+      icon: Factory,
+      value: "20",
+      unit: "Trucks/Month",
+      label: "PVC Profile Production"
     },
-    { 
-      icon: Award, 
-      value: "1,000", 
-      unit: "m²/Day", 
-      label: "Glass Processing Capacity",
-      color: "text-primary"
+    {
+      icon: Award,
+      value: "1,000",
+      unit: "m²/Day",
+      label: "Glass Processing Capacity"
     },
-    { 
-      icon: Zap, 
-      value: "250", 
-      unit: "Frames/Day", 
-      label: "Window Assembly Rate",
-      color: "text-success"
+    {
+      icon: Zap,
+      value: "250",
+      unit: "Frames/Day",
+      label: "Window Assembly Rate"
     },
   ];
 
@@ -121,20 +118,20 @@ const Hero = () => {
               {stats.map((stat, index) => {
                 const IconComponent = stat.icon;
                 return (
-                  <div 
+                  <div
                     key={index}
-                    className="glass-card p-6 hover:shadow-floating transition-all duration-500 hover:scale-105 group"
+                    className="bg-primary p-6 rounded-3xl shadow-floating hover:shadow-accent transition-all duration-500 hover:scale-105 group border border-white/10"
                   >
                     <div className="flex items-center space-x-4">
-                      <div className={`p-3 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 ${stat.color}`}>
-                        <IconComponent size={24} />
+                      <div className="p-3 rounded-2xl bg-primary-light shadow-lg">
+                        <IconComponent size={24} className="text-white" />
                       </div>
                       <div>
                         <div className="flex items-baseline space-x-1">
                           <span className="text-3xl font-bold text-white">{stat.value}</span>
-                          <span className="text-sm text-white/70 font-medium">{stat.unit}</span>
+                          <span className="text-sm text-white/90 font-medium">{stat.unit}</span>
                         </div>
-                        <p className="text-white/80 text-sm">{stat.label}</p>
+                        <p className="text-white/90 text-sm font-medium">{stat.label}</p>
                       </div>
                     </div>
                   </div>
@@ -143,12 +140,12 @@ const Hero = () => {
             </div>
 
             {/* Quality Badge */}
-            <div className="glass-card p-6 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-success to-success-light rounded-2xl mb-4">
+            <div className="bg-primary p-6 rounded-3xl shadow-floating hover:shadow-accent transition-all duration-500 hover:scale-105 group border border-white/10 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-light rounded-2xl mb-4 shadow-lg">
                 <Award className="text-white" size={28} />
               </div>
               <h3 className="text-white font-semibold text-lg mb-2">ISO 9001:2008 Certified</h3>
-              <p className="text-white/70 text-sm">International quality standards compliance</p>
+              <p className="text-white/90 text-sm font-medium">International quality standards compliance</p>
             </div>
           </div>
         </div>

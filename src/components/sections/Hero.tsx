@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Factory, Award, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-factory.jpg";
+import profileWindowImage from "@/assets/profile_window2.png";
 
 const Hero = () => {
   const statsRef = useRef<HTMLDivElement>(null);
@@ -25,26 +26,6 @@ const Hero = () => {
     return () => observer.disconnect();
   }, []);
 
-  const stats = [
-    {
-      icon: Factory,
-      value: "20",
-      unit: "Trucks/Month",
-      label: "PVC Profile Production"
-    },
-    {
-      icon: Award,
-      value: "1,000",
-      unit: "m²/Day",
-      label: "Glass Processing Capacity"
-    },
-    {
-      icon: Zap,
-      value: "250",
-      unit: "Frames/Day",
-      label: "Window Assembly Rate"
-    },
-  ];
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" id="home">
@@ -67,7 +48,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
+
           {/* Left Column - Content */}
           <div className="space-y-8">
             {/* Badge */}
@@ -112,42 +93,18 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column - Stats Cards */}
-          <div className="space-y-6 fade-in-up delay-500">
-            <div className="grid gap-6">
-              {stats.map((stat, index) => {
-                const IconComponent = stat.icon;
-                return (
-                  <div
-                    key={index}
-                    className="bg-primary p-6 rounded-3xl shadow-floating hover:shadow-accent transition-all duration-500 hover:scale-105 group border border-white/10"
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className="p-3 rounded-2xl bg-primary-light shadow-lg">
-                        <IconComponent size={24} className="text-white" />
-                      </div>
-                      <div>
-                        <div className="flex items-baseline space-x-1">
-                          <span className="text-3xl font-bold text-white">{stat.value}</span>
-                          <span className="text-sm text-white/90 font-medium">{stat.unit}</span>
-                        </div>
-                        <p className="text-white/90 text-sm font-medium">{stat.label}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Quality Badge */}
-            <div className="bg-primary p-6 rounded-3xl shadow-floating hover:shadow-accent transition-all duration-500 hover:scale-105 group border border-white/10 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-light rounded-2xl mb-4 shadow-lg">
-                <Award className="text-white" size={28} />
-              </div>
-              <h3 className="text-white font-semibold text-lg mb-2">ISO 9001:2008 Certified</h3>
-              <p className="text-white/90 text-sm font-medium">International quality standards compliance</p>
+          {/* Right Column - Profile Window Image */}
+          <div className="relative fade-in-up delay-500">
+            <div className="relative">
+              <img
+                src={profileWindowImage}
+                alt="Professional PVC window profile cross-section"
+                className="w-full h-auto max-w-lg mx-auto rounded-2xl shadow-floating"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent rounded-2xl"></div>
             </div>
           </div>
+
         </div>
 
         {/* Scroll Indicator */}

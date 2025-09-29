@@ -224,10 +224,10 @@ const Products = () => {
                   
                   {/* Capacity Badge */}
                   <div className="absolute top-6 right-6">
-                    <div className="glass-card p-4">
+                    <div className="glass-card p-4 float-animation rounded-2xl">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-white">1,000m²</div>
-                        <div className="text-white/80 text-sm">Daily Capacity</div>
+                        <div className="text-2xl font-bold text-black">1,000m²</div>
+                        <div className="text-black/80 text-sm">Daily Capacity</div>
                       </div>
                     </div>
                   </div>
@@ -235,14 +235,14 @@ const Products = () => {
 
                 {/* Equipment Info */}
                 <div className="absolute -bottom-6 left-6 right-6">
-                  <Card className="p-6 shadow-floating">
+                  <Card className="p-6 shadow-floating bg-gradient-industrial text-white border-0 rounded-2xl">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-gradient-energy rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
                         <Zap className="text-white" size={20} />
                       </div>
                       <div>
-                        <h4 className="font-bold">Advanced Equipment</h4>
-                        <p className="text-sm text-muted-foreground">Bilge Cam Makina & Isıcam Sinerji</p>
+                        <h4 className="font-bold text-white">Advanced Equipment</h4>
+                        <p className="text-sm text-white/80">Bilge Cam Makina & Isıcam Sinerji</p>
                       </div>
                     </div>
                   </Card>

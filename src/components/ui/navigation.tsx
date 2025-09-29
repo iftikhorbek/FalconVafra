@@ -113,7 +113,7 @@ const Navigation = () => {
                 )}
               >
                 <Globe size={16} />
-                <span className="text-sm font-medium">{currentLang?.flag} {currentLang?.name}</span>
+                <span className="text-sm font-medium uppercase">{currentLang?.code}</span>
                 <ChevronDown size={14} className={cn(
                   "transition-transform duration-200",
                   isLangOpen ? "rotate-180" : ""

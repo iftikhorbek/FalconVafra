@@ -36,7 +36,7 @@ const Projects = () => {
       name: "Silver Tower",
       location: "Tashkent, Uzbekistan",
       type: "Luxury Residential",
-      year: "2023",
+      year: "2024",
       units: "500+ windows",
       profile: "7-Chamber Premium",
       description: "Premium high-rise residential complex requiring superior insulation and acoustic performance.",

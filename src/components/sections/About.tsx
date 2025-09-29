@@ -189,27 +189,29 @@ const About = () => {
               </p>
             </div>
 
-            <div className="grid gap-6">
-              {advantages.map((advantage, index) => {
-                const IconComponent = advantage.icon;
-                return (
-                  <div 
-                    key={index}
-                    className="flex items-start space-x-4 p-4 rounded-2xl hover:bg-secondary/50 transition-all duration-300 group"
-                  >
-                    <div className="p-3 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="text-primary" size={20} />
+            <Card className="p-6 border shadow-md">
+              <div className="grid gap-4">
+                {advantages.map((advantage, index) => {
+                  const IconComponent = advantage.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-start space-x-4 group"
+                    >
+                      <div className="p-3 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="text-primary" size={20} />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
+                          {advantage.title}
+                        </h4>
+                        <p className="text-muted-foreground">{advantage.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
-                        {advantage.title}
-                      </h4>
-                      <p className="text-muted-foreground">{advantage.description}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            </Card>
           </div>
         </div>
       </div>

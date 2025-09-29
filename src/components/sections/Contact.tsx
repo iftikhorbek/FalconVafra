@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Phone,
   Mail,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react";
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -157,17 +159,16 @@ const Contact = () => {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-20">
           <Badge variant="outline" className="mb-6 px-4 py-2 text-primary border-primary/20">
-            Get In Touch
+            {t.contact.badge}
           </Badge>
           <h2 className="text-4xl lg:text-6xl font-space font-bold mb-6">
-            Start Your Window
+            {t.contact.title}
             <span className="block text-accent font-bold">
-              Project Today
+              {t.contact.titleAccent}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            Ready to enhance your building with premium PVC windows? Our team is here to help 
-            you find the perfect solution for your project.
+            {t.contact.description}
           </p>
         </div>
 
@@ -177,9 +178,9 @@ const Contact = () => {
           <div className="lg:col-span-1">
             <Card className="p-8 h-full hover:shadow-floating transition-all duration-300">
               <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
+                <h3 className="text-2xl font-bold mb-4">{t.contact.contactInfo.title}</h3>
                 <p className="text-muted-foreground">
-                  Reach out to us through any of these channels. We're here to help with your project needs.
+                  {t.contact.contactInfo.description}
                 </p>
               </div>
 
@@ -263,7 +264,7 @@ const Contact = () => {
                         rel="noopener noreferrer"
                         className="text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center space-x-1"
                       >
-                        <span>Open on Maps</span>
+                        <span>{t.contact.contactInfo.openOnMaps}</span>
                         <ExternalLink size={14} />
                       </a>
                     </div>
@@ -285,7 +286,7 @@ const Contact = () => {
                         rel="noopener noreferrer"
                         className="text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center space-x-1"
                       >
-                        <span>Open on Maps</span>
+                        <span>{t.contact.contactInfo.openOnMaps}</span>
                         <ExternalLink size={14} />
                       </a>
                     </div>
@@ -295,7 +296,7 @@ const Contact = () => {
 
               <div className="mt-8 pt-8 border-t border-border">
                 <p className="text-sm text-muted-foreground text-center">
-                  We typically respond within 24 hours
+                  {t.contact.contactInfo.responseTime}
                 </p>
               </div>
             </Card>
@@ -305,33 +306,32 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <Card className="p-8 h-full flex flex-col hover:shadow-floating transition-all duration-300">
               <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4">Request a Quote</h3>
+                <h3 className="text-2xl font-bold mb-4">{t.contact.form.title}</h3>
                 <p className="text-muted-foreground">
-                  Fill out the form below and our team will get back to you within 24 hours 
-                  with a detailed quote and consultation.
+                  {t.contact.form.description}
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Full Name *</label>
+                    <label className="block text-sm font-medium mb-1">{t.contact.form.fields.fullName} *</label>
                     <Input
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Enter your full name"
+                      placeholder={t.contact.form.fields.fullNamePlaceholder}
                       required
                       className="h-12"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1">Company</label>
+                    <label className="block text-sm font-medium mb-1">{t.contact.form.fields.company}</label>
                     <Input
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      placeholder="Your company name"
+                      placeholder={t.contact.form.fields.companyPlaceholder}
                       className="h-12"
                     />
                   </div>
@@ -339,20 +339,20 @@ const Contact = () => {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Email Address *</label>
+                    <label className="block text-sm font-medium mb-1">{t.contact.form.fields.email} *</label>
                     <Input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="your.email@example.com"
+                      placeholder={t.contact.form.fields.emailPlaceholder}
                       required
                       className="h-12"
                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1">Phone Number</label>
+                    <label className="block text-sm font-medium mb-1">{t.contact.form.fields.phone}</label>
                     <div className="relative">
                       <Input
                         type="tel"
@@ -375,40 +375,40 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Project Type</label>
+                  <label className="block text-sm font-medium mb-1">{t.contact.form.fields.projectType}</label>
                   <select
                     name="projectType"
                     value={formData.projectType}
                     onChange={handleChange}
                     className="w-full h-12 px-3 rounded-xl border border-border bg-background"
                   >
-                    <option value="">Select project type</option>
-                    <option value="residential">Residential Building</option>
-                    <option value="commercial">Commercial Building</option>
-                    <option value="industrial">Industrial Facility</option>
-                    <option value="renovation">Renovation Project</option>
-                    <option value="custom">Custom Solution</option>
+                    <option value="">{t.contact.form.projectTypes.select}</option>
+                    <option value="residential">{t.contact.form.projectTypes.residential}</option>
+                    <option value="commercial">{t.contact.form.projectTypes.commercial}</option>
+                    <option value="industrial">{t.contact.form.projectTypes.industrial}</option>
+                    <option value="renovation">{t.contact.form.projectTypes.renovation}</option>
+                    <option value="custom">{t.contact.form.projectTypes.custom}</option>
                   </select>
                 </div>
 
                 <div className="flex-1 flex flex-col">
-                  <label className="block text-sm font-medium mb-1">Project Details</label>
+                  <label className="block text-sm font-medium mb-1">{t.contact.form.fields.projectDetails}</label>
                   <Textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us about your project requirements, approximate number of windows, timeline, and any specific needs..."
+                    placeholder={t.contact.form.fields.projectDetailsPlaceholder}
                     className="resize-none flex-1 min-h-[120px]"
                   />
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button type="submit" className="btn-energy flex-1 group">
-                    Send Message
+                    {t.contact.form.buttons.sendMessage}
                     <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                   <Button type="button" variant="outline" className="flex-1">
-                    Schedule Site Visit
+                    {t.contact.form.buttons.scheduleSiteVisit}
                   </Button>
                 </div>
               </form>

@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Factory, 
-  Settings, 
-  Award, 
-  Leaf, 
+import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  Factory,
+  Settings,
+  Award,
+  Leaf,
   Zap,
   Shield,
   Users,
@@ -14,6 +15,7 @@ import {
 import pvcProfilesImage from "@/assets/pvc-profiles.jpg";
 
 const About = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,45 +45,45 @@ const About = () => {
   const workshops = [
     {
       icon: Factory,
-      title: "PVC Profile Extrusion",
-      description: "4 Cincinnati extrusion lines (SE-30, NSSV, MCV 75/25D) with 90-125 kW capacity each",
-      capacity: "15-20 trucks/month",
-      equipment: "Cincinnati (Germany, Italy, Turkey)",
+      title: t.company.workshops.pvcExtrusion.title,
+      description: t.company.workshops.pvcExtrusion.description,
+      capacity: t.company.workshops.pvcExtrusion.capacity,
+      equipment: t.company.workshops.pvcExtrusion.equipment,
       gradient: "from-primary to-primary-light"
     },
     {
       icon: Settings,
-      title: "Glass Processing",
-      description: "Advanced Bilge Cam Makina FCL 6032-SL V3 and Isıcam Sinerji precision equipment",
-      capacity: "1,000 m²/day",
-      equipment: "Bilge Cam Makina, Kirdar Grup",
+      title: t.company.workshops.glassProcessing.title,
+      description: t.company.workshops.glassProcessing.description,
+      capacity: t.company.workshops.glassProcessing.capacity,
+      equipment: t.company.workshops.glassProcessing.equipment,
       gradient: "from-accent to-accent-dark"
     },
     {
       icon: Award,
-      title: "Window Assembly",
-      description: "Murat Makina assembly line with welding, corner cleaning, and quality control",
-      capacity: "250 frames/day",
-      equipment: "Murat Makina (Turkey)",
+      title: t.company.workshops.windowAssembly.title,
+      description: t.company.workshops.windowAssembly.description,
+      capacity: t.company.workshops.windowAssembly.capacity,
+      equipment: t.company.workshops.windowAssembly.equipment,
       gradient: "from-success to-success-light"
     },
     {
       icon: Zap,
-      title: "Lamination Line",
-      description: "Decorative finishes with wood, metallic and custom textures in 50+ colors",
-      capacity: "Custom finishes",
-      equipment: "Advanced lamination technology",
+      title: t.company.workshops.laminationLine.title,
+      description: t.company.workshops.laminationLine.description,
+      capacity: t.company.workshops.laminationLine.capacity,
+      equipment: t.company.workshops.laminationLine.equipment,
       gradient: "from-purple-500 to-purple-600"
     }
   ];
 
   const advantages = [
-    { icon: Factory, title: "Full Production Cycle", description: "Complete manufacturing from raw materials to finished windows" },
-    { icon: Settings, title: "World-Class Equipment", description: "Cincinnati, Bilge Cam, Murat Makina machinery" },
-    { icon: Leaf, title: "Energy Efficient", description: "Eco-friendly processes and sustainable manufacturing" },
-    { icon: Shield, title: "Quality Assured", description: "ISO 9001:2008, GOST, IFT, RAL certified" },
-    { icon: Zap, title: "Flexible Production", description: "Scalable manufacturing for any project size" },
-    { icon: Globe, title: "International Standards", description: "Worldwide supply with local expertise" }
+    { icon: Factory, title: t.company.advantages.list.fullCycle.title, description: t.company.advantages.list.fullCycle.description },
+    { icon: Settings, title: t.company.advantages.list.worldClassEquipment.title, description: t.company.advantages.list.worldClassEquipment.description },
+    { icon: Leaf, title: t.company.advantages.list.energyEfficient.title, description: t.company.advantages.list.energyEfficient.description },
+    { icon: Shield, title: t.company.advantages.list.qualityAssured.title, description: t.company.advantages.list.qualityAssured.description },
+    { icon: Zap, title: t.company.advantages.list.flexibleProduction.title, description: t.company.advantages.list.flexibleProduction.description },
+    { icon: Globe, title: t.company.advantages.list.internationalStandards.title, description: t.company.advantages.list.internationalStandards.description }
   ];
 
   return (
@@ -91,17 +93,16 @@ const About = () => {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-20">
           <Badge variant="outline" className="mb-6 px-4 py-2 text-primary border-primary/20">
-            About Falcon by Vafra Group
+            {t.company.badge}
           </Badge>
           <h2 className="text-4xl lg:text-6xl font-space font-bold mb-6">
-            Industrial Excellence in
+            {t.company.title}
             <span className="block text-primary font-bold">
-              Window Manufacturing
+              {t.company.titleAccent}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            As one of Uzbekistan's largest PVC profile manufacturers, we operate a complete production 
-            cycle with state-of-the-art equipment, delivering superior quality windows for major construction projects.
+            {t.company.description}
           </p>
         </div>
 
@@ -161,8 +162,8 @@ const About = () => {
                       <Award className="text-white" size={20} />
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold">Premium Quality</h4>
-                      <p className="text-white/80 text-sm">4-7 chamber profiles available</p>
+                      <h4 className="text-white font-semibold">{t.company.advantages.qualityBadge.title}</h4>
+                      <p className="text-white/80 text-sm">{t.company.advantages.qualityBadge.description}</p>
                     </div>
                   </div>
                 </div>
@@ -173,7 +174,7 @@ const About = () => {
             <div className="absolute -top-6 -right-6 glass-card p-4 float-animation rounded-2xl border-2 border-primary">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">50+</div>
-                <div className="text-sm text-muted-foreground">Equipment Types</div>
+                <div className="text-sm text-muted-foreground">{t.company.equipmentTypes}</div>
               </div>
             </div>
           </div>
@@ -181,11 +182,9 @@ const About = () => {
           {/* Right - Advantages */}
           <div className="space-y-4">
             <div>
-              <h3 className="text-3xl font-bold mb-3">Why Choose Falcon?</h3>
+              <h3 className="text-3xl font-bold mb-3">{t.company.advantages.title}</h3>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-                Our commitment to excellence drives everything we do. From sourcing premium materials
-                to implementing cutting-edge manufacturing processes, we ensure every window meets
-                the highest international standards.
+                {t.company.advantages.description}
               </p>
             </div>
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Building2,
   MapPin,
@@ -32,6 +33,7 @@ import gagarinAvenue3 from "@/assets/gagarin avenue3.png";
 import gagarinAvenue4 from "@/assets/gagarin avenue4.png";
 
 const Projects = () => {
+  const { t } = useLanguage();
   const [activeProject, setActiveProject] = useState(0);
   const [silverTowerImageIndex, setSilverTowerImageIndex] = useState(0);
   const [manhattanImageIndex, setManhattanImageIndex] = useState(0);
@@ -72,64 +74,64 @@ const Projects = () => {
 
   const projects = [
     {
-      name: "Silver Tower",
-      location: "Samarkand, Uzbekistan",
-      type: "Luxury Residential",
-      year: "2024",
-      units: "500+ windows",
-      profile: "7-Chamber Premium",
-      description: "Premium high-rise residential complex requiring superior insulation and acoustic performance.",
-      challenges: ["High-altitude installation", "Sound insulation requirements", "Energy efficiency standards"],
-      solutions: ["Noble 91mm profiles", "Triple glazing system", "Custom lamination finishes"],
-      results: ["40% energy savings", "95% noise reduction", "100% client satisfaction"],
+      name: t.projects.silverTower.name,
+      location: t.projects.silverTower.location,
+      type: t.projects.silverTower.type,
+      year: t.projects.silverTower.year,
+      units: t.projects.silverTower.units,
+      profile: t.projects.silverTower.profile,
+      description: t.projects.silverTower.description,
+      challenges: t.projects.silverTower.challenges,
+      solutions: t.projects.silverTower.solutions,
+      results: t.projects.silverTower.results,
       image: silverTower1,
       category: "Residential",
       hasCarousel: true,
       carouselImages: silverTowerImages
     },
     {
-      name: "Manhattan Complex",
-      location: "Samarkand, Uzbekistan",
-      type: "Residential",
-      year: "2023",
-      units: "400+ windows",
-      profile: "6-Chamber Advanced",
-      description: "Large-scale mixed-use development combining residential and commercial spaces.",
-      challenges: ["Large scale production", "Multiple specifications", "Tight deadlines"],
-      solutions: ["Advance 81mm system", "Flexible production scheduling", "Quality assurance protocols"],
-      results: ["On-time delivery", "Zero defects", "Long-term partnership"],
+      name: t.projects.manhattanComplex.name,
+      location: t.projects.manhattanComplex.location,
+      type: t.projects.manhattanComplex.type,
+      year: t.projects.manhattanComplex.year,
+      units: t.projects.manhattanComplex.units,
+      profile: t.projects.manhattanComplex.profile,
+      description: t.projects.manhattanComplex.description,
+      challenges: t.projects.manhattanComplex.challenges,
+      solutions: t.projects.manhattanComplex.solutions,
+      results: t.projects.manhattanComplex.results,
       image: manhattan1,
       category: "Residential",
       hasCarousel: true,
       carouselImages: manhattanImages
     },
     {
-      name: "Rohat - Olmos",
-      location: "Samarkand, Uzbekistan",
-      type: "Residential",
-      year: "2023",
-      units: "300+ windows",
-      profile: "5-Chamber Standard",
-      description: "Modern office complex requiring energy-efficient solutions and professional aesthetics.",
-      challenges: ["Commercial grade requirements", "Design specifications", "Weather resistance"],
-      solutions: ["5-chamber profiles", "Special glazing", "Architectural finishes"],
-      results: ["LEED compliance", "Enhanced building value", "Tenant satisfaction"],
+      name: t.projects.rohatOlmos.name,
+      location: t.projects.rohatOlmos.location,
+      type: t.projects.rohatOlmos.type,
+      year: t.projects.rohatOlmos.year,
+      units: t.projects.rohatOlmos.units,
+      profile: t.projects.rohatOlmos.profile,
+      description: t.projects.rohatOlmos.description,
+      challenges: t.projects.rohatOlmos.challenges,
+      solutions: t.projects.rohatOlmos.solutions,
+      results: t.projects.rohatOlmos.results,
       image: rohatOlmos1,
       category: "Residential",
       hasCarousel: true,
       carouselImages: rohatOlmosImages
     },
     {
-      name: "Gagarin Avenue",
-      location: "Samarkand, Uzbekistan",
-      type: "Residential Complex",
-      year: "2022",
-      units: "600+ windows",
-      profile: "4-Chamber Efficient",
-      description: "Affordable housing project focusing on cost-effective yet quality window solutions.",
-      challenges: ["Budget constraints", "Volume production", "Quality maintenance"],
-      solutions: ["4-chamber system", "Efficient production", "Value engineering"],
-      results: ["Cost savings achieved", "Quality standards met", "Community satisfaction"],
+      name: t.projects.gagarinAvenue.name,
+      location: t.projects.gagarinAvenue.location,
+      type: t.projects.gagarinAvenue.type,
+      year: t.projects.gagarinAvenue.year,
+      units: t.projects.gagarinAvenue.units,
+      profile: t.projects.gagarinAvenue.profile,
+      description: t.projects.gagarinAvenue.description,
+      challenges: t.projects.gagarinAvenue.challenges,
+      solutions: t.projects.gagarinAvenue.solutions,
+      results: t.projects.gagarinAvenue.results,
       image: gagarinAvenue1,
       category: "Residential",
       hasCarousel: true,
@@ -139,10 +141,10 @@ const Projects = () => {
 
 
   const stats = [
-    { label: "Projects Completed", value: "500+", icon: Building2 },
-    { label: "Windows Installed", value: "50,000+", icon: Award },
-    { label: "Client Satisfaction", value: "98%", icon: Star },
-    { label: "Years Experience", value: "20+", icon: Clock }
+    { label: t.projects.stats.projectsCompleted, value: "500+", icon: Building2 },
+    { label: t.projects.stats.windowsInstalled, value: "50,000+", icon: Award },
+    { label: t.projects.stats.clientSatisfaction, value: "98%", icon: Star },
+    { label: t.projects.stats.yearsExperience, value: "20+", icon: Clock }
   ];
 
   // Silver Tower carousel navigation
@@ -202,17 +204,16 @@ const Projects = () => {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-20">
           <Badge variant="outline" className="mb-6 px-4 py-2 text-primary border-primary/20">
-            Our Projects
+            {t.projects.badge}
           </Badge>
           <h2 className="text-4xl lg:text-6xl font-space font-bold mb-6">
-            Building Excellence
+            {t.projects.title}
             <span className="block text-primary font-bold">
-              Across Uzbekistan
+              {t.projects.titleAccent}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            From luxury residential towers to major commercial developments, our windows have been 
-            chosen for prestigious projects across the country.
+            {t.projects.description}
           </p>
         </div>
 
@@ -299,25 +300,25 @@ const Projects = () => {
             {/* Project Details */}
             <div className="grid md:grid-cols-2 gap-6">
               <Card className="p-6">
-                <h4 className="font-bold text-lg mb-4 text-primary">Project Scope</h4>
+                <h4 className="font-bold text-lg mb-4 text-primary">{t.projects.projectDetails.projectScope}</h4>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Units:</span>
+                    <span className="text-muted-foreground">{t.projects.projectDetails.units}</span>
                     <span className="font-semibold">{projects[activeProject].units}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Profile:</span>
+                    <span className="text-muted-foreground">{t.projects.projectDetails.profile}</span>
                     <span className="font-semibold">{projects[activeProject].profile}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Type:</span>
+                    <span className="text-muted-foreground">{t.projects.projectDetails.type}</span>
                     <span className="font-semibold">{projects[activeProject].type}</span>
                   </div>
                 </div>
               </Card>
 
               <Card className="p-6">
-                <h4 className="font-bold text-lg mb-4 text-accent">Key Results</h4>
+                <h4 className="font-bold text-lg mb-4 text-accent">{t.projects.projectDetails.keyResults}</h4>
                 <div className="space-y-3">
                   {projects[activeProject].results.map((result, index) => (
                     <div key={index} className="flex items-center space-x-2">

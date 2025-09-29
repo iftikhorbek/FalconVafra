@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Layers,
   Shield,
@@ -28,6 +29,7 @@ import instruments3 from "@/assets/instruments3.png";
 import instruments4 from "@/assets/instruments4.png";
 
 const Products = () => {
+  const { t } = useLanguage();
   const [activeProfile, setActiveProfile] = useState(0);
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
@@ -154,19 +156,19 @@ const Products = () => {
 
   const glassTypes = [
     {
-      name: "Standard Double Glazing",
-      description: "High-quality double-glazed units with precise sealing",
-      features: ["4-6-4mm configuration", "Argon gas filling", "Low-E coating", "Energy efficient"]
+      name: t.products.glassTypes.standardDouble.name,
+      description: t.products.glassTypes.standardDouble.description,
+      features: t.products.glassTypes.standardDouble.features
     },
     {
-      name: "Triple Glazing",
-      description: "Ultimate thermal and acoustic performance", 
-      features: ["4-6-4-6-4mm configuration", "Superior insulation", "Maximum energy savings", "Premium quality"]
+      name: t.products.glassTypes.triple.name,
+      description: t.products.glassTypes.triple.description,
+      features: t.products.glassTypes.triple.features
     },
     {
-      name: "Specialty Glass",
-      description: "Custom solutions for specific requirements",
-      features: ["Laminated safety glass", "Tinted options", "Decorative patterns", "Custom sizes"]
+      name: t.products.glassTypes.specialty.name,
+      description: t.products.glassTypes.specialty.description,
+      features: t.products.glassTypes.specialty.features
     }
   ];
 
@@ -181,17 +183,16 @@ const Products = () => {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-20">
           <Badge variant="outline" className="mb-6 px-4 py-2 text-primary border-primary/20">
-            Product Portfolio
+            {t.products.badge}
           </Badge>
           <h2 className="text-4xl lg:text-6xl font-space font-bold mb-6">
-            Advanced PVC Systems &
+            {t.products.title}
             <span className="block text-accent font-bold">
-              Glass Solutions
+              {t.products.titleAccent}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            We offer comprehensive premium PVC window solutions and advanced glass units
-            that meet the highest international quality standards.
+            {t.products.description}
           </p>
         </div>
 
@@ -199,10 +200,10 @@ const Products = () => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-16">
           <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-14 p-2 bg-secondary rounded-2xl">
             <TabsTrigger value="profiles" className="text-base font-semibold rounded-xl">
-              PVC Profiles
+              {t.products.tabs.profiles}
             </TabsTrigger>
             <TabsTrigger value="glass" className="text-base font-semibold rounded-xl">
-              Glass Units
+              {t.products.tabs.glass}
             </TabsTrigger>
           </TabsList>
 
@@ -212,9 +213,9 @@ const Products = () => {
             {/* Creative Image Showroom */}
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold mb-4">Profile Showroom</h3>
+                <h3 className="text-3xl font-bold mb-4">{t.products.profileShowroom.title}</h3>
                 <p className="text-muted-foreground text-lg">
-                  Discover our premium PVC profile solutions through our visual showcase
+                  {t.products.profileShowroom.description}
                 </p>
               </div>
 
@@ -279,10 +280,10 @@ const Products = () => {
                   onClick={() => window.open('https://t.me/bussinesuzbekistan/25183', '_blank')}
                 >
                   <Download className="mr-2 h-5 w-5" />
-                  Download Our Catalog
+                  {t.products.actions.downloadCatalog}
                 </Button>
                 <Button className="btn-energy group">
-                  Request Product Specifications
+                  {t.products.actions.requestSpecs}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </div>
@@ -344,7 +345,7 @@ const Products = () => {
                   <div className="glass-card p-4 float-animation rounded-2xl border-2 border-primary">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-black">1,000m²</div>
-                      <div className="text-black/80 text-sm">Daily Capacity</div>
+                      <div className="text-black/80 text-sm">{t.products.dailyCapacity}</div>
                     </div>
                   </div>
                 </div>
@@ -354,10 +355,9 @@ const Products = () => {
               {/* Glass Types */}
               <div>
                 <div>
-                  <h3 className="text-3xl font-bold mb-3">Glass Unit Solutions</h3>
+                  <h3 className="text-3xl font-bold mb-3">{t.products.glassUnits.title}</h3>
                   <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-                    Our state-of-the-art glass processing facility produces precision double-glazed units
-                    with advanced sealing technology for maximum energy efficiency and durability.
+                    {t.products.glassUnits.description}
                   </p>
                 </div>
 

@@ -20,8 +20,33 @@ import glassProcessingImage from "@/assets/glass-processing.jpg";
 const Products = () => {
   const [activeProfile, setActiveProfile] = useState(0);
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
+  const [currentGlassImage, setCurrentGlassImage] = useState(0);
 
   const profileSystems = [];
+
+  // Define 4 glass processing images for carousel
+  const glassProcessingImages = [
+    {
+      src: glassProcessingImage,
+      alt: "Advanced glass processing equipment and precision manufacturing",
+      title: "Precision Manufacturing"
+    },
+    {
+      src: glassProcessingImage, // Placeholder - you can replace with actual different images
+      alt: "Double glazing assembly process",
+      title: "Double Glazing Assembly"
+    },
+    {
+      src: glassProcessingImage, // Placeholder - you can replace with actual different images
+      alt: "Quality control and testing",
+      title: "Quality Control"
+    },
+    {
+      src: glassProcessingImage, // Placeholder - you can replace with actual different images
+      alt: "Final inspection and packaging",
+      title: "Final Inspection"
+    }
+  ];
 
   // Define 6 total images for the carousel
   const allImages = [
@@ -52,13 +77,31 @@ const Products = () => {
     return () => clearInterval(interval);
   }, [allImages.length]);
 
-  // Navigation functions
+  // Auto-advance glass images every 7 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, [glassProcessingImages.length]);
+
+  // Navigation functions for profile carousel
   const nextImage = () => {
     setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
   };
 
   const prevImage = () => {
     setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
+
+  // Navigation functions for glass images
+  const nextGlassImage = () => {
+    setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
+  };
+
+  const prevGlassImage = () => {
+    setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
   };
 
   const premiumLines = [
@@ -212,16 +255,57 @@ const Products = () => {
           <TabsContent value="glass" className="mt-12">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               
-              {/* Glass Processing Image */}
+              {/* Glass Processing Image Carousel */}
               <div className="relative">
                 <div className="relative overflow-hidden rounded-3xl shadow-floating">
-                  <img 
-                    src={glassProcessingImage} 
-                    alt="Advanced glass processing equipment and precision manufacturing"
+                  {/* Left Arrow */}
+                  <button
+                    onClick={prevGlassImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Previous glass image"
+                  >
+                    <ChevronLeft size={18} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Right Arrow */}
+                  <button
+                    onClick={nextGlassImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Next glass image"
+                  >
+                    <ChevronRight size={18} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  <img
+                    src={glassProcessingImages[currentGlassImage].src}
+                    alt={glassProcessingImages[currentGlassImage].alt}
                     className="w-full h-[500px] object-cover transition-transform duration-700 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
-                  
+
+                  {/* Image Title */}
+                  <div className="absolute bottom-6 left-6">
+                    <div className="glass-card p-3 rounded-xl">
+                      <h3 className="text-white font-semibold">{glassProcessingImages[currentGlassImage].title}</h3>
+                    </div>
+                  </div>
+
+                  {/* Progress Indicators */}
+                  <div className="absolute bottom-6 right-6 flex space-x-2">
+                    {glassProcessingImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentGlassImage(index)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          currentGlassImage === index
+                            ? 'bg-white scale-125'
+                            : 'bg-white/50 hover:bg-white/80'
+                        }`}
+                        aria-label={`Go to image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
                   {/* Capacity Badge */}
                   <div className="absolute top-6 right-6">
                     <div className="glass-card p-4 float-animation rounded-2xl border-2 border-primary">

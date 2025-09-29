@@ -13,7 +13,8 @@ import {
   Award,
   Zap,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Download
 } from "lucide-react";
 import glassProcessingImage from "@/assets/glass-processing.jpg";
 
@@ -242,7 +243,14 @@ const Products = () => {
               </div>
 
               {/* Call to Action */}
-              <div className="text-center mt-12">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+                <Button
+                  className="btn-energy group"
+                  onClick={() => window.open('https://t.me/bussinesuzbekistan/25183', '_blank')}
+                >
+                  <Download className="mr-2 h-5 w-5" />
+                  Download Our Catalog
+                </Button>
                 <Button className="btn-energy group">
                   Request Product Specifications
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

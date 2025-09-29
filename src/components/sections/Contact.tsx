@@ -136,7 +136,11 @@ const Contact = () => {
                     <div key={index} className="space-y-2">
                       <div className="flex items-center space-x-3">
                         <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <IconComponent className="text-primary" size={18} />
+                          <IconComponent
+                            className={`text-primary ${method.label === "Telegram Channel" ? "relative" : ""}`}
+                            style={method.label === "Telegram Channel" ? { left: "-1px" } : {}}
+                            size={18}
+                          />
                         </div>
                         <h4 className="font-semibold text-base">{method.label}</h4>
                       </div>

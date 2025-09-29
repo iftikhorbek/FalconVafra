@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import falconLogo from "@/assets/falcon.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,27 +42,15 @@ const Navigation = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className={cn(
-              "w-12 h-12 rounded-2xl bg-gradient-industrial flex items-center justify-center transition-all duration-300",
-              isScrolled ? "scale-90" : "scale-100"
-            )}>
-              <span className="text-primary-foreground font-bold text-xl">F</span>
-            </div>
-            <div>
-              <h1 className={cn(
-                "font-space font-bold transition-all duration-300",
-                isScrolled ? "text-xl text-foreground" : "text-2xl text-white"
-              )}>
-                Falcon
-              </h1>
-              <p className={cn(
-                "text-sm transition-all duration-300",
-                isScrolled ? "text-muted-foreground" : "text-white/80"
-              )}>
-                by Vafra Group
-              </p>
-            </div>
+          <div className="flex items-center">
+            <img
+              src={falconLogo}
+              alt="Falcon by Vafra Group"
+              className={cn(
+                "transition-all duration-300",
+                isScrolled ? "h-10" : "h-12"
+              )}
+            />
           </div>
 
           {/* Desktop Navigation */}

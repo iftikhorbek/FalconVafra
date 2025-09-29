@@ -42,8 +42,8 @@ const Contact = () => {
       icon: Phone,
       label: "Phone Numbers",
       items: [
-        "+998 90 212 0773",
-        "+998 99 348 8823"
+        "+998 (90) 212−07-73",
+        "+998 (90) 996−75-58"
       ]
     },
     {
@@ -58,7 +58,7 @@ const Contact = () => {
       icon: Send,
       label: "Telegram Channel",
       items: [
-        "t.me/falconprofil"
+        "t.me/bussinesuzbekistan"
       ]
     },
     {

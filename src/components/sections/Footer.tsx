@@ -69,14 +69,12 @@ const Footer = () => {
             
             {/* Company Info */}
             <div className="lg:col-span-1 space-y-6">
-              <div className="flex items-center space-x-3">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-energy flex items-center justify-center">
-                  <span className="text-white font-bold text-2xl">F</span>
-                </div>
-                <div>
-                  <h3 className="font-space font-bold text-2xl">Falcon</h3>
-                  <p className="text-white/80">by Vafra Group</p>
-                </div>
+              <div className="flex items-center">
+                <img
+                  src="/src/assets/falcon logo white.png"
+                  alt="Falcon Logo"
+                  className="h-16 object-contain"
+                />
               </div>
               
               <p className="text-white/90 leading-relaxed">
@@ -200,8 +198,8 @@ const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <Phone className="text-accent" size={18} />
                   <div>
-                    <div className="text-sm text-white/80">+998 90 212 0773</div>
-                    <div className="text-sm text-white/80">+998 99 348 8823</div>
+                    <div className="text-sm text-white/80">+998 (90) 212−07-73</div>
+                    <div className="text-sm text-white/80">+998 (90) 996−75-58</div>
                   </div>
                 </div>
 
@@ -215,7 +213,7 @@ const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <MessageCircle className="text-accent" size={18} />
                   <div className="text-sm text-white/80">
-                    t.me/falconprofil
+                    t.me/bussinesuzbekistan
                   </div>
                 </div>
               </div>

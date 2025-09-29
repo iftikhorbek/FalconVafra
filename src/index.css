@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Falcon by Vafra Group - Modern Industrial Design System */
+
+@layer base {
+  :root {
+    /* Industrial Color Palette */
+    --background: 0 0% 100%;
+    --foreground: 210 10% 10%;
+    
+    /* Deep Industrial Blue - Primary Brand */
+    --primary: 212 100% 15%;
+    --primary-light: 212 100% 25%;
+    --primary-dark: 212 100% 10%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Industrial Orange - Energy & Innovation */
+    --accent: 25 95% 53%;
+    --accent-light: 25 95% 63%;
+    --accent-dark: 25 95% 43%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Eco Green - Sustainability */
+    --success: 140 60% 45%;
+    --success-light: 140 60% 55%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Neutral Industrial Grays */
+    --secondary: 210 5% 96%;
+    --secondary-dark: 210 5% 90%;
+    --secondary-foreground: 210 10% 15%;
+    
+    --muted: 210 8% 95%;
+    --muted-dark: 210 8% 88%;
+    --muted-foreground: 210 6% 45%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 210 10% 10%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 10% 10%;
+    
+    --border: 210 15% 88%;
+    --input: 210 15% 88%;
+    --ring: 212 100% 25%;
+    
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Glass & Transparency Effects */
+    --glass-bg: 0 0% 100% / 0.8;
+    --glass-border: 210 15% 88% / 0.3;
+    
+    /* Industrial Gradients */
+    --gradient-industrial: linear-gradient(135deg, hsl(212 100% 15%), hsl(212 100% 25%));
+    --gradient-energy: linear-gradient(135deg, hsl(25 95% 53%), hsl(25 95% 43%));
+    --gradient-hero: linear-gradient(135deg, hsl(212 100% 15%) 0%, hsl(212 100% 10%) 50%, hsl(210 10% 10%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.1), hsl(0 0% 100% / 0.05));
+    
+    /* Shadows & Depth */
+    --shadow-industrial: 0 4px 20px hsl(212 100% 15% / 0.15);
+    --shadow-glass: 0 8px 32px hsl(210 10% 10% / 0.1);
+    --shadow-floating: 0 20px 60px hsl(212 100% 15% / 0.2);
+    --shadow-accent: 0 4px 20px hsl(25 95% 53% / 0.3);
+    
+    /* Animation Variables */
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-industrial: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --radius: 1.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glass Card Component */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-white/20 shadow-lg;
+  }
+  
+  /* Industrial Button Variants */
+  .btn-industrial {
+    @apply bg-gradient-to-r from-primary to-primary-light text-primary-foreground px-8 py-4 rounded-2xl font-semibold;
+    @apply transition-all duration-300 hover:shadow-floating hover:scale-105;
+    @apply border border-primary/20;
+  }
+  
+  .btn-energy {
+    @apply bg-gradient-to-r from-accent to-accent-dark text-accent-foreground px-8 py-4 rounded-2xl font-semibold;
+    @apply transition-all duration-300 hover:shadow-accent hover:scale-105;
+  }
+  
+  .btn-ghost-industrial {
+    @apply bg-transparent border-2 border-primary text-primary px-8 py-4 rounded-2xl font-semibold;
+    @apply transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-105;
+  }
+  
+  /* Floating Animation */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Pulse Glow Effect */
+  .pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  
+  /* Fade In Up Animation */
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  
+  /* Stagger Animation Delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  .delay-600 { animation-delay: 0.6s; }
+}
+
+@layer utilities {
+  /* Custom Gradients */
+  .bg-gradient-industrial {
+    background: var(--gradient-industrial);
+  }
+  
+  .bg-gradient-energy {
+    background: var(--gradient-energy);
+  }
+  
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-gradient-glass {
+    background: var(--gradient-glass);
+  }
+  
+  /* Custom Shadows */
+  .shadow-industrial {
+    box-shadow: var(--shadow-industrial);
+  }
+  
+  .shadow-glass {
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .shadow-floating {
+    box-shadow: var(--shadow-floating);
+  }
+  
+  .shadow-accent {
+    box-shadow: var(--shadow-accent);
+  }
+}
+
+/* Keyframe Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--accent) / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(var(--accent) / 0.6); }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .btn-industrial,
+  .btn-energy,
+  .btn-ghost-industrial {
+    @apply px-6 py-3 text-sm;
+  }
+}

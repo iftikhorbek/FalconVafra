@@ -18,10 +18,15 @@ import silverTower1 from "@/assets/silver tower1.png";
 import silverTower2 from "@/assets/silver tower2.png";
 import silverTower3 from "@/assets/silver tower3.png";
 import silverTower4 from "@/assets/silver tower4.png";
+import manhattan1 from "@/assets/manhattan1.png";
+import manhattan2 from "@/assets/manhattan2.png";
+import manhattan3 from "@/assets/manhattan3.png";
+import manhattan4 from "@/assets/manhattan4.png";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
   const [silverTowerImageIndex, setSilverTowerImageIndex] = useState(0);
+  const [manhattanImageIndex, setManhattanImageIndex] = useState(0);
 
   // Silver Tower image carousel
   const silverTowerImages = [
@@ -29,6 +34,14 @@ const Projects = () => {
     silverTower2,
     silverTower3,
     silverTower4
+  ];
+
+  // Manhattan Complex image carousel
+  const manhattanImages = [
+    manhattan1,
+    manhattan2,
+    manhattan3,
+    manhattan4
   ];
 
   const projects = [
@@ -50,8 +63,8 @@ const Projects = () => {
     },
     {
       name: "Manhattan Complex",
-      location: "Tashkent, Uzbekistan", 
-      type: "Mixed-Use Development",
+      location: "Tashkent, Uzbekistan",
+      type: "Residential",
       year: "2023",
       units: "800+ windows",
       profile: "6-Chamber Advanced",
@@ -59,8 +72,10 @@ const Projects = () => {
       challenges: ["Large scale production", "Multiple specifications", "Tight deadlines"],
       solutions: ["Advance 81mm system", "Flexible production scheduling", "Quality assurance protocols"],
       results: ["On-time delivery", "Zero defects", "Long-term partnership"],
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
-      category: "Mixed-Use"
+      image: manhattan1,
+      category: "Residential",
+      hasCarousel: true,
+      carouselImages: manhattanImages
     },
     {
       name: "Rohat - Olmos",
@@ -109,11 +124,22 @@ const Projects = () => {
     setSilverTowerImageIndex((prev) => (prev - 1 + silverTowerImages.length) % silverTowerImages.length);
   };
 
-  // Reset carousel when switching to Silver Tower
+  // Manhattan Complex carousel navigation
+  const nextManhattanImage = () => {
+    setManhattanImageIndex((prev) => (prev + 1) % manhattanImages.length);
+  };
+
+  const prevManhattanImage = () => {
+    setManhattanImageIndex((prev) => (prev - 1 + manhattanImages.length) % manhattanImages.length);
+  };
+
+  // Reset carousel when switching projects
   const handleProjectSelect = (index) => {
     setActiveProject(index);
     if (index === 0) { // Silver Tower is first project
       setSilverTowerImageIndex(0);
+    } else if (index === 1) { // Manhattan Complex is second project
+      setManhattanImageIndex(0);
     }
   };
 
@@ -257,8 +283,9 @@ const Projects = () => {
           <div className="space-y-8">
             {/* Large Project Image */}
             <div className="relative overflow-hidden rounded-3xl shadow-floating">
-              {/* Conditional rendering: Carousel for Silver Tower, single image for others */}
+              {/* Conditional rendering: Carousel for projects with hasCarousel, single image for others */}
               {activeProject === 0 ? (
+                /* Silver Tower Carousel */
                 <>
                   {/* Left Arrow for Silver Tower */}
                   <button
@@ -301,6 +328,50 @@ const Projects = () => {
                     ))}
                   </div>
                 </>
+              ) : activeProject === 1 ? (
+                /* Manhattan Complex Carousel */
+                <>
+                  {/* Left Arrow for Manhattan */}
+                  <button
+                    onClick={prevManhattanImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Previous Manhattan image"
+                  >
+                    <ChevronLeft size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Right Arrow for Manhattan */}
+                  <button
+                    onClick={nextManhattanImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Next Manhattan image"
+                  >
+                    <ChevronRight size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Manhattan Carousel Image */}
+                  <img
+                    src={manhattanImages[manhattanImageIndex]}
+                    alt={`Manhattan Complex view ${manhattanImageIndex + 1}`}
+                    className="w-full h-[400px] object-cover transition-opacity duration-300"
+                  />
+
+                  {/* Progress Indicators for Manhattan */}
+                  <div className="absolute top-6 right-6 flex space-x-2">
+                    {manhattanImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setManhattanImageIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          manhattanImageIndex === index
+                            ? 'bg-white scale-125'
+                            : 'bg-white/50 hover:bg-white/80'
+                        }`}
+                        aria-label={`Go to Manhattan image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
               ) : (
                 /* Regular single image for other projects */
                 <img
@@ -311,7 +382,7 @@ const Projects = () => {
               )}
 
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
-              {activeProject !== 0 && (
+              {activeProject !== 0 && activeProject !== 1 && (
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="glass-card p-4">
                     <h4 className="text-white font-semibold text-lg">{projects[activeProject].name}</h4>

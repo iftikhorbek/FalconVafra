@@ -40,14 +40,16 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <img
-              src={isScrolled ? falconLogo : falconLogoWhite}
-              alt="Falcon by Vafra Group"
-              className={cn(
-                "transition-all duration-300",
-                isScrolled ? "h-10" : "h-12"
-              )}
-            />
+            <a href="#home" className="transition-transform duration-300 hover:scale-105">
+              <img
+                src={isScrolled ? falconLogo : falconLogoWhite}
+                alt="Falcon by Vafra Group"
+                className={cn(
+                  "transition-all duration-300",
+                  isScrolled ? "h-10" : "h-12"
+                )}
+              />
+            </a>
           </div>
 
           {/* Desktop Navigation */}

@@ -314,14 +314,14 @@ const Products = () => {
                       />
                     ))}
                   </div>
+                </div>
 
-                  {/* Capacity Badge */}
-                  <div className="absolute top-6 right-6">
-                    <div className="glass-card p-4 float-animation rounded-2xl border-2 border-primary">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-black">1,000m²</div>
-                        <div className="text-black/80 text-sm">Daily Capacity</div>
-                      </div>
+                {/* Capacity Badge - Outside image container */}
+                <div className="absolute -top-6 -right-6 z-30">
+                  <div className="glass-card p-4 float-animation rounded-2xl border-2 border-primary">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-black">1,000m²</div>
+                      <div className="text-black/80 text-sm">Daily Capacity</div>
                     </div>
                   </div>
                 </div>

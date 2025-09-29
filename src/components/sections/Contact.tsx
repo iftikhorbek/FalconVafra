@@ -21,7 +21,7 @@ const Contact = () => {
     name: "",
     company: "",
     email: "",
-    phone: "",
+    phone: "+998 ",
     projectType: "",
     message: ""
   });
@@ -33,10 +33,61 @@ const Contact = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    const { name, value } = e.target;
+
+    if (name === 'phone') {
+      // Ensure +998 is always present and not deletable
+      if (!value.startsWith('+998 ')) {
+        setFormData(prev => ({
+          ...prev,
+          [name]: '+998 '
+        }));
+        return;
+      }
+
+      // Extract only the numbers after +998
+      const numbersAfter998 = value.slice(5).replace(/\D/g, '');
+      let formatted = '+998 ';
+
+      if (numbersAfter998.length <= 2) {
+        formatted += `(${numbersAfter998}`;
+      } else if (numbersAfter998.length <= 5) {
+        formatted += `(${numbersAfter998.slice(0, 2)}) ${numbersAfter998.slice(2)}`;
+      } else if (numbersAfter998.length <= 7) {
+        formatted += `(${numbersAfter998.slice(0, 2)}) ${numbersAfter998.slice(2, 5)}-${numbersAfter998.slice(5)}`;
+      } else {
+        formatted += `(${numbersAfter998.slice(0, 2)}) ${numbersAfter998.slice(2, 5)}-${numbersAfter998.slice(5, 7)}-${numbersAfter998.slice(7, 9)}`;
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        [name]: formatted
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
+  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const input = e.target as HTMLInputElement;
+    const cursorPos = input.selectionStart || 0;
+
+    // Prevent deletion of "+998 " prefix
+    if ((e.key === 'Backspace' || e.key === 'Delete') && cursorPos <= 5) {
+      e.preventDefault();
+    }
+  };
+
+  const handlePhoneFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const input = e.target;
+    // Set cursor position after "+998 " when focusing
+    setTimeout(() => {
+      const pos = Math.max(5, input.value.length);
+      input.setSelectionRange(pos, pos);
+    }, 0);
   };
 
   const contactMethods = [
@@ -263,10 +314,10 @@ const Contact = () => {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col">
+                <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Full Name *</label>
+                    <label className="block text-sm font-medium mb-1">Full Name *</label>
                     <Input
                       name="name"
                       value={formData.name}
@@ -277,7 +328,7 @@ const Contact = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Company</label>
+                    <label className="block text-sm font-medium mb-1">Company</label>
                     <Input
                       name="company"
                       value={formData.company}
@@ -288,9 +339,9 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Email Address *</label>
+                    <label className="block text-sm font-medium mb-1">Email Address *</label>
                     <Input
                       type="email"
                       name="email"
@@ -299,23 +350,34 @@ const Contact = () => {
                       placeholder="your.email@example.com"
                       required
                       className="h-12"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Phone Number</label>
-                    <Input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+998 XX XXX XX XX"
-                      className="h-12"
-                    />
+                    <label className="block text-sm font-medium mb-1">Phone Number</label>
+                    <div className="relative">
+                      <Input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        onKeyDown={handlePhoneKeyDown}
+                        onFocus={handlePhoneFocus}
+                        className="h-12"
+                        maxLength={19}
+                      />
+                      {formData.phone === "+998 " && (
+                        <div className="absolute inset-0 flex items-center px-3 pointer-events-none text-muted-foreground">
+                          <span className="invisible">+998 </span>
+                          <span>(XX) XXX-XX-XX</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Project Type</label>
+                  <label className="block text-sm font-medium mb-1">Project Type</label>
                   <select
                     name="projectType"
                     value={formData.projectType}
@@ -332,7 +394,7 @@ const Contact = () => {
                 </div>
 
                 <div className="flex-1 flex flex-col">
-                  <label className="block text-sm font-medium mb-2">Project Details</label>
+                  <label className="block text-sm font-medium mb-1">Project Details</label>
                   <Textarea
                     name="message"
                     value={formData.message}

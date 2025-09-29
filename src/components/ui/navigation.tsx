@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import falconLogo from "@/assets/falcon.png";
+import falconLogoWhite from "@/assets/falcon logo white.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex items-center">
             <img
-              src={falconLogo}
+              src={isScrolled ? falconLogo : falconLogoWhite}
               alt="Falcon by Vafra Group"
               className={cn(
                 "transition-all duration-300",

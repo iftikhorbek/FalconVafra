@@ -9,7 +9,6 @@ import {
   Mail,
   MapPin,
   Send,
-  MessageCircle,
   Building2,
   Instagram,
   ExternalLink,
@@ -196,15 +195,12 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Email Addresses */}
+                {/* Email Address */}
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
                     <Mail className="text-primary" size={18} />
                   </div>
-                  <div className="space-y-0.5">
-                    <div className="text-sm text-muted-foreground">pulodteshaev@gmail.com</div>
-                    <div className="text-sm text-muted-foreground">falcon.kompen.profil@gmail.com</div>
-                  </div>
+                  <div className="text-sm text-muted-foreground">pulodteshaev@gmail.com</div>
                 </div>
 
                 {/* Telegram */}

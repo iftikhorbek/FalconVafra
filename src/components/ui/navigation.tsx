@@ -88,8 +88,8 @@ const Navigation = () => {
                 )}
               </div>
             ))}
-            <Button className="btn-energy ml-4">
-              Get Quote
+            <Button asChild className="btn-energy ml-4">
+              <a href="#contact">Get Quote</a>
             </Button>
           </div>
 
@@ -123,8 +123,8 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
-              <Button className="btn-energy w-full mt-4">
-                Get Quote
+              <Button asChild className="btn-energy w-full mt-4">
+                <a href="#contact">Get Quote</a>
               </Button>
             </div>
           </div>

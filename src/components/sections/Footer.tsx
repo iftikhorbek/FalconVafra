@@ -1,14 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
+import {
+  Phone,
+  Mail,
+  MapPin,
   MessageCircle,
   Facebook,
   Instagram,
-  Linkedin,
-  Youtube,
+  Send,
   Award,
   Shield,
   Leaf,
@@ -46,10 +45,10 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/falconprofil", label: "Facebook" },
+    { icon: Instagram, href: "https://www.instagram.com/falcon_window_systems", label: "Instagram" },
+    { icon: Send, href: "https://t.me/bussinesuzbekistan", label: "Telegram" },
+    { icon: MapPin, href: "https://yandex.uz/maps/-/CLucARlJ", label: "Maps" },
   ];
 
   return (
@@ -78,8 +77,8 @@ const Footer = () => {
               </div>
               
               <p className="text-white/90 leading-relaxed">
-                Uzbekistan's leading manufacturer of premium PVC profiles and modern glass units. 
-                Delivering excellence through innovation and quality since 2008.
+                Uzbekistan's leading manufacturer of premium PVC profiles and modern glass units.
+                Delivering excellence through innovation and quality since 2003.
               </p>
 
               {/* Key Features */}
@@ -211,7 +210,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex items-center space-x-3">
-                  <MessageCircle className="text-accent" size={18} />
+                  <Send className="text-accent" size={18} />
                   <div className="text-sm text-white/80">
                     t.me/bussinesuzbekistan
                   </div>
@@ -219,8 +218,8 @@ const Footer = () => {
               </div>
 
               {/* CTA Button */}
-              <Button className="btn-energy w-full">
-                Get Free Quote
+              <Button asChild className="btn-energy w-full">
+                <a href="#contact">Get Free Quote</a>
               </Button>
             </div>
           </div>
@@ -229,34 +228,13 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-white/20">
           <div className="container mx-auto px-6 py-6">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-              
-              <div className="text-center md:text-left">
-                <p className="text-white/80 text-sm">
-                  © 2024 Falcon by Vafra Group. All rights reserved.
-                </p>
-                <p className="text-white/60 text-xs mt-1">
-                  Premium PVC windows and glass solutions since 2008
-                </p>
-              </div>
-
-              <div className="flex items-center space-x-6">
-                <a href="#" className="text-white/80 hover:text-accent text-sm transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="#" className="text-white/80 hover:text-accent text-sm transition-colors">
-                  Terms of Service
-                </a>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={scrollToTop}
-                  className="text-white/80 hover:text-accent hover:bg-white/10"
-                >
-                  <ArrowUp size={16} className="mr-1" />
-                  Back to Top
-                </Button>
-              </div>
+            <div className="text-center">
+              <p className="text-white/80 text-sm">
+                © 2024 Falcon by Vafra Group. All rights reserved.
+              </p>
+              <p className="text-white/60 text-xs mt-1">
+                Premium PVC windows and glass solutions since 2003
+              </p>
             </div>
           </div>
         </div>

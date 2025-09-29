@@ -17,6 +17,12 @@ import {
   Download
 } from "lucide-react";
 import glassProcessingImage from "@/assets/glass-processing.jpg";
+import windows1 from "@/assets/windows1.png";
+import windows2 from "@/assets/windows2.png";
+import windows3 from "@/assets/windows3.png";
+import windows4 from "@/assets/windows4.png";
+import windows5 from "@/assets/windows5.png";
+import windows6 from "@/assets/windows6.png";
 
 const Products = () => {
   const [activeProfile, setActiveProfile] = useState(0);
@@ -51,12 +57,12 @@ const Products = () => {
 
   // Define 6 total images for the carousel
   const allImages = [
-    { icon: Layers, gradient: "from-secondary to-secondary/50", bgColor: "bg-primary/10", iconColor: "text-primary", title: "Profile Showcase 1" },
-    { icon: Shield, gradient: "from-accent/10 to-accent/5", bgColor: "bg-accent/10", iconColor: "text-accent", title: "Profile Showcase 2" },
-    { icon: Award, gradient: "from-primary/10 to-primary/5", bgColor: "bg-primary/10", iconColor: "text-primary", title: "Profile Showcase 3" },
-    { icon: Thermometer, gradient: "from-success/10 to-success/5", bgColor: "bg-success/10", iconColor: "text-success", title: "Advanced Profile 1" },
-    { icon: Volume2, gradient: "from-purple-100 to-purple-50", bgColor: "bg-purple-100", iconColor: "text-purple-600", title: "Advanced Profile 2" },
-    { icon: Zap, gradient: "from-orange-100 to-orange-50", bgColor: "bg-orange-100", iconColor: "text-orange-600", title: "Premium Profile" }
+    { src: windows1, title: "Profile Showcase 1" },
+    { src: windows2, title: "Profile Showcase 2" },
+    { src: windows3, title: "Profile Showcase 3" },
+    { src: windows4, title: "Advanced Profile 1" },
+    { src: windows5, title: "Advanced Profile 2" },
+    { src: windows6, title: "Premium Profile" }
   ];
 
   // Get current visible images (3 at a time)
@@ -180,7 +186,7 @@ const Products = () => {
             {/* Creative Image Showroom */}
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold mb-4">Creative Image Showroom</h3>
+                <h3 className="text-3xl font-bold mb-4">Profile Showroom</h3>
                 <p className="text-muted-foreground text-lg">
                   Discover our premium PVC profile solutions through our visual showcase
                 </p>
@@ -209,16 +215,14 @@ const Products = () => {
                 {/* Image Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-500">
                   {getVisibleImages().map((image, index) => {
-                    const IconComponent = image.icon;
                     return (
-                      <Card key={`${currentStartIndex}-${index}`} className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group">
-                        <div className={`w-full h-full bg-gradient-to-br ${image.gradient} rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}>
-                          <div className="text-center">
-                            <div className={`w-16 h-16 mx-auto mb-4 ${image.bgColor} rounded-2xl flex items-center justify-center`}>
-                              <IconComponent className={image.iconColor} size={24} />
-                            </div>
-                            <p className="text-muted-foreground text-sm">{image.title}</p>
-                          </div>
+                      <Card key={`${currentStartIndex}-${index}`} className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group overflow-hidden">
+                        <div className="w-full h-full rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                          <img
+                            src={image.src}
+                            alt={image.title}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                       </Card>
                     );

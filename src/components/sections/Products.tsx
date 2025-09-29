@@ -224,7 +224,7 @@ const Products = () => {
                   
                   {/* Capacity Badge */}
                   <div className="absolute top-6 right-6">
-                    <div className="glass-card p-4 float-animation rounded-2xl">
+                    <div className="glass-card p-4 float-animation rounded-2xl border-2 border-primary">
                       <div className="text-center">
                         <div className="text-2xl font-bold text-black">1,000m²</div>
                         <div className="text-black/80 text-sm">Daily Capacity</div>
@@ -235,7 +235,7 @@ const Products = () => {
 
                 {/* Equipment Info */}
                 <div className="absolute -bottom-6 left-6 right-6">
-                  <Card className="p-6 shadow-floating bg-gradient-industrial text-white border-0 rounded-2xl">
+                  <Card className="p-6 shadow-floating bg-gradient-industrial text-white border-2 border-primary rounded-2xl">
                     <div className="flex items-center space-x-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
                         <Zap className="text-white" size={20} />
@@ -259,30 +259,25 @@ const Products = () => {
                   </p>
                 </div>
 
-                <div className="space-y-6">
-                  {glassTypes.map((glass, index) => (
-                    <Card key={index} className="p-6 hover:shadow-industrial transition-all duration-300 group">
-                      <div className="flex items-start space-x-4">
-                        <div className="p-3 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                          <Volume2 className="text-primary" size={20} />
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">
-                            {glass.name}
-                          </h4>
-                          <p className="text-muted-foreground mb-4">{glass.description}</p>
-                          <div className="flex flex-wrap gap-2">
-                            {glass.features.map((feature, fIndex) => (
-                              <Badge key={fIndex} variant="secondary" className="text-xs">
-                                {feature}
-                              </Badge>
-                            ))}
-                          </div>
+                <Card className="p-6 shadow-md border rounded-2xl bg-gradient-to-br from-white to-secondary/20">
+                  <div className="space-y-4">
+                    {glassTypes.map((glass, index) => (
+                      <div key={index} className="group">
+                        <h4 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
+                          {glass.name}
+                        </h4>
+                        <p className="text-muted-foreground mb-2 text-sm">{glass.description}</p>
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {glass.features.map((feature, fIndex) => (
+                            <Badge key={fIndex} variant="secondary" className="text-xs">
+                              {feature}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
-                    </Card>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </Card>
               </div>
             </div>
           </TabsContent>

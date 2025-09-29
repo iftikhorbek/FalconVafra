@@ -170,7 +170,7 @@ const About = () => {
             </div>
             
             {/* Floating Stats */}
-            <div className="absolute -top-6 -right-6 glass-card p-4 float-animation">
+            <div className="absolute -top-6 -right-6 glass-card p-4 float-animation rounded-2xl border-2 border-primary">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">50+</div>
                 <div className="text-sm text-muted-foreground">Equipment Types</div>

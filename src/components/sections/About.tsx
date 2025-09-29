@@ -144,7 +144,7 @@ const About = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
           {/* Left - Image */}
-          <div className="relative">
+          <div className="relative mt-12">
             <div className="relative overflow-hidden rounded-3xl shadow-floating">
               <img 
                 src={pvcProfilesImage} 
@@ -179,33 +179,33 @@ const About = () => {
           </div>
 
           {/* Right - Advantages */}
-          <div className="space-y-8">
+          <div className="space-y-4">
             <div>
-              <h3 className="text-3xl font-bold mb-6">Why Choose Falcon?</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                Our commitment to excellence drives everything we do. From sourcing premium materials 
-                to implementing cutting-edge manufacturing processes, we ensure every window meets 
+              <h3 className="text-3xl font-bold mb-3">Why Choose Falcon?</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                Our commitment to excellence drives everything we do. From sourcing premium materials
+                to implementing cutting-edge manufacturing processes, we ensure every window meets
                 the highest international standards.
               </p>
             </div>
 
-            <Card className="p-6 border shadow-md">
-              <div className="grid gap-4">
+            <Card className="p-4 border shadow-md">
+              <div className="grid gap-3">
                 {advantages.map((advantage, index) => {
                   const IconComponent = advantage.icon;
                   return (
                     <div
                       key={index}
-                      className="flex items-start space-x-4 group"
+                      className="flex items-start space-x-3 group"
                     >
-                      <div className="p-3 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="text-primary" size={20} />
+                      <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="text-primary" size={18} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
+                        <h4 className="font-semibold text-base mb-1 group-hover:text-primary transition-colors">
                           {advantage.title}
                         </h4>
-                        <p className="text-muted-foreground">{advantage.description}</p>
+                        <p className="text-muted-foreground text-sm">{advantage.description}</p>
                       </div>
                     </div>
                   );

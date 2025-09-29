@@ -16,13 +16,16 @@ import {
   ChevronRight,
   Download
 } from "lucide-react";
-import glassProcessingImage from "@/assets/glass-processing.jpg";
 import windows1 from "@/assets/windows1.png";
 import windows2 from "@/assets/windows2.png";
 import windows3 from "@/assets/windows3.png";
 import windows4 from "@/assets/windows4.png";
 import windows5 from "@/assets/windows5.png";
 import windows6 from "@/assets/windows6.png";
+import instruments1 from "@/assets/instruments1.png";
+import instruments2 from "@/assets/instruments2.png";
+import instruments3 from "@/assets/instruments3.png";
+import instruments4 from "@/assets/instruments4.png";
 
 const Products = () => {
   const [activeProfile, setActiveProfile] = useState(0);
@@ -31,25 +34,25 @@ const Products = () => {
 
   const profileSystems = [];
 
-  // Define 4 glass processing images for carousel
+  // Define 4 instruments images for carousel
   const glassProcessingImages = [
     {
-      src: glassProcessingImage,
+      src: instruments1,
       alt: "Advanced glass processing equipment and precision manufacturing",
       title: "Precision Manufacturing"
     },
     {
-      src: glassProcessingImage, // Placeholder - you can replace with actual different images
+      src: instruments2,
       alt: "Double glazing assembly process",
       title: "Double Glazing Assembly"
     },
     {
-      src: glassProcessingImage, // Placeholder - you can replace with actual different images
+      src: instruments3,
       alt: "Quality control and testing",
       title: "Quality Control"
     },
     {
-      src: glassProcessingImage, // Placeholder - you can replace with actual different images
+      src: instruments4,
       alt: "Final inspection and packaging",
       title: "Final Inspection"
     }
@@ -295,12 +298,6 @@ const Products = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
 
-                  {/* Image Title */}
-                  <div className="absolute bottom-6 left-6">
-                    <div className="glass-card p-3 rounded-xl">
-                      <h3 className="text-white font-semibold">{glassProcessingImages[currentGlassImage].title}</h3>
-                    </div>
-                  </div>
 
                   {/* Progress Indicators */}
                   <div className="absolute bottom-6 right-6 flex space-x-2">
@@ -329,20 +326,6 @@ const Products = () => {
                   </div>
                 </div>
 
-                {/* Equipment Info */}
-                <div className="absolute -bottom-6 left-6 right-6">
-                  <Card className="p-6 shadow-floating bg-gradient-industrial text-white border-2 border-primary rounded-2xl">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-                        <Zap className="text-white" size={20} />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-white">Advanced Equipment</h4>
-                        <p className="text-sm text-white/80">Bilge Cam Makina & Isıcam Sinerji</p>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
               </div>
 
               {/* Glass Types */}

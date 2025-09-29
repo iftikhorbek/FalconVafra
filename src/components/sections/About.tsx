@@ -155,9 +155,9 @@ const About = () => {
               
               {/* Quality Badge Overlay */}
               <div className="absolute bottom-6 left-6 right-6">
-                <div className="glass-card p-4">
+                <div className="bg-gradient-to-r from-primary/90 to-primary-dark/90 backdrop-blur-xl border border-white/20 shadow-lg rounded-xl p-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-success to-success-light rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
                       <Award className="text-white" size={20} />
                     </div>
                     <div>

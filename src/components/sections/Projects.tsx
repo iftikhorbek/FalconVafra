@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Building2, 
-  MapPin, 
-  Users, 
-  Clock, 
+import {
+  Building2,
+  MapPin,
+  Users,
+  Clock,
   Award,
   ArrowRight,
   Star,
@@ -75,26 +75,6 @@ const Projects = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      client: "Silver Tower Development",
-      role: "Project Manager",
-      content: "Falcon delivered exceptional quality windows that exceeded our expectations. The sound insulation is remarkable.",
-      rating: 5
-    },
-    {
-      client: "Manhattan Construction",
-      role: "Chief Engineer", 
-      content: "Professional service, on-time delivery, and superior product quality. Highly recommended for large projects.",
-      rating: 5
-    },
-    {
-      client: "Rohat Development",
-      role: "Architect",
-      content: "The windows perfectly match our design requirements while providing excellent energy efficiency.",
-      rating: 5
-    }
-  ];
 
   const stats = [
     { label: "Projects Completed", value: "500+", icon: Building2 },
@@ -237,32 +217,6 @@ const Projects = () => {
               </Card>
             </div>
 
-            {/* Challenges & Solutions */}
-            <div className="grid gap-6">
-              <div>
-                <h4 className="font-bold text-lg mb-4">Challenges</h4>
-                <div className="space-y-2">
-                  {projects[activeProject].challenges.map((challenge, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-3 bg-destructive/5 rounded-xl">
-                      <div className="w-2 h-2 bg-destructive rounded-full mt-2"></div>
-                      <span className="text-sm">{challenge}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h4 className="font-bold text-lg mb-4">Solutions</h4>
-                <div className="space-y-2">
-                  {projects[activeProject].solutions.map((solution, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-3 bg-success/5 rounded-xl">
-                      <div className="w-2 h-2 bg-success rounded-full mt-2"></div>
-                      <span className="text-sm">{solution}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Project Image & Testimonials */}
@@ -283,31 +237,6 @@ const Projects = () => {
               </div>
             </div>
 
-            {/* Client Testimonials */}
-            <div className="space-y-4">
-              <h4 className="font-bold text-lg">Client Testimonials</h4>
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="p-6 hover:shadow-industrial transition-all duration-300">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-industrial rounded-full flex items-center justify-center">
-                      <Users className="text-white" size={20} />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        {Array.from({length: testimonial.rating}).map((_, i) => (
-                          <Star key={i} size={16} className="fill-accent text-accent" />
-                        ))}
-                      </div>
-                      <p className="text-muted-foreground mb-3 italic">"{testimonial.content}"</p>
-                      <div>
-                        <div className="font-semibold">{testimonial.client}</div>
-                        <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
           </div>
         </div>
 

@@ -22,11 +22,20 @@ import manhattan1 from "@/assets/manhattan1.png";
 import manhattan2 from "@/assets/manhattan2.png";
 import manhattan3 from "@/assets/manhattan3.png";
 import manhattan4 from "@/assets/manhattan4.png";
+import rohatOlmos1 from "@/assets/rohat olmos1.png";
+import rohatOlmos2 from "@/assets/rohat olmos2.png";
+import rohatOlmos3 from "@/assets/rohat olmos3.png";
+import rohatOlmos4 from "@/assets/rohat olmos4.png";
+import gagarinAvenue1 from "@/assets/gagarin avenue1.png";
+import gagarinAvenue2 from "@/assets/gagarin avenue2.png";
+import gagarinAvenue3 from "@/assets/gagarin avenue3.png";
+import gagarinAvenue4 from "@/assets/gagarin avenue4.png";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
   const [silverTowerImageIndex, setSilverTowerImageIndex] = useState(0);
   const [manhattanImageIndex, setManhattanImageIndex] = useState(0);
+  const [rohatOlmosImageIndex, setRohatOlmosImageIndex] = useState(0);
 
   // Silver Tower image carousel
   const silverTowerImages = [
@@ -42,6 +51,14 @@ const Projects = () => {
     manhattan2,
     manhattan3,
     manhattan4
+  ];
+
+  // Rohat Olmos image carousel
+  const rohatOlmosImages = [
+    rohatOlmos1,
+    rohatOlmos2,
+    rohatOlmos3,
+    rohatOlmos4
   ];
 
   const projects = [
@@ -80,16 +97,18 @@ const Projects = () => {
     {
       name: "Rohat - Olmos",
       location: "Tashkent, Uzbekistan",
-      type: "Commercial Office",
-      year: "2022", 
+      type: "Residential",
+      year: "2023",
       units: "300+ windows",
       profile: "5-Chamber Standard",
       description: "Modern office complex requiring energy-efficient solutions and professional aesthetics.",
       challenges: ["Commercial grade requirements", "Design specifications", "Weather resistance"],
       solutions: ["5-chamber profiles", "Special glazing", "Architectural finishes"],
       results: ["LEED compliance", "Enhanced building value", "Tenant satisfaction"],
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
-      category: "Commercial"
+      image: rohatOlmos1,
+      category: "Residential",
+      hasCarousel: true,
+      carouselImages: rohatOlmosImages
     },
     {
       name: "Gagarin Avenue",
@@ -133,6 +152,15 @@ const Projects = () => {
     setManhattanImageIndex((prev) => (prev - 1 + manhattanImages.length) % manhattanImages.length);
   };
 
+  // Rohat Olmos carousel navigation
+  const nextRohatOlmosImage = () => {
+    setRohatOlmosImageIndex((prev) => (prev + 1) % rohatOlmosImages.length);
+  };
+
+  const prevRohatOlmosImage = () => {
+    setRohatOlmosImageIndex((prev) => (prev - 1 + rohatOlmosImages.length) % rohatOlmosImages.length);
+  };
+
   // Reset carousel when switching projects
   const handleProjectSelect = (index) => {
     setActiveProject(index);
@@ -140,6 +168,8 @@ const Projects = () => {
       setSilverTowerImageIndex(0);
     } else if (index === 1) { // Manhattan Complex is second project
       setManhattanImageIndex(0);
+    } else if (index === 2) { // Rohat Olmos is third project
+      setRohatOlmosImageIndex(0);
     }
   };
 
@@ -372,6 +402,50 @@ const Projects = () => {
                     ))}
                   </div>
                 </>
+              ) : activeProject === 2 ? (
+                /* Rohat Olmos Carousel */
+                <>
+                  {/* Left Arrow for Rohat Olmos */}
+                  <button
+                    onClick={prevRohatOlmosImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Previous Rohat Olmos image"
+                  >
+                    <ChevronLeft size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Right Arrow for Rohat Olmos */}
+                  <button
+                    onClick={nextRohatOlmosImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+                    aria-label="Next Rohat Olmos image"
+                  >
+                    <ChevronRight size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  </button>
+
+                  {/* Rohat Olmos Carousel Image */}
+                  <img
+                    src={rohatOlmosImages[rohatOlmosImageIndex]}
+                    alt={`Rohat Olmos view ${rohatOlmosImageIndex + 1}`}
+                    className="w-full h-[400px] object-cover transition-opacity duration-300"
+                  />
+
+                  {/* Progress Indicators for Rohat Olmos */}
+                  <div className="absolute top-6 right-6 flex space-x-2">
+                    {rohatOlmosImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setRohatOlmosImageIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          rohatOlmosImageIndex === index
+                            ? 'bg-white scale-125'
+                            : 'bg-white/50 hover:bg-white/80'
+                        }`}
+                        aria-label={`Go to Rohat Olmos image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
               ) : (
                 /* Regular single image for other projects */
                 <img
@@ -382,7 +456,7 @@ const Projects = () => {
               )}
 
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
-              {activeProject !== 0 && activeProject !== 1 && (
+              {activeProject !== 0 && activeProject !== 1 && activeProject !== 2 && (
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="glass-card p-4">
                     <h4 className="text-white font-semibold text-lg">{projects[activeProject].name}</h4>

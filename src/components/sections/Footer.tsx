@@ -27,12 +27,12 @@ const Footer = () => {
   ];
 
   const productLinks = [
-    { name: "4-Chamber Profiles", href: "#products" },
-    { name: "5-Chamber Profiles", href: "#products" },
-    { name: "6-Chamber Profiles", href: "#products" },
-    { name: "7-Chamber Profiles", href: "#products" },
-    { name: "Premium Lines", href: "#products" },
-    { name: "Glass Units", href: "#products" },
+    { name: "Residential Projects", href: "#projects" },
+    { name: "Commercial Buildings", href: "#projects" },
+    { name: "Industrial Facilities", href: "#projects" },
+    { name: "High-Rise Developments", href: "#projects" },
+    { name: "Premium Installations", href: "#projects" },
+    { name: "Custom Solutions", href: "#projects" },
   ];
 
   const certifications = [
@@ -142,7 +142,7 @@ const Footer = () => {
 
             {/* Products */}
             <div className="space-y-6">
-              <h4 className="text-xl font-bold">Our Products</h4>
+              <h4 className="text-xl font-bold">Our Projects</h4>
               <div className="space-y-3">
                 {productLinks.map((link, index) => (
                   <a

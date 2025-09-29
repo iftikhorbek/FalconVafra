@@ -19,15 +19,11 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", href: "#home" },
-    { 
-      name: "Company", 
-      href: "#company",
-      dropdown: ["About Us", "Infrastructure", "Certifications"]
-    },
-    { 
-      name: "Products", 
+    { name: "Company", href: "#company" },
+    {
+      name: "Products",
       href: "#products",
-      dropdown: ["PVC Profiles", "Glass Units", "Windows & Doors"]
+      dropdown: ["PVC Profiles", "Glass Units"]
     },
     { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },

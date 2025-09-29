@@ -80,7 +80,7 @@ const Projects = () => {
     { label: "Projects Completed", value: "500+", icon: Building2 },
     { label: "Windows Installed", value: "50,000+", icon: Award },
     { label: "Client Satisfaction", value: "98%", icon: Star },
-    { label: "Years Experience", value: "15+", icon: Clock }
+    { label: "Years Experience", value: "20+", icon: Clock }
   ];
 
   return (

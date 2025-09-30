@@ -265,9 +265,9 @@ const Products = () => {
                           isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
                         }`}
                       >
-                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-500">
+                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-500 border-2 border-transparent group-hover:border-accent">
                           {/* Glow Effect Border */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent-light to-accent rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
 
                           {/* Image Container */}
                           <div className="relative bg-slate-900 rounded-2xl overflow-hidden aspect-square">
@@ -395,9 +395,9 @@ const Products = () => {
                 {glassTypes.map((glass, index) => (
                   <div
                     key={index}
-                    className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-accent/30"
+                    className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 hover:scale-105 transition-all duration-500 shadow-xl border-2 border-transparent group-hover:border-accent"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent-light to-accent rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
 
                     <div className="relative bg-slate-900 rounded-xl p-4 flex items-start gap-4">
                       <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-accent/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">

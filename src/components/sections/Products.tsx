@@ -34,7 +34,7 @@ const Products = () => {
   const [activeProfile, setActiveProfile] = useState(0);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [currentGlassImage, setCurrentGlassImage] = useState(0);
+  const [activeGlassIndex, setActiveGlassIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("profiles");
 
   const profileSystems = [];
@@ -101,14 +101,16 @@ const Products = () => {
     return () => clearInterval(interval);
   }, [carouselApi, currentSlide]); // Reset timer when currentSlide changes
 
-  // Auto-advance glass images every 7 seconds
+  // Auto-advance glass images every 7 seconds (infinite loop, resets on manual navigation)
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
+      setActiveGlassIndex((prev) =>
+        prev < glassProcessingImages.length - 1 ? prev + 1 : 0
+      );
     }, 7000);
 
     return () => clearInterval(interval);
-  }, [glassProcessingImages.length]);
+  }, [glassProcessingImages.length, activeGlassIndex]);
 
   // Handle URL hash to switch tabs
   useEffect(() => {
@@ -129,13 +131,17 @@ const Products = () => {
     };
   }, []);
 
-  // Navigation functions for glass images
+  // Navigation functions for glass images (infinite loop)
   const nextGlassImage = () => {
-    setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
+    setActiveGlassIndex((prev) =>
+      prev < glassProcessingImages.length - 1 ? prev + 1 : 0
+    );
   };
 
   const prevGlassImage = () => {
-    setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
+    setActiveGlassIndex((prev) =>
+      prev > 0 ? prev - 1 : glassProcessingImages.length - 1
+    );
   };
 
   const premiumLines = [
@@ -328,22 +334,51 @@ const Products = () => {
 
             <div className="grid lg:grid-cols-2 gap-6 items-center">
 
-              {/* Hero Image - Compact */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20">
-                <div className="relative h-[50vh] min-h-[400px] overflow-hidden">
-                  <img
-                    key={currentGlassImage}
-                    src={glassProcessingImages[currentGlassImage].src}
-                    alt={glassProcessingImages[currentGlassImage].alt}
-                    className="w-full h-full object-cover carousel-image-smooth hover:scale-105"
-                  />
+              {/* Hero Image - 3D Carousel */}
+              <div className="relative rounded-2xl overflow-visible">
+                <div className="glass-carousel relative h-[50vh] min-h-[400px]">
+                  {glassProcessingImages.map((image, index) => {
+                    // Calculate circular offset for infinite loop appearance
+                    let rawOffset = activeGlassIndex - index;
+                    const imageCount = glassProcessingImages.length;
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#002952]/90 via-[#002952]/30 to-transparent"></div>
+                    // Wrap offset to create circular effect
+                    if (rawOffset > imageCount / 2) {
+                      rawOffset -= imageCount;
+                    } else if (rawOffset < -imageCount / 2) {
+                      rawOffset += imageCount;
+                    }
 
-                  {/* Navigation */}
+                    const offset = rawOffset / 3;
+                    const direction = Math.sign(rawOffset);
+                    const absOffset = Math.abs(rawOffset) / 3;
+                    const isActive = index === activeGlassIndex ? 1 : 0;
+
+                    return (
+                      <div
+                        key={index}
+                        className="glass-card-container rounded-2xl overflow-hidden shadow-2xl shadow-primary/20"
+                        style={{
+                          '--active': isActive,
+                          '--offset': offset,
+                          '--direction': direction,
+                          '--abs-offset': absOffset,
+                        } as React.CSSProperties}
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#002952]/90 via-[#002952]/30 to-transparent pointer-events-none"></div>
+                      </div>
+                    );
+                  })}
+
+                  {/* Navigation - Always visible (infinite loop) */}
                   <button
                     onClick={prevGlassImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-gradient-to-r from-accent to-accent-dark rounded-lg flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group backdrop-blur-xl"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-[100] w-10 h-10 bg-gradient-to-r from-accent to-accent-dark rounded-lg flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group backdrop-blur-xl"
                     aria-label="Previous glass image"
                   >
                     <ChevronLeft size={20} className="text-white group-hover:scale-105 transition-transform duration-300" />
@@ -351,26 +386,25 @@ const Products = () => {
 
                   <button
                     onClick={nextGlassImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-gradient-to-r from-accent to-accent-dark rounded-lg flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group backdrop-blur-xl"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-[100] w-10 h-10 bg-gradient-to-r from-accent to-accent-dark rounded-lg flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group backdrop-blur-xl"
                     aria-label="Next glass image"
                   >
                     <ChevronRight size={20} className="text-white group-hover:scale-105 transition-transform duration-300" />
                   </button>
 
-
                   {/* Progress Indicators */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/30 backdrop-blur-xl px-4 py-2 rounded-full">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/30 backdrop-blur-xl px-4 py-2 rounded-full z-[100]">
                     {glassProcessingImages.map((_, index) => (
                       <button
                         key={index}
-                        onClick={() => setCurrentGlassImage(index)}
+                        onClick={() => setActiveGlassIndex(index)}
                         className={`relative rounded-full transition-all duration-400 ${
-                          currentGlassImage === index ? 'w-8 h-2' : 'w-2 h-2 hover:w-3'
+                          activeGlassIndex === index ? 'w-8 h-2' : 'w-2 h-2 hover:w-3'
                         }`}
                         aria-label={`Go to image ${index + 1}`}
                       >
                         <div className={`absolute inset-0 rounded-full transition-all duration-400 ${
-                          currentGlassImage === index
+                          activeGlassIndex === index
                             ? 'bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50'
                             : 'bg-white/40 hover:bg-white/60'
                         }`}></div>

@@ -35,6 +35,8 @@ const Products = () => {
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
   const [activeTab, setActiveTab] = useState("profiles");
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [slideOffset, setSlideOffset] = useState(0);
+  const [animatingDirection, setAnimatingDirection] = useState<'left' | 'right' | null>(null);
 
   const profileSystems = [];
 
@@ -72,12 +74,19 @@ const Products = () => {
     { src: windows6, title: "Premium Profile" }
   ];
 
-  // Get current visible images (3 at a time)
+  // Get visible images (4 at a time during transition, 3 normally)
   const getVisibleImages = () => {
     const visibleImages = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentStartIndex + i) % allImages.length;
-      visibleImages.push(allImages[index]);
+    const count = slideOffset !== 0 ? 4 : 3; // Show 4 during transition
+    const startOffset = slideOffset > 0 ? -1 : 0; // Start from -1 if sliding right
+
+    for (let i = 0; i < count; i++) {
+      const index = (currentStartIndex + startOffset + i + allImages.length) % allImages.length;
+      visibleImages.push({
+        ...allImages[index],
+        position: i,
+        actualIndex: index
+      });
     }
     return visibleImages;
   };
@@ -122,19 +131,31 @@ const Products = () => {
     };
   }, []);
 
-  // Navigation functions for profile carousel with ultra-smooth transitions
+  // Navigation functions for profile carousel with smooth sliding
   const nextImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
-    setTimeout(() => setIsTransitioning(false), 300);
+    setSlideOffset(-100); // Slide left (negative)
+
+    // After animation, update index and reset position
+    setTimeout(() => {
+      setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
+      setSlideOffset(0);
+      setIsTransitioning(false);
+    }, 500);
   };
 
   const prevImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
-    setTimeout(() => setIsTransitioning(false), 300);
+    setSlideOffset(100); // Slide right (positive)
+
+    // After animation, update index and reset position
+    setTimeout(() => {
+      setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+      setSlideOffset(0);
+      setIsTransitioning(false);
+    }, 500);
   };
 
   // Navigation functions for glass images with ultra-smooth transitions
@@ -257,17 +278,28 @@ const Products = () => {
                   <ChevronRight size={24} className="text-white group-hover:scale-105 transition-transform duration-300" />
                 </button>
 
-                {/* 3-Column Grid with Depth */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 relative">
-                  {getVisibleImages().map((image, index) => {
-                    const isCenter = index === 1;
-                    return (
-                      <div
-                        key={`${currentStartIndex}-${index}`}
-                        className={`group relative carousel-item-smooth ${
-                          isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
-                        }`}
-                      >
+                {/* 3-Column Grid with Smooth Sliding */}
+                <div className="relative overflow-hidden">
+                  <div
+                    className="flex gap-4 lg:gap-6"
+                    style={{
+                      transform: `translateX(${slideOffset / 3}%)`,
+                      transition: slideOffset !== 0 ? 'transform 500ms ease-in-out' : 'none'
+                    }}
+                  >
+                    {getVisibleImages().map((image, index) => {
+                      // For sliding right: positions -1,0,1,2 → center is at index 1
+                      // For sliding left: positions 0,1,2,3 → center is at index 1
+                      // For static: positions 0,1,2 → center is at index 1
+                      const isCenter = (slideOffset > 0 ? index === 1 : slideOffset < 0 ? index === 1 : index === 1);
+
+                      return (
+                        <div
+                          key={`${image.actualIndex}-${index}`}
+                          className={`group relative flex-shrink-0 w-full md:w-[calc(33.333%-0.67rem)] ${
+                            isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
+                          } transition-all duration-500`}
+                        >
                         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-500 border-2 border-transparent group-hover:border-accent">
                           {/* Glow Effect Border */}
                           <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent-light to-accent rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
@@ -283,9 +315,10 @@ const Products = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-accent/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Animated Progress Indicators */}

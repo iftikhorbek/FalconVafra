@@ -91,14 +91,16 @@ const Products = () => {
     return visibleImages;
   };
 
-  // Auto-advance carousel every 7 seconds
+  // Auto-advance carousel every 7 seconds (resets on manual navigation)
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
+      if (!isTransitioning) {
+        nextImage();
+      }
     }, 7000);
 
     return () => clearInterval(interval);
-  }, [allImages.length]);
+  }, [allImages.length, isTransitioning, currentStartIndex]); // Reset when currentStartIndex changes
 
   // Auto-advance glass images every 7 seconds
   useEffect(() => {
@@ -279,9 +281,9 @@ const Products = () => {
                 </button>
 
                 {/* 3-Column Grid with Smooth Sliding */}
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden px-1">
                   <div
-                    className="flex gap-4 lg:gap-6"
+                    className="flex gap-4 lg:gap-6 -mx-1"
                     style={{
                       transform: `translateX(${slideOffset / 3}%)`,
                       transition: slideOffset !== 0 ? 'transform 500ms ease-in-out' : 'none'
@@ -296,7 +298,7 @@ const Products = () => {
                       return (
                         <div
                           key={`${image.actualIndex}-${index}`}
-                          className={`group relative flex-shrink-0 w-full md:w-[calc(33.333%-0.67rem)] ${
+                          className={`group relative flex-shrink-0 w-full md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/3)] ${
                             isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
                           } transition-all duration-500`}
                         >

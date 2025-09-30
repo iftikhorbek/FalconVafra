@@ -386,13 +386,6 @@ const Products = () => {
                     <ChevronRight size={20} className="text-white group-hover:scale-105 transition-transform duration-300" />
                   </button>
 
-                  {/* Capacity Badge */}
-                  <div className="absolute top-4 right-4 bg-gradient-to-r from-accent to-accent-dark rounded-xl px-4 py-2 shadow-xl shadow-accent/30">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-white">1,000m²</div>
-                      <div className="text-white/90 text-xs">{t.products.dailyCapacity}</div>
-                    </div>
-                  </div>
 
                   {/* Progress Indicators */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/30 backdrop-blur-xl px-4 py-2 rounded-full">

@@ -212,44 +212,62 @@ const Products = () => {
 
             {/* Creative Image Showroom */}
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-3">
-                <h3 className="text-lg font-bold">{t.products.profileShowroom.title}</h3>
-                <p className="text-muted-foreground text-xs">
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold text-primary">{t.products.profileShowroom.title}</h3>
+                <p className="text-muted-foreground text-sm mt-2">
                   {t.products.profileShowroom.description}
                 </p>
               </div>
 
               {/* Carousel Container */}
-              <div className="relative">
+              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-primary/5 via-white to-primary/10 border border-primary/10">
+                {/* Decorative corner accents */}
+                <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-tl-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-primary/20 to-transparent rounded-br-3xl"></div>
+
                 {/* Left Arrow */}
                 <button
                   onClick={prevImage}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 group"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-primary hover:to-primary/80 hover:text-white transition-all duration-300 group border-2 border-primary/20 hover:border-primary/40"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft size={20} className="group-hover:scale-110 transition-transform" />
+                  <ChevronLeft size={20} className="group-hover:scale-110 group-hover:-translate-x-0.5 transition-transform" />
                 </button>
 
                 {/* Right Arrow */}
                 <button
                   onClick={nextImage}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 group"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-primary hover:to-primary/80 hover:text-white transition-all duration-300 group border-2 border-primary/20 hover:border-primary/40"
                   aria-label="Next image"
                 >
-                  <ChevronRight size={20} className="group-hover:scale-110 transition-transform" />
+                  <ChevronRight size={20} className="group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
                 </button>
 
                 {/* Image Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 transition-all duration-500">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {getVisibleImages().map((image, index) => {
                     return (
-                      <Card key={`${currentStartIndex}-${index}`} className="p-2 hover:shadow-industrial transition-all duration-300 aspect-square group overflow-hidden">
-                        <div className="w-full h-full rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                      <Card
+                        key={`${currentStartIndex}-${index}`}
+                        className="relative p-3 hover:shadow-2xl transition-all duration-500 aspect-square group overflow-hidden border-2 border-primary/10 hover:border-primary/40 hover:-translate-y-2 bg-gradient-to-br from-white to-primary/5"
+                      >
+                        {/* Gradient overlay on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 rounded-xl"></div>
+
+                        {/* Corner decoration */}
+                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-primary/20 to-transparent rounded-tr-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+
+                        <div className="w-full h-full rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-500 shadow-md">
                           <img
                             src={image.src}
                             alt={image.title}
                             className="w-full h-full object-cover"
                           />
+                        </div>
+
+                        {/* Image number badge */}
+                        <div className="absolute bottom-4 left-4 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 border border-primary/20">
+                          <span className="text-primary text-xs font-bold">{(currentStartIndex + index) % allImages.length + 1}/{allImages.length}</span>
                         </div>
                       </Card>
                     );
@@ -257,15 +275,15 @@ const Products = () => {
                 </div>
 
                 {/* Progress Indicators */}
-                <div className="flex justify-center mt-2 space-x-1">
+                <div className="flex justify-center mt-6 space-x-2">
                   {allImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentStartIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      className={`rounded-full transition-all duration-300 ${
                         currentStartIndex === index
-                          ? 'bg-primary scale-110'
-                          : 'bg-secondary hover:bg-primary/50'
+                          ? 'bg-gradient-to-r from-primary to-primary/80 w-8 h-2.5 shadow-lg shadow-primary/30'
+                          : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
                       }`}
                       aria-label={`Start from image ${index + 1}`}
                     />
@@ -274,15 +292,15 @@ const Products = () => {
               </div>
 
               {/* Call to Action */}
-              <div className="flex flex-col sm:flex-row gap-2 justify-center mt-3">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                 <Button
-                  className="btn-energy group"
+                  className="btn-energy group transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                   onClick={() => window.open('https://t.me/bussinesuzbekistan/25183', '_blank')}
                 >
-                  <Download className="mr-2 h-5 w-5" />
+                  <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
                   {t.products.actions.downloadCatalog}
                 </Button>
-                <Button asChild className="btn-energy group">
+                <Button asChild className="btn-energy group transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                   <a href="#contact">
                     {t.products.actions.requestSpecs}
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

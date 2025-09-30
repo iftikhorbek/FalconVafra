@@ -33,7 +33,7 @@ export const uz = {
 
   // Company Section
   company: {
-    badge: "Falcon by Vafra Group haqida",
+    badge: "Biz haqimizda",
     title: "Deraza ishlab chiqarishda",
     titleAccent: "Sanoat mukammalligi",
     description: "O'zbekistonning eng yirik PVX profili ishlab chiqaruvchilaridan biri sifatida, biz zamonaviy uskunalar bilan to'liq ishlab chiqarish tsiklini amalga oshiramiz va yirik qurilish loyihalari uchun yuqori sifatli derazalar yetkazib beramiz.",
@@ -65,7 +65,7 @@ export const uz = {
       }
     },
     advantages: {
-      title: "Nima uchun Falcon'ni tanlash kerak?",
+      title: "Nima uchun biz?",
       description: "Mukammallikka bo'lgan sodiqlilgimiz qilayotgan barcha ishlarimizni belgilaydi. Premium materiallarni sotib olishdan tortib, ilg'or ishlab chiqarish jarayonlarini joriy etishgacha, biz har bir deraza eng yuqori xalqaro standartlarga javob berishini ta'minlaymiz.",
       qualityBadge: {
         title: "Premium sifat",

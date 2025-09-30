@@ -33,7 +33,7 @@ export const en = {
 
   // Company Section
   company: {
-    badge: "About Falcon by Vafra Group",
+    badge: "About Us",
     title: "Industrial Excellence in",
     titleAccent: "Window Manufacturing",
     description: "As one of Uzbekistan's largest PVC profile manufacturers, we operate a complete production cycle with state-of-the-art equipment, delivering superior quality windows for major construction projects.",
@@ -65,7 +65,7 @@ export const en = {
       }
     },
     advantages: {
-      title: "Why Choose Falcon?",
+      title: "Why Choose Us?",
       description: "Our commitment to excellence drives everything we do. From sourcing premium materials to implementing cutting-edge manufacturing processes, we ensure every window meets the highest international standards.",
       qualityBadge: {
         title: "Premium Quality",

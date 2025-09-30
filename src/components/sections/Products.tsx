@@ -34,7 +34,7 @@ const Products = () => {
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
   const [activeTab, setActiveTab] = useState("profiles");
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const profileSystems = [];
 
@@ -122,42 +122,34 @@ const Products = () => {
     };
   }, []);
 
-  // Navigation functions for profile carousel with slide transitions
+  // Navigation functions for profile carousel with smooth transitions
   const nextImage = () => {
-    if (slideDirection) return;
-    setSlideDirection('left');
-    setTimeout(() => {
-      setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
-      setTimeout(() => setSlideDirection(null), 50);
-    }, 400);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
   const prevImage = () => {
-    if (slideDirection) return;
-    setSlideDirection('right');
-    setTimeout(() => {
-      setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
-      setTimeout(() => setSlideDirection(null), 50);
-    }, 400);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
-  // Navigation functions for glass images with slide transitions
+  // Navigation functions for glass images with smooth transitions
   const nextGlassImage = () => {
-    if (slideDirection) return;
-    setSlideDirection('left');
-    setTimeout(() => {
-      setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
-      setTimeout(() => setSlideDirection(null), 50);
-    }, 400);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
   const prevGlassImage = () => {
-    if (slideDirection) return;
-    setSlideDirection('right');
-    setTimeout(() => {
-      setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
-      setTimeout(() => setSlideDirection(null), 50);
-    }, 400);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
+    setTimeout(() => setIsTransitioning(false), 700);
   };
 
   const premiumLines = [
@@ -263,22 +255,15 @@ const Products = () => {
                 </button>
 
                 {/* 3-Column Grid with Depth */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 relative overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 relative">
                   {getVisibleImages().map((image, index) => {
                     const isCenter = index === 1;
                     return (
                       <div
                         key={`${currentStartIndex}-${index}`}
-                        className={`group relative transition-all duration-400 ${
+                        className={`group relative transition-all duration-700 ease-out ${
                           isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
-                        } ${
-                          slideDirection === 'left' ? 'animate-slideOutLeft' :
-                          slideDirection === 'right' ? 'animate-slideOutRight' :
-                          'animate-slideIn'
                         }`}
-                        style={{
-                          animationDelay: slideDirection ? `${index * 50}ms` : '0ms'
-                        }}
                       >
                         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-300">
                           {/* Glow Effect Border */}
@@ -360,11 +345,7 @@ const Products = () => {
                     key={currentGlassImage}
                     src={glassProcessingImages[currentGlassImage].src}
                     alt={glassProcessingImages[currentGlassImage].alt}
-                    className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300 ${
-                      slideDirection === 'left' ? 'animate-slideOutLeft' :
-                      slideDirection === 'right' ? 'animate-slideOutRight' :
-                      'animate-slideIn'
-                    }`}
+                    className="w-full h-full object-cover hover:scale-105 transition-all duration-700 ease-out"
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-[#002952]/90 via-[#002952]/30 to-transparent"></div>

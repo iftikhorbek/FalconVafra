@@ -258,6 +258,39 @@
   to { transform: scale(1); opacity: 1; }
 }
 
+/* Smooth Carousel Slide Animations - Conveyor Belt Style */
+@keyframes carouselSlideLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes carouselSlideRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Carousel Animation Classes */
+.carousel-slide-left {
+  animation: carouselSlideLeft 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide-right {
+  animation: carouselSlideRight 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth transition for carousel container */
+.carousel-container {
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Responsive Utilities */
 @media (max-width: 768px) {
   .btn-industrial,

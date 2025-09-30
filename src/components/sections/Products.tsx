@@ -198,7 +198,7 @@ const Products = () => {
 
         {/* Product Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
-          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-9 p-0.5 bg-secondary rounded-lg">
+          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-9 p-0.5 bg-secondary rounded-lg mb-10">
             <TabsTrigger value="profiles" className="text-xs font-semibold rounded-md">
               {t.products.tabs.profiles}
             </TabsTrigger>
@@ -208,7 +208,7 @@ const Products = () => {
           </TabsList>
 
           {/* PVC Profiles Tab */}
-          <TabsContent value="profiles" className="mt-3" id="pvc-profiles">
+          <TabsContent value="profiles" className="mt-10" id="pvc-profiles">
 
             {/* Creative Image Showroom */}
             <div className="max-w-6xl mx-auto">
@@ -293,8 +293,8 @@ const Products = () => {
           </TabsContent>
 
           {/* Glass Units Tab */}
-          <TabsContent value="glass" className="mt-3" id="glass-units">
-            <div className="grid lg:grid-cols-2 gap-4 items-center">
+          <TabsContent value="glass" className="mt-10" id="glass-units">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
               
               {/* Glass Processing Image Carousel */}
               <div className="relative">

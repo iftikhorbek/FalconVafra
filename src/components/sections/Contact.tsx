@@ -240,7 +240,7 @@ const Contact = () => {
 
               {/* Yandex Map */}
               <div className="mt-6">
-                <div className="relative w-full h-[250px] rounded-xl overflow-hidden shadow-lg">
+                <div className="relative w-full h-[250px] rounded-xl overflow-hidden shadow-lg border-2 border-border">
                   <iframe
                     src="https://yandex.uz/map-widget/v1/-/CLucARlJ"
                     width="100%"

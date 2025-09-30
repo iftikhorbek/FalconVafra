@@ -32,6 +32,7 @@ const Products = () => {
   const { t } = useLanguage();
   const [activeProfile, setActiveProfile] = useState(0);
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
+  const [targetIndex, setTargetIndex] = useState(0); // For smooth dot transitions
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
   const [activeTab, setActiveTab] = useState("profiles");
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -143,12 +144,15 @@ const Products = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
 
+    // Update target index immediately for dot animation
+    const newIndex = (currentStartIndex + 1) % allImages.length;
+    setTargetIndex(newIndex);
+
     // Start sliding left
     setSlideOffset(-100);
 
-    // After animation completes, update index and reset position
+    // After animation completes, update actual index and reset position
     setTimeout(() => {
-      const newIndex = (currentStartIndex + 1) % allImages.length;
       setCurrentStartIndex(newIndex);
       setSlideOffset(0);
       setIsTransitioning(false);
@@ -159,12 +163,15 @@ const Products = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
 
+    // Update target index immediately for dot animation
+    const newIndex = (currentStartIndex - 1 + allImages.length) % allImages.length;
+    setTargetIndex(newIndex);
+
     // Start sliding right
     setSlideOffset(100);
 
-    // After animation completes, update index and reset position
+    // After animation completes, update actual index and reset position
     setTimeout(() => {
-      const newIndex = (currentStartIndex - 1 + allImages.length) % allImages.length;
       setCurrentStartIndex(newIndex);
       setSlideOffset(0);
       setIsTransitioning(false);
@@ -343,16 +350,19 @@ const Products = () => {
                   {allImages.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentStartIndex(index)}
+                      onClick={() => {
+                        setCurrentStartIndex(index);
+                        setTargetIndex(index);
+                      }}
                       className={`relative rounded-full transition-all duration-500 ease-in-out ${
-                        currentStartIndex === index
+                        targetIndex === index
                           ? 'w-10 h-2.5'
                           : 'w-2.5 h-2.5 hover:w-3'
                       }`}
                       aria-label={`Go to image ${index + 1}`}
                     >
                       <div className={`absolute inset-0 rounded-full transition-all duration-500 ease-in-out ${
-                        currentStartIndex === index
+                        targetIndex === index
                           ? 'bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50'
                           : 'bg-gray-700 hover:bg-gray-500'
                       }`}></div>

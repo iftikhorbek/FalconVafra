@@ -182,16 +182,6 @@ const Footer = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3">
-                  <MapPin className="text-accent mt-1" size={18} />
-                  <div>
-                    <div className="font-medium">{t.footer.locations.samarkandBranch}</div>
-                    <div className="text-white/80 text-sm">
-                      {t.footer.locations.samarkandAddress}
-                    </div>
-                  </div>
-                </div>
-
                 <div className="flex items-center space-x-3">
                   <Phone className="text-accent" size={18} />
                   <div>

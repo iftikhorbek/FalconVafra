@@ -139,14 +139,6 @@ const Contact = () => {
       type: "Manufacturing Facility",
       features: ["Full Production Line", "Quality Lab", "Showroom"],
       mapLink: "https://yandex.uz/maps/-/CLucARlJ"
-    },
-    {
-      title: "Samarkand Branch",
-      address: "Dashteobod Street",
-      city: "Samarkand, Uzbekistan",
-      type: "Regional Office",
-      features: ["Sales Office", "Local Support", "Consultation"],
-      mapLink: "https://yandex.uz/maps/-/CLucIKLi"
     }
   ];
 
@@ -255,33 +247,35 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Samarkand Address */}
-                <div className="flex items-start space-x-3">
-                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <MapPin className="text-primary" size={18} />
-                  </div>
-                  <div className="space-y-0.5">
-                    <div className="text-sm text-muted-foreground">Dashteobod Street</div>
-                    <div className="text-sm text-muted-foreground">Samarkand, Uzbekistan</div>
-                    <div className="mt-2">
-                      <a
-                        href="https://yandex.uz/maps/-/CLucIKLi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center space-x-1"
-                      >
-                        <span>{t.contact.contactInfo.openOnMaps}</span>
-                        <ExternalLink size={14} />
-                      </a>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="mt-4 pt-4 border-t border-border">
                 <p className="text-xs text-muted-foreground text-center">
                   {t.contact.contactInfo.responseTime}
                 </p>
+              </div>
+
+              {/* Yandex Map */}
+              <div className="mt-6">
+                <div className="relative w-full h-[250px] rounded-xl overflow-hidden shadow-lg">
+                  <iframe
+                    src="https://yandex.uz/map-widget/v1/-/CLucARlJ"
+                    width="100%"
+                    height="250"
+                    frameBorder="0"
+                    allowFullScreen
+                    className="rounded-xl"
+                  ></iframe>
+                </div>
+                <a
+                  href="https://yandex.uz/maps/-/CLucARlJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center space-x-1 text-sm text-primary hover:text-primary/80 transition-colors"
+                >
+                  <span>{t.contact.contactInfo.openOnMaps}</span>
+                  <ExternalLink size={14} />
+                </a>
               </div>
             </Card>
           </div>

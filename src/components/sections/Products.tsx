@@ -74,40 +74,21 @@ const Products = () => {
     { src: windows6, title: "Premium Profile" }
   ];
 
-  // Get visible images (4 at a time during transition, 3 normally)
+  // Always render 5 images: 1 hidden left + 3 visible + 1 hidden right
   const getVisibleImages = () => {
     const visibleImages = [];
 
-    if (slideOffset > 0) {
-      // Sliding right (prev) - show previous image on left
-      for (let i = -1; i < 3; i++) {
-        const index = (currentStartIndex + i + allImages.length) % allImages.length;
-        visibleImages.push({
-          ...allImages[index],
-          position: i,
-          actualIndex: index
-        });
-      }
-    } else if (slideOffset < 0) {
-      // Sliding left (next) - show next image on right
-      for (let i = -1; i < 3; i++) {
-        const index = (currentStartIndex + i + allImages.length) % allImages.length;
-        visibleImages.push({
-          ...allImages[index],
-          position: i,
-          actualIndex: index
-        });
-      }
-    } else {
-      // Static - show 3 images
-      for (let i = 0; i < 3; i++) {
-        const index = (currentStartIndex + i) % allImages.length;
-        visibleImages.push({
-          ...allImages[index],
-          position: i,
-          actualIndex: index
-        });
-      }
+    // Always render 5 boxes at positions: -1, 0, 1, 2, 3
+    // Position -1: hidden on left (off-screen)
+    // Positions 0, 1, 2: visible center (3 boxes)
+    // Position 3: hidden on right (off-screen)
+    for (let i = -1; i < 4; i++) {
+      const index = (currentStartIndex + i + allImages.length) % allImages.length;
+      visibleImages.push({
+        ...allImages[index],
+        position: i,
+        actualIndex: index
+      });
     }
 
     return visibleImages;
@@ -160,13 +141,13 @@ const Products = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
 
-    // Update index immediately so dots transition in parallel
-    const newIndex = (currentStartIndex + 1) % allImages.length;
-    setCurrentStartIndex(newIndex);
-    setSlideOffset(-100); // Slide left (negative)
+    // Start sliding left
+    setSlideOffset(-100);
 
-    // After animation, reset position
+    // After animation completes, update index and reset position
     setTimeout(() => {
+      const newIndex = (currentStartIndex + 1) % allImages.length;
+      setCurrentStartIndex(newIndex);
       setSlideOffset(0);
       setIsTransitioning(false);
     }, 500);
@@ -176,13 +157,13 @@ const Products = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
 
-    // Update index immediately so dots transition in parallel
-    const newIndex = (currentStartIndex - 1 + allImages.length) % allImages.length;
-    setCurrentStartIndex(newIndex);
-    setSlideOffset(100); // Slide right (positive)
+    // Start sliding right
+    setSlideOffset(100);
 
-    // After animation, reset position
+    // After animation completes, update index and reset position
     setTimeout(() => {
+      const newIndex = (currentStartIndex - 1 + allImages.length) % allImages.length;
+      setCurrentStartIndex(newIndex);
       setSlideOffset(0);
       setIsTransitioning(false);
     }, 500);
@@ -311,17 +292,20 @@ const Products = () => {
                 {/* 3-Column Grid with Smooth Sliding */}
                 <div className="relative overflow-hidden px-1">
                   <div
-                    className="flex gap-4 lg:gap-6 -mx-1"
+                    className="flex gap-4 lg:gap-6"
                     style={{
-                      transform: `translateX(${slideOffset / 3}%)`,
+                      // slideOffset: 100 (prev) = slide right by 33.33%
+                      // slideOffset: -100 (next) = slide left by -33.33%
+                      // slideOffset: 0 (static) = no movement
+                      transform: `translateX(calc(${slideOffset / 3}% + ${slideOffset > 0 ? '1.333rem' : slideOffset < 0 ? '-1.333rem' : '0px'}))`,
                       transition: slideOffset !== 0 ? 'transform 500ms ease-in-out' : 'none'
                     }}
                   >
                     {getVisibleImages().map((image, index) => {
-                      // For sliding right: positions -1,0,1,2 → center is at index 1
-                      // For sliding left: positions 0,1,2,3 → center is at index 1
-                      // For static: positions 0,1,2 → center is at index 1
-                      const isCenter = (slideOffset > 0 ? index === 1 : slideOffset < 0 ? index === 1 : index === 1);
+                      // We always have 5 boxes at indices: 0, 1, 2, 3, 4
+                      // Positions: -1, 0, 1, 2, 3
+                      // Center visible box is at index 2 (position 1)
+                      const isCenter = index === 2;
 
                       return (
                         <div

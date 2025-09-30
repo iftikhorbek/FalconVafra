@@ -233,26 +233,9 @@ const Contact = () => {
                   <div className="space-y-0.5">
                     <div className="text-sm text-muted-foreground">Yangihayot district, Yangi Kipchok mahalla</div>
                     <div className="text-sm text-muted-foreground">Tashkent, Uzbekistan</div>
-                    <div className="mt-2">
-                      <a
-                        href="https://yandex.uz/maps/-/CLucARlJ"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center space-x-1"
-                      >
-                        <span>{t.contact.contactInfo.openOnMaps}</span>
-                        <ExternalLink size={14} />
-                      </a>
-                    </div>
                   </div>
                 </div>
 
-              </div>
-
-              <div className="mt-4 pt-4 border-t border-border">
-                <p className="text-xs text-muted-foreground text-center">
-                  {t.contact.contactInfo.responseTime}
-                </p>
               </div>
 
               {/* Yandex Map */}
@@ -267,15 +250,6 @@ const Contact = () => {
                     className="rounded-xl"
                   ></iframe>
                 </div>
-                <a
-                  href="https://yandex.uz/maps/-/CLucARlJ"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center space-x-1 text-sm text-primary hover:text-primary/80 transition-colors"
-                >
-                  <span>{t.contact.contactInfo.openOnMaps}</span>
-                  <ExternalLink size={14} />
-                </a>
               </div>
             </Card>
           </div>

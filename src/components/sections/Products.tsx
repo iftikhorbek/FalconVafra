@@ -122,34 +122,34 @@ const Products = () => {
     };
   }, []);
 
-  // Navigation functions for profile carousel with smooth transitions
+  // Navigation functions for profile carousel with ultra-smooth transitions
   const nextImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
-    setTimeout(() => setIsTransitioning(false), 700);
+    setTimeout(() => setIsTransitioning(false), 800);
   };
 
   const prevImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
-    setTimeout(() => setIsTransitioning(false), 700);
+    setTimeout(() => setIsTransitioning(false), 800);
   };
 
-  // Navigation functions for glass images with smooth transitions
+  // Navigation functions for glass images with ultra-smooth transitions
   const nextGlassImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
-    setTimeout(() => setIsTransitioning(false), 700);
+    setTimeout(() => setIsTransitioning(false), 800);
   };
 
   const prevGlassImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
-    setTimeout(() => setIsTransitioning(false), 700);
+    setTimeout(() => setIsTransitioning(false), 800);
   };
 
   const premiumLines = [
@@ -261,20 +261,20 @@ const Products = () => {
                     return (
                       <div
                         key={`${currentStartIndex}-${index}`}
-                        className={`group relative transition-all duration-700 ease-out ${
+                        className={`group relative carousel-item-smooth ${
                           isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
                         }`}
                       >
-                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-300">
+                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-500">
                           {/* Glow Effect Border */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
 
                           {/* Image Container */}
                           <div className="relative bg-slate-900 rounded-2xl overflow-hidden aspect-square">
                             <img
                               src={image.src}
                               alt={image.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              className="w-full h-full object-cover carousel-image-smooth group-hover:scale-105"
                             />
                             {/* Gradient Overlay on Hover */}
                             <div className="absolute inset-0 bg-gradient-to-t from-accent/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -345,7 +345,7 @@ const Products = () => {
                     key={currentGlassImage}
                     src={glassProcessingImages[currentGlassImage].src}
                     alt={glassProcessingImages[currentGlassImage].alt}
-                    className="w-full h-full object-cover hover:scale-105 transition-all duration-700 ease-out"
+                    className="w-full h-full object-cover carousel-image-smooth hover:scale-105"
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-[#002952]/90 via-[#002952]/30 to-transparent"></div>

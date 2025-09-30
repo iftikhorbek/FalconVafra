@@ -201,7 +201,7 @@ const Products = () => {
 
         {/* Compact Header */}
         <div className="text-center mb-8">
-          <Badge className="mb-3 px-4 py-1.5 bg-accent/20 border border-accent/40 text-accent backdrop-blur-xl shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 transition-all duration-300">
+          <Badge className="mb-3 px-4 py-1.5 bg-accent/20 border border-accent/40 text-accent backdrop-blur-xl">
             {t.products.badge}
           </Badge>
           <h2 className="text-4xl lg:text-6xl font-space font-bold tracking-tight mb-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">

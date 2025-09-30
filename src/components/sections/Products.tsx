@@ -212,17 +212,17 @@ const Products = () => {
           <Badge className="mb-3 px-4 py-1.5 bg-accent/20 border border-accent/40 text-accent backdrop-blur-xl shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 transition-all duration-300">
             {t.products.badge}
           </Badge>
-          <h2 className="text-3xl lg:text-5xl font-space font-bold tracking-tight mb-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-6xl font-space font-bold tracking-tight mb-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
             {t.products.title}
           </h2>
-          <p className="text-lg lg:text-xl font-light text-accent mb-1">
+          <p className="text-4xl lg:text-6xl font-space font-bold text-accent mb-1">
             {t.products.titleAccent}
           </p>
         </div>
 
         {/* Compact Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 h-12 p-1.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 h-12 p-1.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl">
             <TabsTrigger
               value="profiles"
               className="text-sm font-semibold text-gray-400 rounded-lg transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-primary/50"

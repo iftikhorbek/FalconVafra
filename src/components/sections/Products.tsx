@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -34,9 +34,7 @@ const Products = () => {
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
   const [activeTab, setActiveTab] = useState("profiles");
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
 
   const profileSystems = [];
 
@@ -124,66 +122,42 @@ const Products = () => {
     };
   }, []);
 
-  // Navigation functions for profile carousel
+  // Navigation functions for profile carousel with slide transitions
   const nextImage = () => {
-    setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
+    if (slideDirection) return;
+    setSlideDirection('left');
+    setTimeout(() => {
+      setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
+      setTimeout(() => setSlideDirection(null), 50);
+    }, 400);
   };
 
   const prevImage = () => {
-    setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+    if (slideDirection) return;
+    setSlideDirection('right');
+    setTimeout(() => {
+      setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+      setTimeout(() => setSlideDirection(null), 50);
+    }, 400);
   };
 
-  // Touch/swipe handlers for profile carousel
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX.current - touchEndX.current > 50) {
-      // Swipe left
-      nextImage();
-    }
-    if (touchStartX.current - touchEndX.current < -50) {
-      // Swipe right
-      prevImage();
-    }
-  };
-
-  // Mouse/trackpad swipe handlers
-  const handleMouseDown = (e: React.MouseEvent) => {
-    touchStartX.current = e.clientX;
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (e.buttons === 1) { // Only if mouse button is pressed
-      touchEndX.current = e.clientX;
-    }
-  };
-
-  const handleMouseUp = () => {
-    if (touchStartX.current - touchEndX.current > 50) {
-      // Swipe left
-      nextImage();
-    }
-    if (touchStartX.current - touchEndX.current < -50) {
-      // Swipe right
-      prevImage();
-    }
-    touchStartX.current = 0;
-    touchEndX.current = 0;
-  };
-
-  // Navigation functions for glass images
+  // Navigation functions for glass images with slide transitions
   const nextGlassImage = () => {
-    setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
+    if (slideDirection) return;
+    setSlideDirection('left');
+    setTimeout(() => {
+      setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
+      setTimeout(() => setSlideDirection(null), 50);
+    }, 400);
   };
 
   const prevGlassImage = () => {
-    setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
+    if (slideDirection) return;
+    setSlideDirection('right');
+    setTimeout(() => {
+      setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
+      setTimeout(() => setSlideDirection(null), 50);
+    }, 400);
   };
 
   const premiumLines = [
@@ -194,7 +168,7 @@ const Products = () => {
       highlight: "Luxury Series"
     },
     {
-      name: "Advance 81mm", 
+      name: "Advance 81mm",
       description: "Advanced six-chamber system for demanding applications",
       features: ["Enhanced Durability", "Energy Star Rated", "Weather Resistant", "Modern Profile"],
       highlight: "Performance Series"
@@ -224,244 +198,257 @@ const Products = () => {
   ];
 
   return (
-    <section className="py-6 bg-gradient-to-b from-white to-secondary/30" id="products">
-      <div className="container mx-auto px-6">
+    <section className="min-h-screen py-16 bg-gradient-to-br from-[#002952] via-[#001a33] to-[#002952] text-white relative overflow-hidden flex items-center" id="products">
+      {/* Animated Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </div>
 
-        {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-4">
-          <Badge variant="outline" className="mb-1.5 px-2 py-0.5 text-primary border-primary/20 text-xs">
+      <div className="max-w-[1600px] w-full mx-auto px-6 lg:px-12 relative z-10">
+
+        {/* Compact Header */}
+        <div className="text-center mb-8">
+          <Badge className="mb-3 px-4 py-1.5 bg-accent/20 border border-accent/40 text-accent backdrop-blur-xl shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 transition-all duration-300">
             {t.products.badge}
           </Badge>
-          <h2 className="text-4xl lg:text-6xl font-space font-bold mb-1">
+          <h2 className="text-3xl lg:text-5xl font-space font-bold tracking-tight mb-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
             {t.products.title}
-            <span className="block text-accent font-bold">
-              {t.products.titleAccent}
-            </span>
           </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {t.products.description}
+          <p className="text-lg lg:text-xl font-light text-accent mb-1">
+            {t.products.titleAccent}
           </p>
         </div>
 
-        {/* Product Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
-          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-9 p-0.5 bg-secondary rounded-lg mb-10">
-            <TabsTrigger value="profiles" className="text-xs font-semibold rounded-md">
+        {/* Compact Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 h-12 p-1.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl">
+            <TabsTrigger
+              value="profiles"
+              className="text-sm font-semibold text-gray-400 rounded-lg transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-primary/50"
+            >
               {t.products.tabs.profiles}
             </TabsTrigger>
-            <TabsTrigger value="glass" className="text-xs font-semibold rounded-md">
+            <TabsTrigger
+              value="glass"
+              className="text-sm font-semibold text-gray-400 rounded-lg transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-primary/50"
+            >
               {t.products.tabs.glass}
             </TabsTrigger>
           </TabsList>
 
           {/* PVC Profiles Tab */}
-          <TabsContent value="profiles" className="mt-10" id="pvc-profiles">
+          <TabsContent value="profiles" className="mt-8" id="pvc-profiles">
 
-            {/* Creative Image Showroom */}
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-4">
-                <h3 className="text-xl font-bold text-primary">{t.products.profileShowroom.title}</h3>
-                <p className="text-muted-foreground text-sm mt-2">
-                  {t.products.profileShowroom.description}
-                </p>
-              </div>
+            {/* Compact 3D Carousel */}
+            <div className="relative">
 
-              {/* Carousel Container */}
-              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-primary/30 via-primary/20 to-primary/25 border border-primary/30">
-                {/* Decorative corner accents */}
-                <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-tl-3xl"></div>
-                <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-primary/20 to-transparent rounded-br-3xl"></div>
-
-                {/* Left Arrow */}
+              {/* 3D Card Carousel */}
+              <div className="relative px-4 lg:px-16">
+                {/* Navigation Arrows */}
                 <button
                   onClick={prevImage}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-primary hover:to-primary/80 hover:text-white transition-all duration-300 group border-2 border-primary/20 hover:border-primary/40"
+                  className="absolute left-0 lg:-left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-accent to-accent-dark rounded-xl flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft size={20} className="group-hover:scale-110 group-hover:-translate-x-0.5 transition-transform" />
+                  <ChevronLeft size={24} className="text-white group-hover:scale-105 transition-transform duration-300" />
                 </button>
 
-                {/* Right Arrow */}
                 <button
                   onClick={nextImage}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-12 h-12 bg-white shadow-floating rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-primary hover:to-primary/80 hover:text-white transition-all duration-300 group border-2 border-primary/20 hover:border-primary/40"
+                  className="absolute right-0 lg:-right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-accent to-accent-dark rounded-xl flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group"
                   aria-label="Next image"
                 >
-                  <ChevronRight size={20} className="group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight size={24} className="text-white group-hover:scale-105 transition-transform duration-300" />
                 </button>
 
-                {/* Image Grid */}
-                <div
-                  ref={carouselRef}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 cursor-grab active:cursor-grabbing"
-                  onTouchStart={handleTouchStart}
-                  onTouchMove={handleTouchMove}
-                  onTouchEnd={handleTouchEnd}
-                  onMouseDown={handleMouseDown}
-                  onMouseMove={handleMouseMove}
-                  onMouseUp={handleMouseUp}
-                  onMouseLeave={handleMouseUp}
-                >
+                {/* 3-Column Grid with Depth */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 relative overflow-hidden">
                   {getVisibleImages().map((image, index) => {
+                    const isCenter = index === 1;
                     return (
-                      <Card
+                      <div
                         key={`${currentStartIndex}-${index}`}
-                        className="relative p-3 hover:shadow-2xl transition-all duration-500 aspect-square group overflow-hidden border-2 border-primary/10 hover:border-primary/40 hover:-translate-y-2 bg-gradient-to-br from-white to-primary/5 animate-fade-in"
+                        className={`group relative transition-all duration-400 ${
+                          isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
+                        } ${
+                          slideDirection === 'left' ? 'animate-slideOutLeft' :
+                          slideDirection === 'right' ? 'animate-slideOutRight' :
+                          'animate-slideIn'
+                        }`}
                         style={{
-                          animationDelay: `${index * 100}ms`,
-                          animationDuration: '600ms',
-                          animationFillMode: 'backwards'
+                          animationDelay: slideDirection ? `${index * 50}ms` : '0ms'
                         }}
                       >
-                        {/* Gradient overlay on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 rounded-xl"></div>
+                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-300">
+                          {/* Glow Effect Border */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300"></div>
 
-                        {/* Corner decoration */}
-                        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-primary/20 to-transparent rounded-tr-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-
-                        <div className="w-full h-full rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-500 shadow-md">
-                          <img
-                            src={image.src}
-                            alt={image.title}
-                            className="w-full h-full object-cover transition-opacity duration-500"
-                          />
+                          {/* Image Container */}
+                          <div className="relative bg-slate-900 rounded-2xl overflow-hidden aspect-square">
+                            <img
+                              src={image.src}
+                              alt={image.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            {/* Gradient Overlay on Hover */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-accent/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
                         </div>
-
-                        {/* Image number badge */}
-                        <div className="absolute bottom-4 left-4 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 border border-primary/20">
-                          <span className="text-primary text-xs font-bold">{(currentStartIndex + index) % allImages.length + 1}/{allImages.length}</span>
-                        </div>
-                      </Card>
+                      </div>
                     );
                   })}
                 </div>
 
-                {/* Progress Indicators */}
+                {/* Animated Progress Indicators */}
                 <div className="flex justify-center mt-6 space-x-2">
                   {allImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentStartIndex(index)}
-                      className={`rounded-full transition-all duration-300 ${
+                      className={`relative rounded-full transition-all duration-400 ${
                         currentStartIndex === index
-                          ? 'bg-gradient-to-r from-primary to-primary/80 w-8 h-2.5 shadow-lg shadow-primary/30'
-                          : 'bg-primary/20 hover:bg-primary/40 w-2.5 h-2.5'
+                          ? 'w-10 h-2.5'
+                          : 'w-2.5 h-2.5 hover:w-3'
                       }`}
-                      aria-label={`Start from image ${index + 1}`}
-                    />
+                      aria-label={`Go to image ${index + 1}`}
+                    >
+                      <div className={`absolute inset-0 rounded-full transition-all duration-400 ${
+                        currentStartIndex === index
+                          ? 'bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50'
+                          : 'bg-gray-700 hover:bg-gray-500'
+                      }`}></div>
+                    </button>
                   ))}
                 </div>
               </div>
+            </div>
 
-              {/* Call to Action */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                <Button
-                  className="btn-energy group transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
-                  onClick={() => window.open('https://t.me/bussinesuzbekistan/25183', '_blank')}
-                >
-                  <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
+            {/* Compact CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <button
+                className="group relative px-10 py-3 bg-gradient-to-r from-accent to-accent-dark rounded-xl font-semibold text-base overflow-hidden hover:scale-105 transition-all duration-300 shadow-2xl shadow-accent/30 hover:shadow-accent/50"
+                onClick={() => window.open('https://t.me/bussinesuzbekistan/25183', '_blank')}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-accent-dark to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative flex items-center justify-center gap-2">
+                  <Download className="h-4 w-4" />
                   {t.products.actions.downloadCatalog}
-                </Button>
-                <Button asChild className="btn-energy group transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                  <a href="#contact">
-                    {t.products.actions.requestSpecs}
-                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </a>
-                </Button>
-              </div>
+                </div>
+              </button>
+              <a
+                href="#contact"
+                className="group relative px-10 py-3 bg-white/5 backdrop-blur-xl border-2 border-white/20 rounded-xl font-semibold text-base hover:bg-white/10 hover:border-accent/40 hover:scale-105 transition-all duration-300 shadow-2xl text-center"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  {t.products.actions.requestSpecs}
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </a>
             </div>
           </TabsContent>
 
           {/* Glass Units Tab */}
-          <TabsContent value="glass" className="mt-10" id="glass-units">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              
-              {/* Glass Processing Image Carousel */}
-              <div className="relative">
-                <div className="relative overflow-hidden rounded-3xl shadow-floating">
-                  {/* Left Arrow */}
-                  <button
-                    onClick={prevGlassImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
-                    aria-label="Previous glass image"
-                  >
-                    <ChevronLeft size={18} className="text-primary group-hover:scale-110 transition-transform" />
-                  </button>
+          <TabsContent value="glass" className="mt-8" id="glass-units">
 
-                  {/* Right Arrow */}
-                  <button
-                    onClick={nextGlassImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 shadow-lg rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
-                    aria-label="Next glass image"
-                  >
-                    <ChevronRight size={18} className="text-primary group-hover:scale-110 transition-transform" />
-                  </button>
+            <div className="grid lg:grid-cols-2 gap-6 items-center">
 
+              {/* Hero Image - Compact */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20">
+                <div className="relative h-[50vh] min-h-[400px] overflow-hidden">
                   <img
+                    key={currentGlassImage}
                     src={glassProcessingImages[currentGlassImage].src}
                     alt={glassProcessingImages[currentGlassImage].alt}
-                    className="w-full h-[300px] object-cover transition-transform duration-700 hover:scale-105"
+                    className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300 ${
+                      slideDirection === 'left' ? 'animate-slideOutLeft' :
+                      slideDirection === 'right' ? 'animate-slideOutRight' :
+                      'animate-slideIn'
+                    }`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
 
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002952]/90 via-[#002952]/30 to-transparent"></div>
+
+                  {/* Navigation */}
+                  <button
+                    onClick={prevGlassImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-gradient-to-r from-accent to-accent-dark rounded-lg flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group backdrop-blur-xl"
+                    aria-label="Previous glass image"
+                  >
+                    <ChevronLeft size={20} className="text-white group-hover:scale-105 transition-transform duration-300" />
+                  </button>
+
+                  <button
+                    onClick={nextGlassImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-gradient-to-r from-accent to-accent-dark rounded-lg flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group backdrop-blur-xl"
+                    aria-label="Next glass image"
+                  >
+                    <ChevronRight size={20} className="text-white group-hover:scale-105 transition-transform duration-300" />
+                  </button>
+
+                  {/* Capacity Badge */}
+                  <div className="absolute top-4 right-4 bg-gradient-to-r from-accent to-accent-dark rounded-xl px-4 py-2 shadow-xl shadow-accent/30">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">1,000m²</div>
+                      <div className="text-white/90 text-xs">{t.products.dailyCapacity}</div>
+                    </div>
+                  </div>
 
                   {/* Progress Indicators */}
-                  <div className="absolute bottom-6 right-6 flex space-x-2">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/30 backdrop-blur-xl px-4 py-2 rounded-full">
                     {glassProcessingImages.map((_, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentGlassImage(index)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          currentGlassImage === index
-                            ? 'bg-white scale-125'
-                            : 'bg-white/50 hover:bg-white/80'
+                        className={`relative rounded-full transition-all duration-400 ${
+                          currentGlassImage === index ? 'w-8 h-2' : 'w-2 h-2 hover:w-3'
                         }`}
                         aria-label={`Go to image ${index + 1}`}
-                      />
+                      >
+                        <div className={`absolute inset-0 rounded-full transition-all duration-400 ${
+                          currentGlassImage === index
+                            ? 'bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50'
+                            : 'bg-white/40 hover:bg-white/60'
+                        }`}></div>
+                      </button>
                     ))}
                   </div>
                 </div>
-
-                {/* Capacity Badge - Outside image container */}
-                <div className="absolute -top-3 -right-3 z-30">
-                  <div className="glass-card p-2 float-animation rounded-lg border-2 border-primary">
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-black">1,000m²</div>
-                      <div className="text-black/80 text-[10px]">{t.products.dailyCapacity}</div>
-                    </div>
-                  </div>
-                </div>
-
               </div>
 
-              {/* Glass Types */}
-              <div>
-                <div>
-                  <h3 className="text-lg font-bold">{t.products.glassUnits.title}</h3>
-                  <p className="text-muted-foreground text-xs leading-relaxed mb-2">
-                    {t.products.glassUnits.description}
-                  </p>
-                </div>
+              {/* Glass Types - Compact Cards */}
+              <div className="space-y-3">
+                {glassTypes.map((glass, index) => (
+                  <div
+                    key={index}
+                    className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-accent/30"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-300"></div>
 
-                <Card className="p-3 shadow-md border rounded-lg bg-gradient-to-br from-white to-secondary/20">
-                  <div className="space-y-2">
-                    {glassTypes.map((glass, index) => (
-                      <div key={index} className="group">
-                        <h4 className="font-bold text-xs mb-0.5 group-hover:text-primary transition-colors">
+                    <div className="relative bg-slate-900 rounded-xl p-4 flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-accent/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50"></div>
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-lg font-bold mb-1 text-white group-hover:text-accent transition-colors">
                           {glass.name}
                         </h4>
-                        <p className="text-muted-foreground mb-0.5 text-[10px] leading-tight">{glass.description}</p>
-                        <div className="flex flex-wrap gap-0.5 mb-1">
-                          {glass.features.map((feature, fIndex) => (
-                            <Badge key={fIndex} variant="secondary" className="text-[10px] px-1.5 py-0">
+                        <p className="text-gray-400 text-xs mb-2 leading-relaxed line-clamp-2">
+                          {glass.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {glass.features.slice(0, 3).map((feature, fIndex) => (
+                            <span key={fIndex} className="text-[10px] text-gray-500 flex items-center">
+                              <span className="w-1 h-1 rounded-full bg-accent/50 mr-1"></span>
                               {feature}
-                            </Badge>
+                            </span>
                           ))}
                         </div>
                       </div>
-                    ))}
+                    </div>
                   </div>
-                </Card>
+                ))}
               </div>
             </div>
           </TabsContent>

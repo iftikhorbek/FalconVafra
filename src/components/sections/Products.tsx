@@ -220,7 +220,7 @@ const Products = () => {
               </div>
 
               {/* Carousel Container */}
-              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-primary/5 via-white to-primary/10 border border-primary/10">
+              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-primary/30 via-primary/20 to-primary/25 border border-primary/30">
                 {/* Decorative corner accents */}
                 <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-tl-3xl"></div>
                 <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-primary/20 to-transparent rounded-br-3xl"></div>

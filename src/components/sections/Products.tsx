@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Layers,
@@ -31,13 +32,10 @@ import instruments4 from "@/assets/instruments4.png";
 const Products = () => {
   const { t } = useLanguage();
   const [activeProfile, setActiveProfile] = useState(0);
-  const [currentStartIndex, setCurrentStartIndex] = useState(0);
-  const [targetIndex, setTargetIndex] = useState(0); // For smooth dot transitions
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
   const [activeTab, setActiveTab] = useState("profiles");
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [slideOffset, setSlideOffset] = useState(0);
-  const [animatingDirection, setAnimatingDirection] = useState<'left' | 'right' | null>(null);
 
   const profileSystems = [];
 
@@ -75,38 +73,33 @@ const Products = () => {
     { src: windows6, title: "Premium Profile" }
   ];
 
-  // Always render 5 images: 1 hidden left + 3 visible + 1 hidden right
-  const getVisibleImages = () => {
-    const visibleImages = [];
+  // Embla carousel setup
+  useEffect(() => {
+    if (!carouselApi) return;
 
-    // IMPORTANT: Images in boxes should NOT change during transition
-    // They are based on currentStartIndex which only updates AFTER transition ends
-    // The 5 boxes always show: [currentStartIndex-1, currentStartIndex, currentStartIndex+1, currentStartIndex+2, currentStartIndex+3]
-    // At positions: [-1, 0, 1, 2, 3]
-    // During transition, boxes just slide with their images intact
+    // Update current slide on select
+    const onSelect = () => {
+      setCurrentSlide(carouselApi.selectedScrollSnap());
+    };
 
-    for (let i = -1; i < 4; i++) {
-      const index = (currentStartIndex + i + allImages.length) % allImages.length;
-      visibleImages.push({
-        ...allImages[index],
-        position: i,
-        actualIndex: index
-      });
-    }
+    carouselApi.on("select", onSelect);
+    onSelect();
 
-    return visibleImages;
-  };
+    return () => {
+      carouselApi.off("select", onSelect);
+    };
+  }, [carouselApi]);
 
   // Auto-advance carousel every 7 seconds (resets on manual navigation)
   useEffect(() => {
+    if (!carouselApi) return;
+
     const interval = setInterval(() => {
-      if (!isTransitioning) {
-        nextImage();
-      }
+      carouselApi.scrollNext();
     }, 7000);
 
     return () => clearInterval(interval);
-  }, [allImages.length, isTransitioning, currentStartIndex]); // Reset when currentStartIndex changes
+  }, [carouselApi, currentSlide]); // Reset timer when currentSlide changes
 
   // Auto-advance glass images every 7 seconds
   useEffect(() => {
@@ -128,10 +121,7 @@ const Products = () => {
       }
     };
 
-    // Check hash on component mount
     handleHashChange();
-
-    // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
 
     return () => {
@@ -139,58 +129,13 @@ const Products = () => {
     };
   }, []);
 
-  // Navigation functions for profile carousel with smooth sliding
-  const nextImage = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-
-    // Update target index immediately for dot animation
-    const newIndex = (currentStartIndex + 1) % allImages.length;
-    setTargetIndex(newIndex);
-
-    // Start sliding left
-    setSlideOffset(-100);
-
-    // After animation completes, update actual index and reset position
-    setTimeout(() => {
-      setCurrentStartIndex(newIndex);
-      setSlideOffset(0);
-      setIsTransitioning(false);
-    }, 500);
-  };
-
-  const prevImage = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-
-    // Update target index immediately for dot animation
-    const newIndex = (currentStartIndex - 1 + allImages.length) % allImages.length;
-    setTargetIndex(newIndex);
-
-    // Start sliding right
-    setSlideOffset(100);
-
-    // After animation completes, update actual index and reset position
-    setTimeout(() => {
-      setCurrentStartIndex(newIndex);
-      setSlideOffset(0);
-      setIsTransitioning(false);
-    }, 500);
-  };
-
-  // Navigation functions for glass images with ultra-smooth transitions
+  // Navigation functions for glass images
   const nextGlassImage = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
-    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const prevGlassImage = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
-    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const premiumLines = [
@@ -276,100 +221,82 @@ const Products = () => {
           {/* PVC Profiles Tab */}
           <TabsContent value="profiles" className="mt-8" id="pvc-profiles">
 
-            {/* Compact 3D Carousel */}
+            {/* Embla Carousel */}
             <div className="relative">
-
-              {/* 3D Card Carousel */}
-              <div className="relative px-4 lg:px-16">
-                {/* Navigation Arrows */}
-                <button
-                  onClick={prevImage}
-                  className="absolute left-0 lg:-left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-accent to-accent-dark rounded-xl flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft size={24} className="text-white group-hover:scale-105 transition-transform duration-300" />
-                </button>
-
-                <button
-                  onClick={nextImage}
-                  className="absolute right-0 lg:-right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-accent to-accent-dark rounded-xl flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group"
-                  aria-label="Next image"
-                >
-                  <ChevronRight size={24} className="text-white group-hover:scale-105 transition-transform duration-300" />
-                </button>
-
-                {/* 3-Column Grid with Smooth Sliding */}
-                <div className="relative overflow-hidden px-1">
-                  <div
-                    className="flex gap-4 lg:gap-6"
-                    style={{
-                      // Base position: shift left by 1 box width to hide position -1
-                      // slideOffset: 100 (prev) = slide right by 33.33% (brings position -1 into view)
-                      // slideOffset: -100 (next) = slide left by -33.33% (brings position 3 into view)
-                      // slideOffset: 0 (static) = base position (shows positions 0, 1, 2)
-                      transform: `translateX(calc(-33.33% - 1rem + ${slideOffset / 3}% + ${slideOffset > 0 ? '1.333rem' : slideOffset < 0 ? '-1.333rem' : '0px'}))`,
-                      transition: slideOffset !== 0 ? 'transform 500ms ease-in-out' : 'none'
-                    }}
+              <Carousel
+                setApi={setCarouselApi}
+                opts={{
+                  align: "start",
+                  loop: true,
+                  slidesToScroll: 1,
+                }}
+                className="w-full"
+              >
+                <div className="relative px-4 lg:px-16">
+                  {/* Navigation Arrows */}
+                  <button
+                    onClick={() => carouselApi?.scrollPrev()}
+                    className="absolute left-0 lg:-left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-accent to-accent-dark rounded-xl flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group"
+                    aria-label="Previous image"
                   >
-                    {getVisibleImages().map((image, index) => {
-                      // We always have 5 boxes at indices: 0, 1, 2, 3, 4
-                      // Positions: -1, 0, 1, 2, 3
-                      // Center visible box is at index 2 (position 1)
-                      const isCenter = index === 2;
+                    <ChevronLeft size={24} className="text-white group-hover:scale-105 transition-transform duration-300" />
+                  </button>
 
-                      return (
-                        <div
-                          key={`${image.actualIndex}-${index}`}
-                          className={`group relative flex-shrink-0 w-full md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/3)] ${
-                            isCenter ? 'lg:scale-102 lg:z-10' : 'lg:scale-98 lg:opacity-90'
-                          } transition-all duration-500`}
-                        >
-                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-500 border-2 border-transparent group-hover:border-accent">
-                          {/* Glow Effect Border */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent-light to-accent rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
+                  <button
+                    onClick={() => carouselApi?.scrollNext()}
+                    className="absolute right-0 lg:-right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-gradient-to-r from-accent to-accent-dark rounded-xl flex items-center justify-center hover:scale-105 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300 group"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={24} className="text-white group-hover:scale-105 transition-transform duration-300" />
+                  </button>
 
-                          {/* Image Container */}
-                          <div className="relative bg-slate-900 rounded-2xl overflow-hidden aspect-square">
-                            <img
-                              src={image.src}
-                              alt={image.title}
-                              className="w-full h-full object-cover carousel-image-smooth group-hover:scale-105"
-                            />
-                            {/* Gradient Overlay on Hover */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-accent/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <CarouselContent className="-ml-4">
+                    {allImages.map((image, index) => (
+                      <CarouselItem key={index} className="pl-4 md:basis-1/3">
+                        <div className="group relative">
+                          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 shadow-2xl shadow-primary/20 hover:shadow-accent/40 transition-all duration-500 border-2 border-transparent group-hover:border-accent">
+                            {/* Glow Effect Border */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent-light to-accent rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
+
+                            {/* Image Container */}
+                            <div className="relative bg-slate-900 rounded-2xl overflow-hidden aspect-square">
+                              <img
+                                src={image.src}
+                                alt={image.title}
+                                className="w-full h-full object-cover carousel-image-smooth group-hover:scale-105"
+                              />
+                              {/* Gradient Overlay on Hover */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-accent/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            </div>
                           </div>
                         </div>
-                        </div>
-                      );
-                    })}
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+
+                  {/* Animated Progress Indicators */}
+                  <div className="flex justify-center mt-6 space-x-2">
+                    {allImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => carouselApi?.scrollTo(index)}
+                        className={`relative rounded-full transition-all duration-500 ease-in-out ${
+                          currentSlide === index
+                            ? 'w-10 h-2.5'
+                            : 'w-2.5 h-2.5 hover:w-3'
+                        }`}
+                        aria-label={`Go to image ${index + 1}`}
+                      >
+                        <div className={`absolute inset-0 rounded-full transition-all duration-500 ease-in-out ${
+                          currentSlide === index
+                            ? 'bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50'
+                            : 'bg-gray-700 hover:bg-gray-500'
+                        }`}></div>
+                      </button>
+                    ))}
                   </div>
                 </div>
-
-                {/* Animated Progress Indicators */}
-                <div className="flex justify-center mt-6 space-x-2">
-                  {allImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setCurrentStartIndex(index);
-                        setTargetIndex(index);
-                      }}
-                      className={`relative rounded-full transition-all duration-500 ease-in-out ${
-                        targetIndex === index
-                          ? 'w-10 h-2.5'
-                          : 'w-2.5 h-2.5 hover:w-3'
-                      }`}
-                      aria-label={`Go to image ${index + 1}`}
-                    >
-                      <div className={`absolute inset-0 rounded-full transition-all duration-500 ease-in-out ${
-                        targetIndex === index
-                          ? 'bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50'
-                          : 'bg-gray-700 hover:bg-gray-500'
-                      }`}></div>
-                    </button>
-                  ))}
-                </div>
-              </div>
+              </Carousel>
             </div>
 
             {/* Compact CTA Buttons */}

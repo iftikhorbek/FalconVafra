@@ -12,8 +12,7 @@ import {
   Send,
   Building2,
   Instagram,
-  ExternalLink,
-  Facebook
+  ExternalLink
 } from "lucide-react";
 
 const Contact = () => {
@@ -96,8 +95,8 @@ const Contact = () => {
       icon: Phone,
       label: "Phone Numbers",
       items: [
-        "+998 (90) 212−07-73",
-        "+998 (90) 996−75-58"
+        "+998 (95) 044-99-30",
+        "+998 (90) 399-55-50"
       ]
     },
     {
@@ -191,8 +190,8 @@ const Contact = () => {
                     <Phone className="text-primary" size={18} />
                   </div>
                   <div className="space-y-0.5">
-                    <div className="text-sm text-muted-foreground">+998 (90) 212−07-73</div>
-                    <div className="text-sm text-muted-foreground">+998 (90) 996−75-58</div>
+                    <div className="text-sm text-muted-foreground">+998 (95) 044-99-30</div>
+                    <div className="text-sm text-muted-foreground">+998 (90) 399-55-50</div>
                   </div>
                 </div>
 
@@ -231,21 +230,6 @@ const Contact = () => {
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     @falcon_window_systems
-                  </a>
-                </div>
-
-                {/* Facebook */}
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <Facebook className="text-primary" size={18} />
-                  </div>
-                  <a
-                    href="https://www.facebook.com/falconprofil"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    @falconprofil
                   </a>
                 </div>
 

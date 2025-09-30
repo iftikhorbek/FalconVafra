@@ -6,7 +6,6 @@ import {
   Mail,
   MapPin,
   MessageCircle,
-  Facebook,
   Instagram,
   Send,
   Award,
@@ -48,7 +47,6 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "https://www.facebook.com/falconprofil", label: "Facebook" },
     { icon: Instagram, href: "https://www.instagram.com/falcon_window_systems", label: "Instagram" },
     { icon: Send, href: "https://t.me/bussinesuzbekistan", label: "Telegram" },
     { icon: MapPin, href: "https://yandex.uz/maps/-/CLucARlJ", label: "Maps" },
@@ -197,8 +195,8 @@ const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <Phone className="text-accent" size={18} />
                   <div>
-                    <div className="text-sm text-white/80">+998 (90) 212−07-73</div>
-                    <div className="text-sm text-white/80">+998 (90) 996−75-58</div>
+                    <div className="text-sm text-white/80">+998 (95) 044-99-30</div>
+                    <div className="text-sm text-white/80">+998 (90) 399-55-50</div>
                   </div>
                 </div>
 

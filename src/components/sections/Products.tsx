@@ -78,10 +78,12 @@ const Products = () => {
   const getVisibleImages = () => {
     const visibleImages = [];
 
-    // Always render 5 boxes at positions: -1, 0, 1, 2, 3
-    // Position -1: hidden on left (off-screen)
-    // Positions 0, 1, 2: visible center (3 boxes)
-    // Position 3: hidden on right (off-screen)
+    // IMPORTANT: Images in boxes should NOT change during transition
+    // They are based on currentStartIndex which only updates AFTER transition ends
+    // The 5 boxes always show: [currentStartIndex-1, currentStartIndex, currentStartIndex+1, currentStartIndex+2, currentStartIndex+3]
+    // At positions: [-1, 0, 1, 2, 3]
+    // During transition, boxes just slide with their images intact
+
     for (let i = -1; i < 4; i++) {
       const index = (currentStartIndex + i + allImages.length) % allImages.length;
       visibleImages.push({
@@ -294,10 +296,11 @@ const Products = () => {
                   <div
                     className="flex gap-4 lg:gap-6"
                     style={{
-                      // slideOffset: 100 (prev) = slide right by 33.33%
-                      // slideOffset: -100 (next) = slide left by -33.33%
-                      // slideOffset: 0 (static) = no movement
-                      transform: `translateX(calc(${slideOffset / 3}% + ${slideOffset > 0 ? '1.333rem' : slideOffset < 0 ? '-1.333rem' : '0px'}))`,
+                      // Base position: shift left by 1 box width to hide position -1
+                      // slideOffset: 100 (prev) = slide right by 33.33% (brings position -1 into view)
+                      // slideOffset: -100 (next) = slide left by -33.33% (brings position 3 into view)
+                      // slideOffset: 0 (static) = base position (shows positions 0, 1, 2)
+                      transform: `translateX(calc(-33.33% - 1rem + ${slideOffset / 3}% + ${slideOffset > 0 ? '1.333rem' : slideOffset < 0 ? '-1.333rem' : '0px'}))`,
                       transition: slideOffset !== 0 ? 'transform 500ms ease-in-out' : 'none'
                     }}
                   >

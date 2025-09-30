@@ -177,28 +177,28 @@ const Products = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-secondary/30" id="products">
+    <section className="py-12 bg-gradient-to-b from-white to-secondary/30" id="products">
       <div className="container mx-auto px-6">
-        
+
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <Badge variant="outline" className="mb-6 px-4 py-2 text-primary border-primary/20">
+        <div className="text-center max-w-4xl mx-auto mb-8">
+          <Badge variant="outline" className="mb-3 px-4 py-1.5 text-primary border-primary/20">
             {t.products.badge}
           </Badge>
-          <h2 className="text-4xl lg:text-6xl font-space font-bold mb-6">
+          <h2 className="text-3xl lg:text-5xl font-space font-bold mb-3">
             {t.products.title}
             <span className="block text-accent font-bold">
               {t.products.titleAccent}
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             {t.products.description}
           </p>
         </div>
 
         {/* Product Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-16">
-          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-14 p-2 bg-secondary rounded-2xl">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
+          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-12 p-1.5 bg-secondary rounded-2xl">
             <TabsTrigger value="profiles" className="text-base font-semibold rounded-xl">
               {t.products.tabs.profiles}
             </TabsTrigger>
@@ -208,13 +208,13 @@ const Products = () => {
           </TabsList>
 
           {/* PVC Profiles Tab */}
-          <TabsContent value="profiles" className="mt-12" id="pvc-profiles">
+          <TabsContent value="profiles" className="mt-6" id="pvc-profiles">
 
             {/* Creative Image Showroom */}
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold mb-4">{t.products.profileShowroom.title}</h3>
-                <p className="text-muted-foreground text-lg">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-2">{t.products.profileShowroom.title}</h3>
+                <p className="text-muted-foreground text-base">
                   {t.products.profileShowroom.description}
                 </p>
               </div>
@@ -240,10 +240,10 @@ const Products = () => {
                 </button>
 
                 {/* Image Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-500">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-500">
                   {getVisibleImages().map((image, index) => {
                     return (
-                      <Card key={`${currentStartIndex}-${index}`} className="p-6 hover:shadow-industrial transition-all duration-300 aspect-square group overflow-hidden">
+                      <Card key={`${currentStartIndex}-${index}`} className="p-4 hover:shadow-industrial transition-all duration-300 aspect-square group overflow-hidden">
                         <div className="w-full h-full rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
                           <img
                             src={image.src}
@@ -257,7 +257,7 @@ const Products = () => {
                 </div>
 
                 {/* Progress Indicators */}
-                <div className="flex justify-center mt-8 space-x-2">
+                <div className="flex justify-center mt-4 space-x-2">
                   {allImages.map((_, index) => (
                     <button
                       key={index}
@@ -274,7 +274,7 @@ const Products = () => {
               </div>
 
               {/* Call to Action */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                 <Button
                   className="btn-energy group"
                   onClick={() => window.open('https://t.me/bussinesuzbekistan/25183', '_blank')}
@@ -293,8 +293,8 @@ const Products = () => {
           </TabsContent>
 
           {/* Glass Units Tab */}
-          <TabsContent value="glass" className="mt-12" id="glass-units">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <TabsContent value="glass" className="mt-6" id="glass-units">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
               
               {/* Glass Processing Image Carousel */}
               <div className="relative">
@@ -320,7 +320,7 @@ const Products = () => {
                   <img
                     src={glassProcessingImages[currentGlassImage].src}
                     alt={glassProcessingImages[currentGlassImage].alt}
-                    className="w-full h-[500px] object-cover transition-transform duration-700 hover:scale-105"
+                    className="w-full h-[400px] object-cover transition-transform duration-700 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
 
@@ -357,21 +357,21 @@ const Products = () => {
               {/* Glass Types */}
               <div>
                 <div>
-                  <h3 className="text-3xl font-bold mb-3">{t.products.glassUnits.title}</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                  <h3 className="text-2xl font-bold mb-2">{t.products.glassUnits.title}</h3>
+                  <p className="text-muted-foreground text-base leading-relaxed mb-4">
                     {t.products.glassUnits.description}
                   </p>
                 </div>
 
-                <Card className="p-6 shadow-md border rounded-2xl bg-gradient-to-br from-white to-secondary/20">
-                  <div className="space-y-4">
+                <Card className="p-5 shadow-md border rounded-2xl bg-gradient-to-br from-white to-secondary/20">
+                  <div className="space-y-3">
                     {glassTypes.map((glass, index) => (
                       <div key={index} className="group">
-                        <h4 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
+                        <h4 className="font-bold text-base mb-1 group-hover:text-primary transition-colors">
                           {glass.name}
                         </h4>
-                        <p className="text-muted-foreground mb-2 text-sm">{glass.description}</p>
-                        <div className="flex flex-wrap gap-1 mb-3">
+                        <p className="text-muted-foreground mb-1.5 text-sm">{glass.description}</p>
+                        <div className="flex flex-wrap gap-1 mb-2">
                           {glass.features.map((feature, fIndex) => (
                             <Badge key={fIndex} variant="secondary" className="text-xs">
                               {feature}

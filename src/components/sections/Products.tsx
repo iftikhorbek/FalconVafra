@@ -77,17 +77,39 @@ const Products = () => {
   // Get visible images (4 at a time during transition, 3 normally)
   const getVisibleImages = () => {
     const visibleImages = [];
-    const count = slideOffset !== 0 ? 4 : 3; // Show 4 during transition
-    const startOffset = slideOffset > 0 ? -1 : 0; // Start from -1 if sliding right
 
-    for (let i = 0; i < count; i++) {
-      const index = (currentStartIndex + startOffset + i + allImages.length) % allImages.length;
-      visibleImages.push({
-        ...allImages[index],
-        position: i,
-        actualIndex: index
-      });
+    if (slideOffset > 0) {
+      // Sliding right (prev) - show previous image on left
+      for (let i = -1; i < 3; i++) {
+        const index = (currentStartIndex + i + allImages.length) % allImages.length;
+        visibleImages.push({
+          ...allImages[index],
+          position: i,
+          actualIndex: index
+        });
+      }
+    } else if (slideOffset < 0) {
+      // Sliding left (next) - show next image on right
+      for (let i = -1; i < 3; i++) {
+        const index = (currentStartIndex + i + allImages.length) % allImages.length;
+        visibleImages.push({
+          ...allImages[index],
+          position: i,
+          actualIndex: index
+        });
+      }
+    } else {
+      // Static - show 3 images
+      for (let i = 0; i < 3; i++) {
+        const index = (currentStartIndex + i) % allImages.length;
+        visibleImages.push({
+          ...allImages[index],
+          position: i,
+          actualIndex: index
+        });
+      }
     }
+
     return visibleImages;
   };
 
@@ -137,11 +159,14 @@ const Products = () => {
   const nextImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+
+    // Update index immediately so dots transition in parallel
+    const newIndex = (currentStartIndex + 1) % allImages.length;
+    setCurrentStartIndex(newIndex);
     setSlideOffset(-100); // Slide left (negative)
 
-    // After animation, update index and reset position
+    // After animation, reset position
     setTimeout(() => {
-      setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
       setSlideOffset(0);
       setIsTransitioning(false);
     }, 500);
@@ -150,11 +175,14 @@ const Products = () => {
   const prevImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+
+    // Update index immediately so dots transition in parallel
+    const newIndex = (currentStartIndex - 1 + allImages.length) % allImages.length;
+    setCurrentStartIndex(newIndex);
     setSlideOffset(100); // Slide right (positive)
 
-    // After animation, update index and reset position
+    // After animation, reset position
     setTimeout(() => {
-      setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
       setSlideOffset(0);
       setIsTransitioning(false);
     }, 500);
@@ -329,14 +357,14 @@ const Products = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentStartIndex(index)}
-                      className={`relative rounded-full transition-all duration-400 ${
+                      className={`relative rounded-full transition-all duration-500 ease-in-out ${
                         currentStartIndex === index
                           ? 'w-10 h-2.5'
                           : 'w-2.5 h-2.5 hover:w-3'
                       }`}
                       aria-label={`Go to image ${index + 1}`}
                     >
-                      <div className={`absolute inset-0 rounded-full transition-all duration-400 ${
+                      <div className={`absolute inset-0 rounded-full transition-all duration-500 ease-in-out ${
                         currentStartIndex === index
                           ? 'bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50'
                           : 'bg-gray-700 hover:bg-gray-500'

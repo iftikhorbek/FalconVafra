@@ -153,38 +153,38 @@ const Contact = () => {
 
 
   return (
-    <section className="py-24 bg-gradient-to-br from-secondary/30 via-white to-primary/5" id="contact">
+    <section className="py-12 bg-gradient-to-br from-secondary/30 via-white to-primary/5" id="contact">
       <div className="container mx-auto px-6">
-        
+
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <Badge variant="outline" className="mb-6 px-4 py-2 text-primary border-primary/20">
+        <div className="text-center max-w-4xl mx-auto mb-8">
+          <Badge variant="outline" className="mb-3 px-4 py-1.5 text-primary border-primary/20">
             {t.contact.badge}
           </Badge>
-          <h2 className="text-4xl lg:text-6xl font-space font-bold mb-6">
+          <h2 className="text-3xl lg:text-5xl font-space font-bold mb-3">
             {t.contact.title}
             <span className="block text-accent font-bold">
               {t.contact.titleAccent}
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             {t.contact.description}
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12 mb-16">
+        <div className="grid lg:grid-cols-3 gap-8 mb-8">
           
           {/* Contact Information */}
           <div className="lg:col-span-1">
-            <Card className="p-8 h-full hover:shadow-floating transition-all duration-300">
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4">{t.contact.contactInfo.title}</h3>
-                <p className="text-muted-foreground">
+            <Card className="p-6 h-full hover:shadow-floating transition-all duration-300">
+              <div className="mb-4">
+                <h3 className="text-xl font-bold mb-2">{t.contact.contactInfo.title}</h3>
+                <p className="text-muted-foreground text-sm">
                   {t.contact.contactInfo.description}
                 </p>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {/* Phone Numbers */}
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -294,8 +294,8 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-border">
-                <p className="text-sm text-muted-foreground text-center">
+              <div className="mt-4 pt-4 border-t border-border">
+                <p className="text-xs text-muted-foreground text-center">
                   {t.contact.contactInfo.responseTime}
                 </p>
               </div>
@@ -304,16 +304,16 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="p-8 h-full flex flex-col hover:shadow-floating transition-all duration-300">
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4">{t.contact.form.title}</h3>
-                <p className="text-muted-foreground">
+            <Card className="p-6 h-full flex flex-col hover:shadow-floating transition-all duration-300">
+              <div className="mb-4">
+                <h3 className="text-xl font-bold mb-2">{t.contact.form.title}</h3>
+                <p className="text-muted-foreground text-sm">
                   {t.contact.form.description}
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col">
-                <div className="grid md:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-3 flex-1 flex flex-col">
+                <div className="grid md:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-medium mb-1">{t.contact.form.fields.fullName} *</label>
                     <Input
@@ -322,7 +322,7 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder={t.contact.form.fields.fullNamePlaceholder}
                       required
-                      className="h-12"
+                      className="h-10"
                     />
                   </div>
                   <div>
@@ -332,12 +332,12 @@ const Contact = () => {
                       value={formData.company}
                       onChange={handleChange}
                       placeholder={t.contact.form.fields.companyPlaceholder}
-                      className="h-12"
+                      className="h-10"
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-medium mb-1">{t.contact.form.fields.email} *</label>
                     <Input
@@ -347,7 +347,7 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder={t.contact.form.fields.emailPlaceholder}
                       required
-                      className="h-12"
+                      className="h-10"
                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     />
                   </div>
@@ -361,7 +361,7 @@ const Contact = () => {
                         onChange={handleChange}
                         onKeyDown={handlePhoneKeyDown}
                         onFocus={handlePhoneFocus}
-                        className="h-12"
+                        className="h-10"
                         maxLength={19}
                       />
                       {formData.phone === "+998 " && (
@@ -380,7 +380,7 @@ const Contact = () => {
                     name="projectType"
                     value={formData.projectType}
                     onChange={handleChange}
-                    className="w-full h-12 px-3 rounded-xl border border-border bg-background"
+                    className="w-full h-10 px-3 rounded-xl border border-border bg-background"
                   >
                     <option value="">{t.contact.form.projectTypes.select}</option>
                     <option value="residential">{t.contact.form.projectTypes.residential}</option>
@@ -398,11 +398,11 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder={t.contact.form.fields.projectDetailsPlaceholder}
-                    className="resize-none flex-1 min-h-[120px]"
+                    className="resize-none flex-1 min-h-[100px]"
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Button type="submit" className="btn-energy flex-1 group">
                     {t.contact.form.buttons.sendMessage}
                     <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

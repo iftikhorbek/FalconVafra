@@ -127,14 +127,14 @@ const Products = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentStartIndex((prev) => (prev + 1) % allImages.length);
-    setTimeout(() => setIsTransitioning(false), 800);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const prevImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
-    setTimeout(() => setIsTransitioning(false), 800);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   // Navigation functions for glass images with ultra-smooth transitions
@@ -142,14 +142,14 @@ const Products = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentGlassImage((prev) => (prev + 1) % glassProcessingImages.length);
-    setTimeout(() => setIsTransitioning(false), 800);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const prevGlassImage = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentGlassImage((prev) => (prev - 1 + glassProcessingImages.length) % glassProcessingImages.length);
-    setTimeout(() => setIsTransitioning(false), 800);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const premiumLines = [

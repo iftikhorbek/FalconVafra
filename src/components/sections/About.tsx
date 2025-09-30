@@ -87,50 +87,50 @@ const About = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-secondary via-white to-secondary/50" id="company" ref={sectionRef}>
+    <section className="py-12 bg-gradient-to-br from-secondary via-white to-secondary/50" id="company" ref={sectionRef}>
       <div className="container mx-auto px-6">
-        
+
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <Badge variant="outline" className="mb-6 px-4 py-2 text-primary border-primary/20">
+        <div className="text-center max-w-4xl mx-auto mb-8">
+          <Badge variant="outline" className="mb-3 px-4 py-1.5 text-primary border-primary/20">
             {t.company.badge}
           </Badge>
-          <h2 className="text-4xl lg:text-6xl font-space font-bold mb-6">
+          <h2 className="text-3xl lg:text-5xl font-space font-bold mb-3">
             {t.company.title}
             <span className="block text-primary font-bold">
               {t.company.titleAccent}
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             {t.company.description}
           </p>
         </div>
 
         {/* Production Workshops Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20">
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
           {workshops.map((workshop, index) => {
             const IconComponent = workshop.icon;
             return (
-              <Card 
+              <Card
                 key={index}
-                className="workshop-card opacity-0 p-8 hover:shadow-floating transition-all duration-500 hover:scale-[1.02] group border-0 shadow-industrial"
+                className="workshop-card opacity-0 p-6 hover:shadow-floating transition-all duration-500 hover:scale-[1.02] group border-0 shadow-industrial"
               >
-                <div className="flex items-start space-x-6">
-                  <div className={`p-4 rounded-2xl bg-gradient-to-br ${workshop.gradient} shadow-lg`}>
-                    <IconComponent className="text-white" size={28} />
+                <div className="flex items-start space-x-4">
+                  <div className={`p-3 rounded-xl bg-gradient-to-br ${workshop.gradient} shadow-lg`}>
+                    <IconComponent className="text-white" size={24} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                       {workshop.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">
+                    <p className="text-muted-foreground text-sm mb-3 leading-relaxed">
                       {workshop.description}
                     </p>
-                    <div className="flex flex-wrap gap-3">
-                      <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 text-xs">
                         {workshop.capacity}
                       </Badge>
-                      <Badge variant="outline" className="border-accent/20 text-accent">
+                      <Badge variant="outline" className="border-accent/20 text-accent text-xs">
                         {workshop.equipment}
                       </Badge>
                     </div>
@@ -142,28 +142,28 @@ const About = () => {
         </div>
 
         {/* Company Advantages */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+
           {/* Left - Image */}
-          <div className="relative mt-12">
+          <div className="relative mt-6">
             <div className="relative overflow-hidden rounded-3xl shadow-floating">
-              <img 
-                src={pvcProfilesImage} 
+              <img
+                src={pvcProfilesImage}
                 alt="High-quality PVC window profiles showing multi-chamber design"
-                className="w-full h-[500px] object-cover transition-transform duration-700 hover:scale-110"
+                className="w-full h-[400px] object-cover transition-transform duration-700 hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
               
               {/* Quality Badge Overlay */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="bg-gradient-to-r from-primary/90 to-primary-dark/90 backdrop-blur-xl border border-white/20 shadow-lg rounded-xl p-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-                      <Award className="text-white" size={20} />
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="bg-gradient-to-r from-primary/90 to-primary-dark/90 backdrop-blur-xl border border-white/20 shadow-lg rounded-lg p-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                      <Award className="text-white" size={16} />
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold">{t.company.advantages.qualityBadge.title}</h4>
-                      <p className="text-white/80 text-sm">{t.company.advantages.qualityBadge.description}</p>
+                      <h4 className="text-white font-semibold text-sm">{t.company.advantages.qualityBadge.title}</h4>
+                      <p className="text-white/80 text-xs">{t.company.advantages.qualityBadge.description}</p>
                     </div>
                   </div>
                 </div>
@@ -171,40 +171,40 @@ const About = () => {
             </div>
             
             {/* Floating Stats */}
-            <div className="absolute -top-6 -right-6 glass-card p-4 float-animation rounded-2xl border-2 border-primary">
+            <div className="absolute -top-4 -right-4 glass-card p-3 float-animation rounded-xl border-2 border-primary">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">50+</div>
-                <div className="text-sm text-muted-foreground">{t.company.equipmentTypes}</div>
+                <div className="text-xl font-bold text-primary">50+</div>
+                <div className="text-xs text-muted-foreground">{t.company.equipmentTypes}</div>
               </div>
             </div>
           </div>
 
           {/* Right - Advantages */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div>
-              <h3 className="text-3xl font-bold mb-3">{t.company.advantages.title}</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              <h3 className="text-2xl font-bold mb-2">{t.company.advantages.title}</h3>
+              <p className="text-muted-foreground text-base leading-relaxed mb-4">
                 {t.company.advantages.description}
               </p>
             </div>
 
-            <Card className="p-4 border shadow-md">
-              <div className="grid gap-3">
+            <Card className="p-3 border shadow-md">
+              <div className="grid gap-2.5">
                 {advantages.map((advantage, index) => {
                   const IconComponent = advantage.icon;
                   return (
                     <div
                       key={index}
-                      className="flex items-start space-x-3 group"
+                      className="flex items-start space-x-2 group"
                     >
-                      <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="text-primary" size={18} />
+                      <div className="p-1.5 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="text-primary" size={16} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-base mb-1 group-hover:text-primary transition-colors">
+                        <h4 className="font-semibold text-sm mb-0.5 group-hover:text-primary transition-colors">
                           {advantage.title}
                         </h4>
-                        <p className="text-muted-foreground text-sm">{advantage.description}</p>
+                        <p className="text-muted-foreground text-xs leading-relaxed">{advantage.description}</p>
                       </div>
                     </div>
                   );

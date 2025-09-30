@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +34,9 @@ const Products = () => {
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
   const [currentGlassImage, setCurrentGlassImage] = useState(0);
   const [activeTab, setActiveTab] = useState("profiles");
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const profileSystems = [];
 
@@ -128,6 +131,50 @@ const Products = () => {
 
   const prevImage = () => {
     setCurrentStartIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
+
+  // Touch/swipe handlers for profile carousel
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      // Swipe left
+      nextImage();
+    }
+    if (touchStartX.current - touchEndX.current < -50) {
+      // Swipe right
+      prevImage();
+    }
+  };
+
+  // Mouse/trackpad swipe handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    touchStartX.current = e.clientX;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (e.buttons === 1) { // Only if mouse button is pressed
+      touchEndX.current = e.clientX;
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      // Swipe left
+      nextImage();
+    }
+    if (touchStartX.current - touchEndX.current < -50) {
+      // Swipe right
+      prevImage();
+    }
+    touchStartX.current = 0;
+    touchEndX.current = 0;
   };
 
   // Navigation functions for glass images
@@ -244,12 +291,27 @@ const Products = () => {
                 </button>
 
                 {/* Image Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div
+                  ref={carouselRef}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 cursor-grab active:cursor-grabbing"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseUp}
+                >
                   {getVisibleImages().map((image, index) => {
                     return (
                       <Card
                         key={`${currentStartIndex}-${index}`}
-                        className="relative p-3 hover:shadow-2xl transition-all duration-500 aspect-square group overflow-hidden border-2 border-primary/10 hover:border-primary/40 hover:-translate-y-2 bg-gradient-to-br from-white to-primary/5"
+                        className="relative p-3 hover:shadow-2xl transition-all duration-500 aspect-square group overflow-hidden border-2 border-primary/10 hover:border-primary/40 hover:-translate-y-2 bg-gradient-to-br from-white to-primary/5 animate-fade-in"
+                        style={{
+                          animationDelay: `${index * 100}ms`,
+                          animationDuration: '600ms',
+                          animationFillMode: 'backwards'
+                        }}
                       >
                         {/* Gradient overlay on hover */}
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 rounded-xl"></div>
@@ -261,7 +323,7 @@ const Products = () => {
                           <img
                             src={image.src}
                             alt={image.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-opacity duration-500"
                           />
                         </div>
 

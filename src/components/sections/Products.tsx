@@ -177,44 +177,44 @@ const Products = () => {
   ];
 
   return (
-    <section className="py-12 bg-gradient-to-b from-white to-secondary/30" id="products">
+    <section className="py-8 bg-gradient-to-b from-white to-secondary/30" id="products">
       <div className="container mx-auto px-6">
 
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-8">
-          <Badge variant="outline" className="mb-3 px-4 py-1.5 text-primary border-primary/20">
+        <div className="text-center max-w-4xl mx-auto mb-6">
+          <Badge variant="outline" className="mb-2 px-3 py-1 text-primary border-primary/20 text-sm">
             {t.products.badge}
           </Badge>
-          <h2 className="text-3xl lg:text-5xl font-space font-bold mb-3">
+          <h2 className="text-2xl lg:text-4xl font-space font-bold mb-2">
             {t.products.title}
             <span className="block text-accent font-bold">
               {t.products.titleAccent}
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-base text-muted-foreground leading-relaxed">
             {t.products.description}
           </p>
         </div>
 
         {/* Product Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-12 p-1.5 bg-secondary rounded-2xl">
-            <TabsTrigger value="profiles" className="text-base font-semibold rounded-xl">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+          <TabsList className="grid w-full lg:w-fit mx-auto grid-cols-2 h-10 p-1 bg-secondary rounded-xl">
+            <TabsTrigger value="profiles" className="text-sm font-semibold rounded-lg">
               {t.products.tabs.profiles}
             </TabsTrigger>
-            <TabsTrigger value="glass" className="text-base font-semibold rounded-xl">
+            <TabsTrigger value="glass" className="text-sm font-semibold rounded-lg">
               {t.products.tabs.glass}
             </TabsTrigger>
           </TabsList>
 
           {/* PVC Profiles Tab */}
-          <TabsContent value="profiles" className="mt-6" id="pvc-profiles">
+          <TabsContent value="profiles" className="mt-4" id="pvc-profiles">
 
             {/* Creative Image Showroom */}
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold mb-2">{t.products.profileShowroom.title}</h3>
-                <p className="text-muted-foreground text-base">
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold mb-1">{t.products.profileShowroom.title}</h3>
+                <p className="text-muted-foreground text-sm">
                   {t.products.profileShowroom.description}
                 </p>
               </div>
@@ -240,10 +240,10 @@ const Products = () => {
                 </button>
 
                 {/* Image Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-500">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 transition-all duration-500">
                   {getVisibleImages().map((image, index) => {
                     return (
-                      <Card key={`${currentStartIndex}-${index}`} className="p-4 hover:shadow-industrial transition-all duration-300 aspect-square group overflow-hidden">
+                      <Card key={`${currentStartIndex}-${index}`} className="p-3 hover:shadow-industrial transition-all duration-300 aspect-square group overflow-hidden">
                         <div className="w-full h-full rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
                           <img
                             src={image.src}
@@ -257,12 +257,12 @@ const Products = () => {
                 </div>
 
                 {/* Progress Indicators */}
-                <div className="flex justify-center mt-4 space-x-2">
+                <div className="flex justify-center mt-3 space-x-1.5">
                   {allImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentStartIndex(index)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                         currentStartIndex === index
                           ? 'bg-primary scale-125'
                           : 'bg-secondary hover:bg-primary/50'
@@ -274,7 +274,7 @@ const Products = () => {
               </div>
 
               {/* Call to Action */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
                 <Button
                   className="btn-energy group"
                   onClick={() => window.open('https://t.me/bussinesuzbekistan/25183', '_blank')}
@@ -293,8 +293,8 @@ const Products = () => {
           </TabsContent>
 
           {/* Glass Units Tab */}
-          <TabsContent value="glass" className="mt-6" id="glass-units">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <TabsContent value="glass" className="mt-4" id="glass-units">
+            <div className="grid lg:grid-cols-2 gap-6 items-center">
               
               {/* Glass Processing Image Carousel */}
               <div className="relative">
@@ -320,7 +320,7 @@ const Products = () => {
                   <img
                     src={glassProcessingImages[currentGlassImage].src}
                     alt={glassProcessingImages[currentGlassImage].alt}
-                    className="w-full h-[400px] object-cover transition-transform duration-700 hover:scale-105"
+                    className="w-full h-[350px] object-cover transition-transform duration-700 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
 
@@ -343,11 +343,11 @@ const Products = () => {
                 </div>
 
                 {/* Capacity Badge - Outside image container */}
-                <div className="absolute -top-6 -right-6 z-30">
-                  <div className="glass-card p-4 float-animation rounded-2xl border-2 border-primary">
+                <div className="absolute -top-4 -right-4 z-30">
+                  <div className="glass-card p-3 float-animation rounded-xl border-2 border-primary">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-black">1,000m²</div>
-                      <div className="text-black/80 text-sm">{t.products.dailyCapacity}</div>
+                      <div className="text-xl font-bold text-black">1,000m²</div>
+                      <div className="text-black/80 text-xs">{t.products.dailyCapacity}</div>
                     </div>
                   </div>
                 </div>
@@ -357,21 +357,21 @@ const Products = () => {
               {/* Glass Types */}
               <div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-2">{t.products.glassUnits.title}</h3>
-                  <p className="text-muted-foreground text-base leading-relaxed mb-4">
+                  <h3 className="text-xl font-bold mb-1">{t.products.glassUnits.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-3">
                     {t.products.glassUnits.description}
                   </p>
                 </div>
 
-                <Card className="p-5 shadow-md border rounded-2xl bg-gradient-to-br from-white to-secondary/20">
-                  <div className="space-y-3">
+                <Card className="p-4 shadow-md border rounded-xl bg-gradient-to-br from-white to-secondary/20">
+                  <div className="space-y-2.5">
                     {glassTypes.map((glass, index) => (
                       <div key={index} className="group">
-                        <h4 className="font-bold text-base mb-1 group-hover:text-primary transition-colors">
+                        <h4 className="font-bold text-sm mb-0.5 group-hover:text-primary transition-colors">
                           {glass.name}
                         </h4>
-                        <p className="text-muted-foreground mb-1.5 text-sm">{glass.description}</p>
-                        <div className="flex flex-wrap gap-1 mb-2">
+                        <p className="text-muted-foreground mb-1 text-xs">{glass.description}</p>
+                        <div className="flex flex-wrap gap-1 mb-1.5">
                           {glass.features.map((feature, fIndex) => (
                             <Badge key={fIndex} variant="secondary" className="text-xs">
                               {feature}

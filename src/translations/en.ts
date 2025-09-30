@@ -65,7 +65,7 @@ export const en = {
       }
     },
     advantages: {
-      title: "Why Choose Us?",
+      title: "Why Us?",
       description: "Our commitment to excellence drives everything we do. From sourcing premium materials to implementing cutting-edge manufacturing processes, we ensure every window meets the highest international standards.",
       qualityBadge: {
         title: "Premium Quality",

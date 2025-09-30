@@ -171,17 +171,20 @@ const Products = () => {
     {
       name: t.products.glassTypes.standardDouble.name,
       description: t.products.glassTypes.standardDouble.description,
-      features: t.products.glassTypes.standardDouble.features
+      features: t.products.glassTypes.standardDouble.features,
+      icon: Layers
     },
     {
       name: t.products.glassTypes.triple.name,
       description: t.products.glassTypes.triple.description,
-      features: t.products.glassTypes.triple.features
+      features: t.products.glassTypes.triple.features,
+      icon: Shield
     },
     {
       name: t.products.glassTypes.specialty.name,
       description: t.products.glassTypes.specialty.description,
-      features: t.products.glassTypes.specialty.features
+      features: t.products.glassTypes.specialty.features,
+      icon: Zap
     }
   ];
 
@@ -392,17 +395,19 @@ const Products = () => {
 
               {/* Glass Types - Compact Cards */}
               <div className="space-y-3">
-                {glassTypes.map((glass, index) => (
-                  <div
-                    key={index}
-                    className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 hover:scale-105 transition-all duration-500 shadow-xl border-2 border-transparent group-hover:border-accent"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent-light to-accent rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
+                {glassTypes.map((glass, index) => {
+                  const IconComponent = glass.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-1 hover:scale-105 transition-all duration-500 shadow-xl border-2 border-transparent group-hover:border-accent"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent-light to-accent rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
 
-                    <div className="relative bg-slate-900 rounded-xl p-4 flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-accent/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                        <div className="w-6 h-6 rounded-md bg-gradient-to-r from-accent to-accent-dark shadow-lg shadow-accent/50"></div>
-                      </div>
+                      <div className="relative bg-slate-900 rounded-xl p-4 flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-accent/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                          <IconComponent className="w-6 h-6 text-accent" />
+                        </div>
 
                       <div className="flex-1 min-w-0">
                         <h4 className="text-lg font-bold mb-1 text-white group-hover:text-accent transition-colors">
@@ -422,7 +427,8 @@ const Products = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </TabsContent>

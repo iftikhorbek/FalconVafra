@@ -306,9 +306,9 @@ const Projects = () => {
                     <span className="text-muted-foreground">{t.projects.projectDetails.units}</span>
                     <span className="font-semibold">{projects[activeProject].units}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t.projects.projectDetails.profile}</span>
-                    <span className="font-semibold">{projects[activeProject].profile}</span>
+                  <div className="flex justify-between gap-3">
+                    <span className="text-muted-foreground flex-shrink-0">{t.projects.projectDetails.profile}</span>
+                    <span className="font-semibold text-right">{projects[activeProject].profile}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">{t.projects.projectDetails.type}</span>

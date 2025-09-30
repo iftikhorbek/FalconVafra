@@ -232,7 +232,7 @@ const Products = () => {
           <Badge variant="outline" className="mb-1.5 px-2 py-0.5 text-primary border-primary/20 text-xs">
             {t.products.badge}
           </Badge>
-          <h2 className="text-xl lg:text-3xl font-space font-bold mb-1">
+          <h2 className="text-4xl lg:text-6xl font-space font-bold mb-1">
             {t.products.title}
             <span className="block text-accent font-bold">
               {t.products.titleAccent}

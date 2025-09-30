@@ -95,7 +95,7 @@ const About = () => {
           <Badge variant="outline" className="mb-3 px-4 py-1.5 text-primary border-primary/20">
             {t.company.badge}
           </Badge>
-          <h2 className="text-3xl lg:text-5xl font-space font-bold mb-3">
+          <h2 className="text-4xl lg:text-6xl font-space font-bold mb-3">
             {t.company.title}
             <span className="block text-primary font-bold">
               {t.company.titleAccent}
